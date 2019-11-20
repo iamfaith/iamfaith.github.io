@@ -8,8 +8,30 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Talk is cheap. Show me the code.</description>
-    <pubDate>Wed, 11 Sep 2019 02:09:28 GMT</pubDate>
+    <pubDate>Wed, 20 Nov 2019 01:57:13 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>The new life in Montreal</title>
+      <link>https://faithio.tk/2019/11/19/The-new-life-in-Montreal/</link>
+      <guid>https://faithio.tk/2019/11/19/The-new-life-in-Montreal/</guid>
+      <pubDate>Wed, 20 Nov 2019 01:56:02 GMT</pubDate>
+      <description>
+      
+        
+        
+          
+          
+            &lt;p&gt;On August 28, I left for Montreal to pursue a master’s degree at Concordia in Canada, where it is the farthest place I separate from my
+          
+        
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>On August 28, I left for Montreal to pursue a master’s degree at Concordia in Canada, where it is the farthest place I separate from my family. The motivation for me to study is their expectation of me and my endless missing of them. Because of missing them, I would put all my effort into studying to graduate quickly such that I could go back to them.</p>]]></content:encoded>
+      
+      <comments>https://faithio.tk/2019/11/19/The-new-life-in-Montreal/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>cerbot-auto https auto renewal</title>

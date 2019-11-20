@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://faithio.tk/2019/11/19/The-new-life-in-Montreal/</loc>
+    
+    <lastmod>2019-11-20T01:57:13.327Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://faithio.tk/2019/04/10/cerbot-auto-https-auto-renewal/</loc>
     
     <lastmod>2019-09-11T02:09:28.742Z</lastmod>
@@ -51,21 +58,7 @@
   </url>
   
   <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/BPlusTree.html</loc>
-    
-    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/AVLtree.html</loc>
-    
-    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/BST.html</loc>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/Algorithms.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
     
@@ -79,14 +72,14 @@
   </url>
   
   <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/Algorithms.html</loc>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/BST.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/BFS.html</loc>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/BPlusTree.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
     
@@ -100,14 +93,14 @@
   </url>
   
   <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/BinomialQueue.html</loc>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/ChangingCoordinates2D.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/ChangingCoordinates2D.html</loc>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/BinomialQueue.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
     
@@ -121,13 +114,6 @@
   </url>
   
   <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/ClosedHash.html</loc>
-    
-    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/ClosedHashBucket.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
@@ -135,7 +121,7 @@
   </url>
   
   <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/ConnectedComponent.html</loc>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/ClosedHash.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
     
@@ -170,6 +156,13 @@
   </url>
   
   <url>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/DPLCS.html</loc>
+    
+    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/DPFib.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
@@ -184,14 +177,7 @@
   </url>
   
   <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/DisjointSets.html</loc>
-    
-    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/DPLCS.html</loc>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/ConnectedComponent.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
     
@@ -199,6 +185,27 @@
   
   <url>
     <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/FibonacciHeap.html</loc>
+    
+    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/DisjointSets.html</loc>
+    
+    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/Heap.html</loc>
+    
+    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/HeapSort.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
     
@@ -219,7 +226,7 @@
   </url>
   
   <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/Heap.html</loc>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/LeftistHeap.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
     
@@ -233,21 +240,7 @@
   </url>
   
   <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/HeapSort.html</loc>
-    
-    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/Prim.html</loc>
-    
-    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/LeftistHeap.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
     
@@ -268,7 +261,7 @@
   </url>
   
   <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/RadixSort.html</loc>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/RecFact.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
     
@@ -282,14 +275,14 @@
   </url>
   
   <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/RecFact.html</loc>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/RecQueens.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/RecQueens.html</loc>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/RadixSort.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
     
@@ -310,6 +303,13 @@
   </url>
   
   <url>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/RotateScale3D.html</loc>
+    
+    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/RotateScale2D.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
@@ -324,21 +324,14 @@
   </url>
   
   <url>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/Search.html</loc>
+    
+    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/SimpleStack.html</loc>
-    
-    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/SkewHeap.html</loc>
-    
-    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/RotateScale3D.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
     
@@ -352,7 +345,7 @@
   </url>
   
   <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/Search.html</loc>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/SkewHeap.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
     
@@ -366,6 +359,13 @@
   </url>
   
   <url>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/StackLL.html</loc>
+    
+    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/TST.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
@@ -373,7 +373,14 @@
   </url>
   
   <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/StackLL.html</loc>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/TopoSortDFS.html</loc>
+    
+    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/AVLtree.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
     
@@ -394,28 +401,7 @@
   </url>
   
   <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/TopoSortDFS.html</loc>
-    
-    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/about.html</loc>
-    
-    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/faq.html</loc>
-    
-    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/flash.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
     
@@ -436,7 +422,14 @@
   </url>
   
   <url>
-    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/template.html</loc>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/faq.html</loc>
+    
+    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/flash.html</loc>
     
     <lastmod>2018-10-23T11:37:42.000Z</lastmod>
     
@@ -457,6 +450,20 @@
   </url>
   
   <url>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/template.html</loc>
+    
+    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://faithio.tk/leetcode/index/JavascriptVisualRelease/BFS.html</loc>
+    
+    <lastmod>2018-10-23T11:37:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://faithio.tk/2018/06/20/Basic-Algorithm/</loc>
     
     <lastmod>2018-10-14T08:40:38.000Z</lastmod>
@@ -471,14 +478,14 @@
   </url>
   
   <url>
-    <loc>https://faithio.tk/2018/09/27/ssh%E5%91%BD%E4%BB%A4%E4%B9%8BProxyCommand%E9%80%89%E9%A1%B9/</loc>
+    <loc>https://faithio.tk/2018/09/30/reading-notes-1/</loc>
     
     <lastmod>2018-10-14T08:40:38.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://faithio.tk/2018/09/30/reading-notes-1/</loc>
+    <loc>https://faithio.tk/2018/09/27/ssh%E5%91%BD%E4%BB%A4%E4%B9%8BProxyCommand%E9%80%89%E9%A1%B9/</loc>
     
     <lastmod>2018-10-14T08:40:38.000Z</lastmod>
     
@@ -492,14 +499,14 @@
   </url>
   
   <url>
-    <loc>https://faithio.tk/2018/09/13/interview-for-SDE-3/</loc>
+    <loc>https://faithio.tk/2018/07/08/Notes-about-IELTS-writing-task-2/</loc>
     
     <lastmod>2018-09-13T09:06:19.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://faithio.tk/2018/07/08/Notes-about-IELTS-writing-task-2/</loc>
+    <loc>https://faithio.tk/2018/09/13/interview-for-SDE-3/</loc>
     
     <lastmod>2018-09-13T09:06:19.000Z</lastmod>
     

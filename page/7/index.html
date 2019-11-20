@@ -304,6 +304,185 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2018/04/27/nginx-http-config/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="faith">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Faith' s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/27/nginx-http-config/" itemprop="url">nginx http config</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-27T20:42:59-04:00">
+                2018-04-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>nginx config</p>
+<p>you can use certbot to generate SSL!!</p>
+<pre><code>server {
+    #if ($host = www.faithio.tk) {
+    #    return 301 https://$host$request_uri;
+    # } # managed by Certbot
+
+    server_name faithio.tk www.faithio.tk;
+        listen 80;
+            access_log /var/log/nginx/blog.log;
+        error_log /var/log/nginx/blog.log;
+
+       location / {
+                root /var/www/blog;
+                index index.html;
+        }
+    rewrite ^/(.*) https://faithio.tk/$1 permanent;
+}
+
+#server {
+#   listen 443;
+#   server_name www.faithio.tk;
+#  rewrite ^/(.*) https://faithio.tk/$1 permanent;
+#}
+
+
+server {
+    listen              443 ssl;
+    server_name faithio.tk www.faithio.tk;
+        ssl_certificate /etc/letsencrypt/live/faithio.tk/fullchain.pem; # managed by Certbot
+        ssl_certificate_key /etc/letsencrypt/live/faithio.tk/privkey.pem; # managed by Certbot
+    access_log /var/log/nginx/blog.log;
+    error_log /var/log/nginx/blog.log;
+    location / {
+        root /var/www/blog;
+        index index.html;
+    }
+}
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://faithio.tk/2018/04/27/apache conf/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1501,168 +1680,11 @@ hexo g &amp;&amp; hexo d
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2016/12/28/用shadowsocks加速git-clone/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="faith">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Faith' s Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/12/28/用shadowsocks加速git-clone/" itemprop="url">用shadowsocks加速git clone</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-28T20:14:39-05:00">
-                2016-12-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="用shadowsocks加速git-clone"><a href="#用shadowsocks加速git-clone" class="headerlink" title="用shadowsocks加速git clone"></a>用shadowsocks加速git clone</h2><p>今天通过git clone下载程序时发现速度很慢，尝试找代理实现。如下：</p>
-<blockquote>
-<p><strong>Note:</strong></p>
-</blockquote>
-<blockquote>
-<ul>
-<li>git config –global http.proxy ‘socks5://127.0.0.1:1080’</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>git config –global https.proxy ‘socks5://127.0.0.1:1080’</li>
-<li>或者采用git config -e 直接编辑 </li>
-<li>或者到~/.gitconfig进行配置</li>
-</ul>
-</blockquote>
-<h4 id="Create-by-https-stackedit-io-editor"><a href="#Create-by-https-stackedit-io-editor" class="headerlink" title=" Create by https://stackedit.io/editor"></a><i class="icon-file"></i> Create by <a href="https://stackedit.io/editor" target="_blank" rel="noopener">https://stackedit.io/editor</a></h4>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1714,7 +1736,7 @@ hexo g &amp;&amp; hexo d
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1736,7 +1758,7 @@ hexo g &amp;&amp; hexo d
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
