@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.bootcss.com/fancybox/3.1.20/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.6.6" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.6">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.6">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.6">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.6" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="reverse engine," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="Faith' s Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="工具以下工具的详细使用方法可以查看iOS应用逆向工程 第二部分 工具篇。 macbook 软件 theos  制作 Tweak 的工具   hopper disassembler  用于静态分析   usbmuxd  端口转发，可以让我们通过 usb 连接手机进行 ssh、lldb 调试等。主要使用python-client目录下的文件   class-dump  dump 目标对象的 class">
+<meta name="keywords" content="reverse engine">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS逆向-微信自动添加好友(转载)">
+<meta property="og:url" content="https://faithio.tk/2018/07/15/iOS逆向-微信自动添加好友/index.html">
+<meta property="og:site_name" content="Faith&#39; s Blog">
+<meta property="og:description" content="工具以下工具的详细使用方法可以查看iOS应用逆向工程 第二部分 工具篇。 macbook 软件 theos  制作 Tweak 的工具   hopper disassembler  用于静态分析   usbmuxd  端口转发，可以让我们通过 usb 连接手机进行 ssh、lldb 调试等。主要使用python-client目录下的文件   class-dump  dump 目标对象的 class">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-62d19ba5e07a57a3.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-e394e365525d39ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-14fd1a031898e6c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-74de0e0ecc36dea4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-4d05570bb509b76c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-b26a7b9b0a4b8137.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-b9d03f2861559bc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-4df0f7635723f9ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-0537b74c6a74dc64.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-2a0b5c07f2b6228f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-d72d147e34823103.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-6ebda3da00e0961e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-3468f03ae467b502.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-62d19ba5e07a57a3.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-8ee7092ddf3652e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-0cc2c5f799fd34a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-c0af27f7c934875c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-8460f25f8c48b99f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-53a73e5158a5d8e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-e8d5d1dca6ad78ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/965383-8ca8ba77b4303d76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-07-15T14:20:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS逆向-微信自动添加好友(转载)">
+<meta name="twitter:description" content="工具以下工具的详细使用方法可以查看iOS应用逆向工程 第二部分 工具篇。 macbook 软件 theos  制作 Tweak 的工具   hopper disassembler  用于静态分析   usbmuxd  端口转发，可以让我们通过 usb 连接手机进行 ssh、lldb 调试等。主要使用python-client目录下的文件   class-dump  dump 目标对象的 class">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/965383-62d19ba5e07a57a3.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.6.6',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://faithio.tk/2018/07/15/iOS逆向-微信自动添加好友/"/>
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('please enter the passowrd for this post') !== ''){
+                alert('password error!');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1438507724851578",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+
+  <title>iOS逆向-微信自动添加好友(转载) | Faith' s Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Faith' s Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-cv">
+          <a href="/cv/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            cv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-algorithm">
+          <a href="/algorithm/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            algorithm
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-leetcode">
+          <a href="/leetcode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            leetcode
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2018/07/15/iOS逆向-微信自动添加好友/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="faith">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Faith' s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS逆向-微信自动添加好友(转载)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-15T22:00:28-04:00">
+                2018-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><p>以下工具的详细使用方法可以查看<a href="./iOS应用逆向工程.pdf">iOS应用逆向工程</a> 第二部分 工具篇。</p>
+<h3 id="macbook-软件"><a href="#macbook-软件" class="headerlink" title="macbook 软件"></a>macbook 软件</h3><ul>
+<li><p><a href="https://github.com/theos/theos" target="_blank" rel="noopener">theos</a></p>
+<blockquote>
+<p>制作 Tweak 的工具</p>
+</blockquote>
+</li>
+<li><p><a href="https://www.hopperapp.com/" target="_blank" rel="noopener">hopper disassembler</a></p>
+<blockquote>
+<p>用于静态分析</p>
+</blockquote>
+</li>
+<li><p>usbmuxd</p>
+<blockquote>
+<p>端口转发，可以让我们通过 usb 连接手机进行 ssh、lldb 调试等。<del>主要使用<code>python-client</code>目录下的文件</del></p>
+</blockquote>
+</li>
+<li><p><a href="http://stevenygard.com/projects/class-dump/" target="_blank" rel="noopener">class-dump</a></p>
+<blockquote>
+<p>dump 目标对象的 class 信息的工具.</p>
+</blockquote>
+</li>
+<li><p>lldb</p>
+<blockquote>
+<p>调试神器，用过的都说好。默认自带，在<code>/Applications/Xcode.app/Contents/Developer/usr/bin/lldb</code> 中。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="越狱-iPhone-软件"><a href="#越狱-iPhone-软件" class="headerlink" title="越狱 iPhone 软件"></a>越狱 iPhone 软件</h3><p><strong>以下软件在 Cydia 中即可下载(debugserver 除外)</strong></p>
+<ul>
+<li><p>OpenSSH</p>
+<blockquote>
+<p>实现在越狱手机上远程进行 ssh 服务，通过 ssh，即可以通过终端连接 iPhone 进行控制。</p>
+</blockquote>
+<p><strong>iOS 工具大部分都需要在 ssh 环境中使用</strong></p>
+</li>
+<li><p>Cycript</p>
+<blockquote>
+<p>脚本语言，用于 hook 正在运行的进程，并实时注入代码。</p>
+</blockquote>
+</li>
+<li><p>ondeviceconsole</p>
+<blockquote>
+<p>用于在 Terminal 中查看手机的 log</p>
+</blockquote>
+</li>
+<li><p>debugserver</p>
+<blockquote>
+<p>用于连接手机进行 lldb 调试的工具。用 Xcode 在手机上进行 app 调试即可在iPhone目录的 <code>/Developer/usr/bin/</code> 中生成。</p>
+</blockquote>
+</li>
+</ul>
+<p>使用 debugserver 需要先进行处理。因为缺少<code>task_for_pid</code>权限，所以调试不了其他的 app。<br>先通过 ssh 拷贝 debugserver</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">scp root@iOSIP:/Developer/usr/bin/debugserver ~/debugserver // iOSIP 为手机的ip地址</span><br></pre></td></tr></table></figure>
+<p>减肥</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lipo -thin armv7s ~/debugserver -output ~/debugserver</span><br><span class="line">// 看自己手机是armv7s 还是arm64</span><br></pre></td></tr></table></figure>
+<p>下载 <a href="http://joedj.net/ldid" target="_blank" rel="noopener">ldid</a> 与 <a href="http://iosre.com/ent.xml" target="_blank" rel="noopener">ent</a>，进行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ldid - Sent.xml debugserver</span><br></pre></td></tr></table></figure>
+<p>在使用 ssh 拷贝至手机,完成。</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>思路：想要实现自动验证好友请求，则要拿到获取好友请求的方法，以及通过好友请求的方法。hook 获取好友请求的方法，在接收到好友请求的时候，执行添加好友的方法。<br>而这些主要逻辑在“新的朋友”界面。</p>
+<h3 id="定位好友请求的方法"><a href="#定位好友请求的方法" class="headerlink" title="定位好友请求的方法"></a>定位好友请求的方法</h3><h4 id="UI-分析"><a href="#UI-分析" class="headerlink" title="UI 分析"></a>UI 分析</h4><p>我们知道，根据 MVC 模式，一般的方法实现都是在 ViewController 中的，所以想要拿到好友请求的方法，要先拿到当前界面的控制器。而这时候可以通过 UI 分析获得。</p>
+<p>先打开新的朋友界面。</p>
+<p><a href="http://upload-images.jianshu.io/upload_images/965383-62d19ba5e07a57a3.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-62d19ba5e07a57a3.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></a></p>
+<p>使用 <code>usbmuxd</code> 进行端口的转发(<del>若手机不卡，可以跳过这步直接使用 ssh 进行 wifi 远程连接</del>)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python tcprelay.py -t 22:2222</span><br></pre></td></tr></table></figure>
+<p>再使用 ssh 连接至手机</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh root@localhost -p 2222</span><br><span class="line">// ssh root@192.168.31.94 如果是wifi连接，请查看当前手机的wifi地址。</span><br></pre></td></tr></table></figure>
+<p>查看微信的进程信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ps -e |grep WeChat</span><br></pre></td></tr></table></figure>
+<p>Cycript 注入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cycript -p WeChat // 或者是当前微信的进程号，如下所示</span><br></pre></td></tr></table></figure>
+<p><a href="http://upload-images.jianshu.io/upload_images/965383-e394e365525d39ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-e394e365525d39ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="cycript"></a></p>
+<p>启动<code>Cycript</code>后，使用以下命令查看当前 UI 布局</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UIApp.keyWindow.recursiveDescription().toString()</span><br></pre></td></tr></table></figure>
+<p><a href="http://upload-images.jianshu.io/upload_images/965383-14fd1a031898e6c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-14fd1a031898e6c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-04-01 上午10.57.28.png"></a></p>
+<p>因为知道当前的视图有 tableView，所以找到 tableView 的对象。从上图可以看到该对象的地址为0x18c4be00。<br>在使用 <code>nextResponder()</code>根据响应者往上找当前的 ViewController。</p>
+<p><a href="http://upload-images.jianshu.io/upload_images/965383-74de0e0ecc36dea4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-74de0e0ecc36dea4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-04-01 上午11.01.03.png"></a><br>找到当前的控制器，为<code>SayHelloViewController</code></p>
+<h4 id="Log-分析"><a href="#Log-分析" class="headerlink" title="Log 分析"></a>Log 分析</h4><p>使用<code>class-dump</code> dump 出微信的 class 信息。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class-dump -S -s -H demo.app -o ~/Document/headers/</span><br><span class="line">// dump 微信app的头文件保存在 ~/Document/headers/ 目录中</span><br></pre></td></tr></table></figure>
+<p>再使用 theos 的 logify 工具，该工具用来注入<code>NSLog</code>来打印方法的入参和出参。(<del>就是在 hook 某个类的所有的方法，并在里面加 log，并导出xm文件</del>)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">logify.pl  ~/Document/headers/SayHelloViewController.h &gt; ~/Desktop/Tweak.xm</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>一般该Tweak.xm仍然无法执行，需要进行修改：</p>
+<ul>
+<li>去掉 .cxx_destruct 方法</li>
+<li>将 HBLogDebug 改为 NSLog</li>
+<li>去掉所有的 delegate</li>
+<li>将所有的参数对象类型改成 id</li>
+<li>去掉所有的 weak</li>
+</ul>
+<p>再使用 theos 配置相关文件(<del>具体查看iOS逆向-微信helloWorld</del>), 然后进行make package install 安装至手机。</p>
+<p>重新启动微信进入新的朋友界面。</p>
+<p>在ssh中使用<code>ondeviceconsole</code>打印手机的 log。</p>
+<p>这时用另一个微信号添加自己好友。触发好友请求的方法。可以看到以下的 log<br><a href="http://upload-images.jianshu.io/upload_images/965383-4d05570bb509b76c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-4d05570bb509b76c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-04-01 上午11.22.48.png"></a></p>
+<p>说明有好友添加请求的时候，会调用<br><code>-[SayHelloViewController OnSayHelloDataChange]</code></p>
+<h4 id="动态分析"><a href="#动态分析" class="headerlink" title="动态分析"></a>动态分析</h4><p>既然已经知道了有好友请求的时候会调用<code>OnSayHelloDataChange</code>，那么我们可以在当前方法中进行处理，然而有个弊端，就是当有好友请求时，微信不在新的朋友界面时，是不会调用该方法的。所以我们应该在更底层的类中(假设为消息管理类)中进行处理，而怎么找到消息管理类呢？按照一般的逻辑，消息管理类中一定有方法触发了<code>OnSayHelloDataChange</code>,这时候就要用到 lldb + hopper 神器来找到相应的消息管理类与其处理方法了。</p>
+<p><strong>lldb 进行手机端调试，hopper 进行静态分析，分析OnSayHelloDataChange方法的信息，找出突破口。</strong></p>
+<p>先用 hopper 打开微信的二进制文件。搜索<code>SayHelloViewController OnSayHelloDataChange</code>方法。<br>可以看到当前方法在微信中的偏移地址0x14a4824。<br><a href="http://upload-images.jianshu.io/upload_images/965383-b26a7b9b0a4b8137.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-b26a7b9b0a4b8137.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ20170401-113150@2x.png"></a></p>
+<h4 id="启动debugserver-配合lldb调试"><a href="#启动debugserver-配合lldb调试" class="headerlink" title="启动debugserver 配合lldb调试"></a>启动debugserver 配合lldb调试</h4><p>先打开微信，并使用 usbmuxd 转换端口</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python tcprelay.py -t 1234:1234</span><br></pre></td></tr></table></figure>
+<p>再 ssh 到手机上，开启 debugserver 。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">debugserver *:1234 -a &quot;WeChat&quot;</span><br></pre></td></tr></table></figure>
+<p>使用新的 Terminal 窗口，打开 lldb，连接1234端口，并查看当前微信的进程信息(一般会在所有进程的首行)。<br><del>此时会卡住一段时间。</del></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 打开lldb</span><br><span class="line">/Applications/Xcode.app/Contents/Developer/usr/bin/lldb</span><br><span class="line">// 连接端口调试</span><br><span class="line">(lldb) process connect connect://localhost:1234</span><br><span class="line">// 打印所有进程</span><br><span class="line">(lldb) image list -o -f</span><br></pre></td></tr></table></figure>
+<p>找到微信在当前手机上的进程内存基地址为0x000b2000(<del>这个值不是定值</del>)<br><a href="http://upload-images.jianshu.io/upload_images/965383-b9d03f2861559bc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-b9d03f2861559bc4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ20170401-113326@2x.png"></a></p>
+<p>通过以上可以找到 <code>[SayHelloViewController OnSayHelloDataChange]</code>方法在手机上的内存地址。即</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">内存地址 = 进程内存基地址 + 方法偏移地址</span><br></pre></td></tr></table></figure>
+<p>使用<code>br</code>打断点查看</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">br s -a &quot;0x000b2000 + 0x14a4824&quot;</span><br></pre></td></tr></table></figure>
+<p><a href="http://upload-images.jianshu.io/upload_images/965383-4df0f7635723f9ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-4df0f7635723f9ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-04-01 上午11.39.22.png"></a></p>
+<p>接着输入<code>c</code>继续运行，重新使用另一微信账号添加好友，会触发该断点。</p>
+<p><a href="http://upload-images.jianshu.io/upload_images/965383-0537b74c6a74dc64.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-0537b74c6a74dc64.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-04-01 上午11.41.35.png"></a></p>
+<p>使用<code>bt</code>查看调用栈信息，即哪些方法调用了当前的方法，找到方法的上游。(异步调用的话没办法查看)</p>
+<p><a href="http://upload-images.jianshu.io/upload_images/965383-2a0b5c07f2b6228f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-2a0b5c07f2b6228f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ20170401-114245@2x.png"></a></p>
+<p>第一个表示当前的方法，可以看到在调用此方法前，该进程总共调用了3个方法。<br>分别计算出这三个方法在微信中的偏移量。</p>
+<p><a href="http://upload-images.jianshu.io/upload_images/965383-d72d147e34823103.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-d72d147e34823103.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-04-01 上午11.48.13.png"></a></p>
+<p>将这三个地址在 hopper 中查看(按快捷键g,输入地址)，找到了对应的方法为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 调用的顺序为从下到上</span><br><span class="line">[SayHelloViewController OnSayHelloDataChange]</span><br><span class="line">[SayHelloDataLogic onFriendAssistAddMsg:]</span><br><span class="line">[FriendAsistSessionMgr OnAddMsgForSpecialSession:MsgList:]</span><br><span class="line">[CMessageMgr MainThreadNotifyToExt:]</span><br></pre></td></tr></table></figure>
+<p>从以上方法名可以猜测</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[FriendAsistSessionMgr OnAddMsgForSpecialSession:MsgList:]</span><br></pre></td></tr></table></figure>
+<p>是用来接收添加好友消息的函数处理，其中<code>MsgList:</code>后面的参数可能为消息的数组，为了证明我们可以在该方法中打个断点查看下。<br>使用命令<code>register read</code>读取寄存器地址，并使用<code>po</code>打印该对象。<br><a href="http://upload-images.jianshu.io/upload_images/965383-6ebda3da00e0961e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-6ebda3da00e0961e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-04-01 下午2.05.24.png"></a></p>
+<p>看出r3寄存器确实是个数组，同时也得到了消息的对象为<code>CMessageWrap</code> 证明我们是对的。</p>
+<p>ps: 解释下为什么要看r3，因为在 armv7 中，一个方法的调用，一般寄存器都是这么存储的：前四个参数放在r0~r3，剩下的存放在堆栈中。查看堆栈的话使用<code>x/10 $sp</code> 查看前10个堆栈里的对象地址。</p>
+<p>然而<code>FriendAsistSessionMgr</code>这个类可能在新的好友界面进行一些初始化，且放在<code>SayHelloViewController</code>中，而我们想要的是不管在哪个控制器里都可以 hook 住上面的消息数组对象。因此我们往上找，<code>[CMessageMgr MainThreadNotifyToExt:]</code>，然而里面并没有我们需要的信息。而根据类名我们推测<code>CMessageMgr</code>是用来管理消息的。有可能是在异步执行了消息数组的获取。</p>
+<p>因此，重复以上步骤，使用 logify 对<code>CMessageMgr</code>进行 Log 分析。最终锁定了<br><code>CMessageMgr MessageReturn:MessageInfo:Event:</code></p>
+<p><a href="http://upload-images.jianshu.io/upload_images/965383-3468f03ae467b502.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-3468f03ae467b502.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-04-05 下午3.02.50.png"></a></p>
+<h3 id="定位通过好友请求的方法"><a href="#定位通过好友请求的方法" class="headerlink" title="定位通过好友请求的方法"></a>定位通过好友请求的方法</h3><h4 id="动态分析-1"><a href="#动态分析-1" class="headerlink" title="动态分析"></a>动态分析</h4><p>既然找到了接收好友请求的方法，那么是时候找通过好友请求的方法了。<br>我们知道，通过好友请求的方法，是在新的朋友界面，点击<strong>接受</strong>的时候触发的。(<del>可以通过 Log 分析，然而这里还有另一个比较快速的方法</del>)</p>
+<p><a href="http://upload-images.jianshu.io/upload_images/965383-62d19ba5e07a57a3.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-62d19ba5e07a57a3.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></a></p>
+<h5 id="Cycript-定位"><a href="#Cycript-定位" class="headerlink" title="Cycript 定位"></a>Cycript 定位</h5><p>先通过 Cycript 打印出所有的 UI 层级。<br>找到<strong>接受</strong>按钮的对象，(有个技巧，我们知道当前按钮是在某个 cell 下面的，所以定位这个)。</p>
+<p><a href="http://upload-images.jianshu.io/upload_images/965383-8ee7092ddf3652e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-8ee7092ddf3652e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WX20170405-152315@2x.png"></a><br>再通过cycript将该对象的 hidden 动态修改为 1，看是否隐藏。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#0x186922f0.hidden = 1</span><br></pre></td></tr></table></figure>
+<p>发现按钮不见了，证明我们是对的。这时候需要找到点击按钮的事件。</p>
+<p>而我们知道 UIButton 是继承 UIControl 的，在 Cycript 中， 可以通过<code>allTargets</code> 与 <code>allControlEvents</code>查看当前UIControl所有的targets与events，再使用<code>actionsForTarget:forControlEvent:</code>从而找到触发的方法。</p>
+<p><a href="http://upload-images.jianshu.io/upload_images/965383-0cc2c5f799fd34a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-0cc2c5f799fd34a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-04-05 下午3.30.08.png"></a></p>
+<p>看出所触发的方法为<code>[ContactsItemView onRightBtnAction]</code></p>
+<h4 id="静态分析"><a href="#静态分析" class="headerlink" title="静态分析"></a>静态分析</h4><p>既然拿到了方法名，那我们怎么看他具体的实现呢？<br>接下来就是大名鼎鼎的 hopper 登场了。<br>用 hopper 打开微信的二进制文件,并进行汇编与伪代码的转换。<br><del>由于汇编读起来比较晦涩，所以还是进行伪代码的转换，这样效率比较快。</del>点击该按钮进行转换</p>
+<p><a href="http://upload-images.jianshu.io/upload_images/965383-c0af27f7c934875c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-c0af27f7c934875c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ20170401-094655@2x.png"></a></p>
+<p>可以得到伪代码<br><a href="http://upload-images.jianshu.io/upload_images/965383-8460f25f8c48b99f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-8460f25f8c48b99f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-04-05 下午3.56.21.png"></a><br>上图我们看到了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">r10 = self;</span><br><span class="line">r5 = r10 + *0x33befe8;</span><br><span class="line">r4 = objc_loadWeakRetained(r5);</span><br><span class="line">r8 = @selector(onContactsItemViewRightButtonClick:);</span><br><span class="line">r11 = [r4 respondsToSelector:r8];</span><br></pre></td></tr></table></figure>
+<p>可以得出，<code>r11 = [r5 onContactsItemViewRightButtonClick:btn]</code>,而 r5 我们判断为 self 的代理，这个我们也可以通过在之前用 class-dump 的头文件里面搜索<code>onContactsItemViewRightButtonClick</code>,会发现在<code>ContactsItemViewDelegate</code>中。<br>也就是<code>[ContactsItemView onRightBtnAction]</code>内部调用了<code>[self.delegate onContactsItemViewRightButtonClick:]</code>.<br>而 <code>ContactsItemView</code> 的<code>delegate</code>为 <code>SayHelloViewController</code>。</p>
+<p>再用 hopper 定位<code>onContactsItemViewRightButtonClick</code>。</p>
+<p><a href="http://upload-images.jianshu.io/upload_images/965383-53a73e5158a5d8e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-53a73e5158a5d8e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-04-05 下午4.05.49.png"></a><br><a href="http://upload-images.jianshu.io/upload_images/965383-e8d5d1dca6ad78ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-e8d5d1dca6ad78ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-04-05 下午4.14.09.png"></a></p>
+<p>看到这里估计会很懵逼不知道从何下手。这时候只要加以推测就可以了。<br>上图中进行了两个if判断，第一个为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">r10 = @selector(class);</span><br><span class="line">r2 = loc_1c099bc(@class(CPushContact), r10);</span><br><span class="line">r1 = @selector(isKindOfClass:);</span><br><span class="line">r5 = loc_1c099bc(r4, r1, r2);</span><br><span class="line">loc_1c099d4(r4);</span><br><span class="line">if ((r5 &amp; 0xff) != 0x0) &#123;</span><br></pre></td></tr></table></figure>
+<p>可以得出其实是执行了 <code>if([r4 isKindOfClass：[CPushContact class]])</code>;<br>而r4是什么呢？可以肯定是<code>CPushContact</code>对象，不然下面的代码都不执行了。我们可以根据动态分析，通过 lldb 打断点，并查看r3寄存器的对象类型，可以看到该对象为<code>CPushContact</code>对象。因此r4就是<code>CPushContact</code>对象，根据字面意思可以得到就是联系人对象。</p>
+<p>继续看下面的代码，可以看到也进行了一次判断<code>if (((loc_1c099bc(r6, @selector(m_bSuspiciousUser)) &amp; 0xff) != 0x0) &amp;&amp; ((loc_1c099bc(r6, @selector(isMMContact)) &amp; 0xff) == 0x0))</code>，看到了<code>MMUIAlertView</code>。推测是弹窗的 view ，推测如果是可疑的用户或者当前申请的好友已经是自己的好友，那就进行弹窗。而另一部分为<code>verifyContactWithOpCode:opcode:</code>，推测该部分为添加好友的方法。<br>可以通过 Log 分析或者通过 lldb 打断点，会看到都会进入该方法。且参数分别为<code>CPushContact</code>对象与 3。<br>接着继续分析<code>verifyContactWithOpCode:opcode:</code>方法。主要的部分如下所示。</p>
+<p><a href="http://upload-images.jianshu.io/upload_images/965383-8ca8ba77b4303d76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" target="_blank" rel="noopener"><img src="http://upload-images.jianshu.io/upload_images/965383-8ca8ba77b4303d76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></a></p>
+<p>通过分析，我们可以得到，确认好友申请，显示构造了<code>CContactVerifyLogic</code>对象。再构造了一个<code>CVerifyContactWrap</code>对象，并设置了相关属性，比如<code>m_nsUsrName</code> <code>m_uiScene</code> <code>m_nsTicket</code>.然后通过添加到数组中，通过<code>CContactVerifyLogic</code>对象的<code>startWithVerifyContactWrap:opCode:parentView:fromChatRoom:</code>方法发送。<br>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CContactVerifyLogic *verifyLogic = [[CContactVerifyLogic alloc] init];</span><br><span class="line">CVerifyContactWrap *wrap = [[CVerifyContactWrap alloc] init];</span><br><span class="line">[wrap setM_nsUsrName:contact.m_nsEncodeUserName];</span><br><span class="line">[wrap setM_uiScene:contact.m_uiFriendScene];</span><br><span class="line">[wrap setM_nsTicket:contact.m_nsTicket];</span><br><span class="line">[wrap setM_nsChatRoomUserName:contact.m_nsChatRoomUserName];</span><br><span class="line">wrap.m_oVerifyContact = contact;</span><br><span class="line"></span><br><span class="line">AutoSetRemarkMgr *mgr = [[MMServiceCenter defaultCenter] getService:[AutoSetRemarkMgr class]];</span><br><span class="line">id attr = [mgr GetStrangerAttribute:contact AttributeName:1001];</span><br><span class="line"></span><br><span class="line">if([attr boolValue]) &#123;</span><br><span class="line">    [wrap setM_uiWCFlag:(wrap.m_uiWCFlag | 1)];</span><br><span class="line">&#125;</span><br><span class="line">[verifyLogic startWithVerifyContactWrap:[NSArray arrayWithObject:wrap] opCode:3 parentView:[UIView new] fromChatRoom:NO];</span><br></pre></td></tr></table></figure>
+<p>这样我们就得到了 获取好友请求的方法与添加好友的方法。<br>而这里还有一个问题，就是添加好友的对象是<code>CPushContact</code>，而获得好友请求的对象的<code>CMessageWrap</code>。这里需要进行转换，而转换的方法也在<code>SayHelloViewController</code>中，可以重复上面的分析方法获得。</p>
+<hr>
+<h2 id="编写Tweak"><a href="#编写Tweak" class="headerlink" title="编写Tweak"></a>编写Tweak</h2><p>通过以上的分析，将代码合并起来</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">%hook CMessageMgr</span><br><span class="line">- (void)MessageReturn:(unsigned int)arg1 MessageInfo:(NSDictionary *)info Event:(unsigned int)arg3 &#123;</span><br><span class="line">    %orig;</span><br><span class="line">    if (arg1 == 332) &#123;   // 收到添加好友消息</span><br><span class="line">        NSString *keyStr = [info objectForKey:@&quot;5&quot;];</span><br><span class="line">        if ([keyStr isEqualToString:@&quot;fmessage&quot;]) &#123;</span><br><span class="line">            NSArray *wrapArray = [info objectForKey:@&quot;27&quot;];</span><br><span class="line">            [self addAutoVerifyWithArray:wrapArray];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">%new</span><br><span class="line">- (void)addAutoVerifyWithArray:(NSArray *)ary &#123;</span><br><span class="line">    [ary enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) &#123;</span><br><span class="line">            CPushContact *contact = [%c(SayHelloDataLogic) getContactFrom:obj];</span><br><span class="line">            if (![contact isMyContact] &amp;&amp; [contact.m_nsDes isEqualToString:autoVerifyKeyword]) &#123;</span><br><span class="line">                CContactVerifyLogic *verifyLogic = [[%c(CContactVerifyLogic) alloc] init];</span><br><span class="line">                CVerifyContactWrap *wrap = [[%c(CVerifyContactWrap) alloc] init];</span><br><span class="line">                [wrap setM_nsUsrName:contact.m_nsEncodeUserName];</span><br><span class="line">                [wrap setM_uiScene:contact.m_uiFriendScene];</span><br><span class="line">                [wrap setM_nsTicket:contact.m_nsTicket];</span><br><span class="line">                [wrap setM_nsChatRoomUserName:contact.m_nsChatRoomUserName];</span><br><span class="line">                wrap.m_oVerifyContact = contact;</span><br><span class="line"></span><br><span class="line">                AutoSetRemarkMgr *mgr = [[%c(MMServiceCenter) defaultCenter] getService:%c(AutoSetRemarkMgr)];</span><br><span class="line">                id attr = [mgr GetStrangerAttribute:contact AttributeName:1001];</span><br><span class="line"></span><br><span class="line">                if([attr boolValue]) &#123;</span><br><span class="line">                    [wrap setM_uiWCFlag:(wrap.m_uiWCFlag | 1)];</span><br><span class="line">                &#125;</span><br><span class="line">                [verifyLogic startWithVerifyContactWrap:[NSArray arrayWithObject:wrap] opCode:3 parentView:[UIView new] fromChatRoom:NO];</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>## </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>If you like, please donate to me</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="faith WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/reverse-engine/" rel="tag"># reverse engine</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/14/Way-to-say-attractive-in-native-speaking/" rel="next" title="Way to say attractive in native speaking">
+                <i class="fa fa-chevron-left"></i> Way to say attractive in native speaking
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/17/IELTS-writing-part-1/" rel="prev" title="IELTS writing part 1">
+                IELTS writing part 1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="faith" />
+            
+              <p class="site-author-name" itemprop="name">faith</p>
+              <p class="site-description motion-element" itemprop="description">Talk is cheap. Show me the code.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/iamfaith" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xianzixiang@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#工具"><span class="nav-number">1.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#macbook-软件"><span class="nav-number">1.1.</span> <span class="nav-text">macbook 软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#越狱-iPhone-软件"><span class="nav-number">1.2.</span> <span class="nav-text">越狱 iPhone 软件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定位好友请求的方法"><span class="nav-number">2.1.</span> <span class="nav-text">定位好友请求的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UI-分析"><span class="nav-number">2.1.1.</span> <span class="nav-text">UI 分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Log-分析"><span class="nav-number">2.1.2.</span> <span class="nav-text">Log 分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态分析"><span class="nav-number">2.1.3.</span> <span class="nav-text">动态分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动debugserver-配合lldb调试"><span class="nav-number">2.1.4.</span> <span class="nav-text">启动debugserver 配合lldb调试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定位通过好友请求的方法"><span class="nav-number">2.2.</span> <span class="nav-text">定位通过好友请求的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#动态分析-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">动态分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Cycript-定位"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">Cycript 定位</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#静态分析"><span class="nav-number">2.2.2.</span> <span class="nav-text">静态分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写Tweak"><span class="nav-number">3.</span> <span class="nav-text">编写Tweak</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Faith</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v6.6.6</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/velocity/1.5.0/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/velocity/1.5.0/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.6.6"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.6.6"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.6"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.6"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.6.6"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

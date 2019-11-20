@@ -1,0 +1,148 @@
+---
+title: "CV"
+author: "Zixiang Xian"
+gender: "*(Mr.)*"
+email: xianzixiang@gmail.com
+output:
+  pdf_document:
+    latex_engine: pdflatex
+    template: ./svm-latex-cv.tex
+  html_document:
+    df_print: paged
+fontfamily: mathptmx,times
+fontsize: 11pt
+geometry: a4paper,left=2.2cm,right=2.2cm,top=1.3cm,bottom=1.7cm #margin=1in
+#jobtitle: Senior Software Engineer
+keywords: R Markdown, academic CV, template
+linkcolor: blue
+fontawesome: yes
+address: "Montreal, Quebec"
+updated: no
+urlcolor: blue
+github: iamfaith
+# web: faithio.cn
+phone: "438-408-3986"
+linestretch: 0.8
+---
+
+# Education
+\hrule
+
+Tianjin University of Finance and Economics, Tianjin, China    \hfill      September 2010-June 2014
+
+Bachelor of Engineering in Software Engineering (GPA:*88/100*; Rank: *top5%*)
+
+Concordia University, Montreal, Quebec    \hfill      September 2019
+
+MASc in System Information Security(thesis-based, focus on Machine Learning)
+
+# Work Experience
+\hrule
+
+ **Kingsoft Office Software Corporation Limited (WPS), Zhuhai, China**
+
+Senior Software engineer         \hfill                 September 2016-August 2019
+
+*Development of Online preview Service WPS on Web (drive.wps.cn): converting Office documents to HTML, pdf, image, etc. *
+
+  - Used Service Provider Interface programming to implement configurable lazy load document format conversion service
+
+  - Utilized Java8 Concurrent Library to parse the document structure and concurrently convert the formats
+
+  - Reduced the page load time by block loading: the first page has displayed the instant it is converted, remaining pages are loaded asynchronously via ajax
+
+  - Used Rapha??l  and canvas in HTML to plot the complex vector graphics in Office documents, compatible with IE8 and above
+
+ *Web Office: Online Collaborative Editing (web.wps.cn)*
+
+- Adopted ReactJs to develop the frontend of web office excel mobile version
+
+- Applied jade as the template engine, used less to extend CSS, used gulp to implement automated build of web engineering with Webpack bundle JavaScript files
+
+- Implemented self-adaption according to the mobile screen resolution
+
+*Development of back-end software of mobile service*
+
+- Adopted golang to develop the back-end RESTful API
+
+- Applied Redis as the cache database, used docker to build distributed applications
+
+- Provided large scale back-end API for Android APP(WPS Office) and web clients, refactored code based on object-oriented style
+
+ **Software Development Center, Industrial and Commercial Bank of China, Zhuhai, China**
+
+Software engineer          \hfill                     November 2014-August 2016
+
+*ICBC Peru Local Clearing System: cooperative clearing front-serve*
+
+- Generated secret key with triple DES and implemented dual encryption using RSA private key to clear data; 
+
+- Invoked WebService with SOAP protocol to communicate with the remote server
+
+- Achieved high availability by load balancing with Oracle RAC
+
+#Publication
+\hrule
+
+*Ultrasonic Detection System of Engineering Truck Loading Capacity Based on STC12C5A60S2 Microcontroller*, first author, __Modern Computer__, 11107(2013)
+
+#Research Experience
+\hrule
+
+**A truck loading detection system based on MCU**    \hfill     March-November 2013
+\setlength{\parskip}{2pt}
+
+
+ \renewenvironment{itemize}{
+  \begin{list}{}{
+    \setlength{\leftmargin}{1.5em}
+  }
+}{
+  \end{list}
+}
+
+- Collected data from the ultrasonic sensor using the Round Robin algorithm, analyzed the Linear variation of distance data, lighted the LED when reaching the threshold
+  
+\setlength{\parskip}{8pt}  
+
+**Http SerialNet module based on coolsand embedded platform** \hfill  August-September 2013
+\setlength{\parskip}{2pt}
+
+- Completed the C programming based on HTTP protocol stack, implemented functions include retransmission failure, automatic transfer, etc.
+
+\setlength{\parskip}{8pt}  
+
+**Development of Telephone Marketing System** \hfill   July 2013
+\setlength{\parskip}{2pt}
+
+- Implemented instant messaging with Delphi that encapsulates internal messaging protocol to define the message types (public or private) and then forwards to the client via the server
+
+
+#Skills
+
+\hrule
+\setlength{\parskip}{10pt}
+
+**Programming Language:** C/C++, Java, Javascript, golang, python
+
+**Programming Framework:** Android, Linux, Node.Js, SpringMVC, ReactJs
+
+**Enterprise Middleware:** IBM WebSphere, IBM WebSphere MQ
+
+**Database:** MySQL, Oracle, Redis, SQL Server
+
+**Others:** git, npm, Webpack, gulp, reverse engineering on Android APK, docker
+
+#Accomplishment
+
+\hrule
+
+Best New Employee award at ICBCSDC(3%)             \hfill                            2016
+
+The employee of the Month at ICBCSDC(3%)        \hfill                                    2015
+
+Second Class Scholarship at university(5%)       \hfill                          2011&2012
+
+Champion in the University Computer Program Design Competition    \hfill             2012
+
+First Class Prize in China Undergraduate Mathematical Contest in Modeling    \hfill    2012

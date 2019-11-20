@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.bootcss.com/fancybox/3.1.20/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.6.6" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.6">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.6">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.6">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.6" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="interview," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="Faith' s Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Find 2nd degree connectionsFind 2nd degree connections ( friends’ friends), output these 2nd degree connections ranked by number of common friends (i.e 1st degree connections) with you, (example: if 2">
+<meta name="keywords" content="interview">
+<meta property="og:type" content="article">
+<meta property="og:title" content="interview for SDE 3">
+<meta property="og:url" content="https://faithio.tk/2018/09/13/interview-for-SDE-3/index.html">
+<meta property="og:site_name" content="Faith&#39; s Blog">
+<meta property="og:description" content="Find 2nd degree connectionsFind 2nd degree connections ( friends’ friends), output these 2nd degree connections ranked by number of common friends (i.e 1st degree connections) with you, (example: if 2">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-09-13T09:06:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="interview for SDE 3">
+<meta name="twitter:description" content="Find 2nd degree connectionsFind 2nd degree connections ( friends’ friends), output these 2nd degree connections ranked by number of common friends (i.e 1st degree connections) with you, (example: if 2">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.6.6',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://faithio.tk/2018/09/13/interview-for-SDE-3/"/>
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('please enter the passowrd for this post') !== ''){
+                alert('password error!');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1438507724851578",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+
+  <title>interview for SDE 3 | Faith' s Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Faith' s Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-cv">
+          <a href="/cv/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            cv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-algorithm">
+          <a href="/algorithm/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            algorithm
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-leetcode">
+          <a href="/leetcode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            leetcode
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2018/09/13/interview-for-SDE-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="faith">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Faith' s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">interview for SDE 3</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-13T12:06:29-04:00">
+                2018-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Find-2nd-degree-connections"><a href="#Find-2nd-degree-connections" class="headerlink" title="Find 2nd degree connections"></a>Find 2nd degree connections</h2><p>Find 2nd degree connections ( friends’ friends), output these 2nd degree connections ranked by number of common friends (i.e 1st degree connections) with you, (example: if 2nd degree connection A has 10 common friends (1st degree connections) with you but 2nd degree connection B has 8 common friends (1st degree connections)with you, then A should be ranked first) Input is your connection graph represented by undirected graph nodes, output is list of 2nd degree connections represented by graph nodes</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List findSecDegreeConnections(UndirectedGraphNode myself)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Graph:</span><br><span class="line">    def __init__(self, nodes=&#123;&#125;):</span><br><span class="line">        self.nodes=nodes</span><br><span class="line"></span><br><span class="line">class Node:</span><br><span class="line">    def __init__(self, name, connections=[]):</span><br><span class="line">        self.name=name</span><br><span class="line">        self.connections=connections</span><br><span class="line"></span><br><span class="line">nodeA=Node(&apos;A&apos;, [&apos;B&apos;, &apos;D&apos;, &apos;F&apos;])</span><br><span class="line">nodeB=Node(&apos;B&apos;, [&apos;A&apos;, &apos;C&apos;, &apos;H&apos;,  &apos;K&apos;])</span><br><span class="line">nodeC=Node(&apos;C&apos;, [&apos;B&apos;, &apos;D&apos;, &apos;H&apos;])</span><br><span class="line">nodeD=Node(&apos;D&apos;, [&apos;A&apos;, &apos;C&apos;, &apos;E&apos;, &apos;H&apos;])</span><br><span class="line">nodeE=Node(&apos;E&apos;, [&apos;D&apos;, &apos;K&apos;])</span><br><span class="line">nodeF=Node(&apos;F&apos;, [&apos;A&apos;, &apos;H&apos;])</span><br><span class="line">nodeH=Node(&apos;H&apos;, [&apos;B&apos;, &apos;D&apos;, &apos;F&apos;, &apos;C&apos;])</span><br><span class="line">nodeK=Node(&apos;K&apos;, [&apos;E&apos;, &apos;B&apos;])</span><br><span class="line">graph=Graph(&#123;&apos;A&apos;:nodeA, &apos;B&apos;:nodeB, &apos;C&apos;:nodeC,  &apos;D&apos;:nodeD, &apos;E&apos;:nodeE, &apos;F&apos;:nodeF, &apos;H&apos;:nodeH, &apos;K&apos;:nodeK&#125;)</span><br><span class="line"></span><br><span class="line">def second_connection(graph, start):</span><br><span class="line">    first_order=[graph.nodes[node] for node in graph.nodes[start].connections]</span><br><span class="line">    second_order=&#123;&#125;</span><br><span class="line">    for node in first_order:</span><br><span class="line">        for neighbour in node.connections:</span><br><span class="line">            if neighbour==start: continue</span><br><span class="line">            second_order[neighbour]=second_order.get(neighbour, 0)+1</span><br><span class="line">    result = [(value, key) for (key, value) in second_order.items()]</span><br><span class="line">    result.sort(reverse=True)</span><br><span class="line">    return [r for (_, r) in result]</span><br><span class="line"></span><br><span class="line">print(second_connection(graph, &apos;A&apos;))</span><br></pre></td></tr></table></figure>
+<h2 id="Tree-have-2-parents"><a href="#Tree-have-2-parents" class="headerlink" title="Tree have 2 parents"></a>Tree have 2 parents</h2><p>I recently went through a Google Phone Interview after successfully completing a coding challenge. I wanted to share the question with the leetcode community and get a proper approach for it. I took some time in understanding the question properly as the interviewer’s accent and explanation of the question made it difficult to comprehend.</p>
+<p><strong>Question:</strong><br>Consider a binary tree, where an arbitary node has 2 parents i.e two nodes in the tree have the same child.</p>
+<ol>
+<li>Identify the defective node with 2 parents.</li>
+<li>Correct such a node and restore the binary tree properties to that node.</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// &quot;static void main&quot; must be defined in a public class.</span><br><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(&quot;Consider a binary tree, where an arbitary node has 2 parents i.e two nodes in the tree have the same child. \n 1-Identify the defective node with 2 parents.\n 2-Correct such a node and restore the binary tree properties to that node.\n&quot;);</span><br><span class="line">        </span><br><span class="line">        Node root = new Node(0);</span><br><span class="line">        Node left = new Node(1);</span><br><span class="line">        Node right = new Node(2);</span><br><span class="line">        Node defective = new Node (3);</span><br><span class="line">        root.left = left;</span><br><span class="line">        root.right = right;</span><br><span class="line">        left.right = defective;</span><br><span class="line">        right.right = defective;</span><br><span class="line">        </span><br><span class="line">        fixBinaryTree(root);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static void fixBinaryTree(Node root)&#123;</span><br><span class="line">        // fixTree(root, new HashSet&lt;Node&gt;());</span><br><span class="line">        fixTreeBFS(root);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private static void fixTreeBFS(Node root)&#123;</span><br><span class="line">        if (root == null) return;</span><br><span class="line">        </span><br><span class="line">        Set&lt;Node&gt; visited = new HashSet&lt;Node&gt;();</span><br><span class="line">        Queue&lt;Node&gt; q = new LinkedList&lt;Node&gt;();</span><br><span class="line">        </span><br><span class="line">        q.add(root);</span><br><span class="line">        </span><br><span class="line">        while(!q.isEmpty())&#123;</span><br><span class="line">            Node node = q.poll();</span><br><span class="line">            if(node.left != null)&#123;</span><br><span class="line">                if(visited.contains(node.left))&#123;</span><br><span class="line">                    System.out.println(&quot;Found defective : &quot;+ node.left.val);</span><br><span class="line">                    System.out.println(&quot;Fixed by removing left from parent : &quot;+node.val);</span><br><span class="line">                    node.left = null;</span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                    visited.add(node.left);</span><br><span class="line">                    q.add(node.left);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if(node.right != null)&#123;</span><br><span class="line">                if(visited.contains(node.right))&#123;</span><br><span class="line">                    System.out.println(&quot;Found defective : &quot;+ node.right.val);</span><br><span class="line">                    System.out.println(&quot;Fixed by removing right from parent : &quot;+node.val);</span><br><span class="line">                    node.right = null;   </span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                    visited.add(node.right);</span><br><span class="line">                    q.add(node.right);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private static void fixTree(Node node, Set&lt;Node&gt; visited)&#123;</span><br><span class="line">        if(node == null) return;</span><br><span class="line">        </span><br><span class="line">        if(node.left != null)&#123;</span><br><span class="line">            if(visited.contains(node.left))&#123;</span><br><span class="line">                System.out.println(&quot;Found defective : &quot;+ node.left.val);</span><br><span class="line">                System.out.println(&quot;Fixed by removing left from parent : &quot;+node.val);</span><br><span class="line">                node.left = null;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                visited.add(node.left);</span><br><span class="line">                fixTree(node.left, visited);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        if(node.right != null)&#123;</span><br><span class="line">            if(visited.contains(node.right))&#123;</span><br><span class="line">                System.out.println(&quot;Found defective : &quot;+ node.right.val);</span><br><span class="line">                System.out.println(&quot;Fixed by removing right from parent : &quot;+node.val);</span><br><span class="line">                node.right = null;   </span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                visited.add(node.right);</span><br><span class="line">                fixTree(node.right, visited);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private static class Node &#123;</span><br><span class="line">        int val;</span><br><span class="line">        Node left;</span><br><span class="line">        Node right;</span><br><span class="line">        public Node (int val)&#123;</span><br><span class="line">            this.val = val;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="What-are-the-main-features-of-OOP"><a href="#What-are-the-main-features-of-OOP" class="headerlink" title="What are the main features of OOP?"></a>What are the main features of OOP?</h2><ul>
+<li><p><strong>Abstraction</strong><br>We try to obtain abstract view, model or structure of real life problem, and reduce its unnecessary details. With definition of properties of problems, including the data which are affected and the operations which are identified, the model abstracted from problems can be a standard solution to this type of problems. It is an efficient way since there are nebulous real-life problems that have similar properties.</p>
+<p><strong>Encapsulation</strong><br>Encapsulation is the process of combining data and functions into a single unit called class. In Encapsulation, the data is not accessed directly; it is accessed through the functions present inside the class. In simpler words, attributes of the class are kept private and public getter and setter methods are provided to manipulate these attributes. Thus, encapsulation makes the concept of data hiding possible. (Data hiding: a language feature to restrict access to members of an object, reducing the negative effect due to dependencies. e.g. “protected”, “private” feature in C++)</p>
+<p><strong>Inheritance</strong><br>The idea of inheritance is simple, a class is based on another class and uses data and implementation of the other class. And the purpose of inheritance is Code Reuse.</p>
+<p><strong>Polymorphism</strong><br>Polymorphism is the ability to present the same interface for differing underlying forms (data types). With polymorphism, each of these classes will have different underlying data. A point shape needs only two co-ordinates (assuming it’s in a two-dimensional space of course). A circle needs a center and radius. A square or rectangle needs two co-ordinates for the top left and bottom right corners and (possibly) a rotation. An irregular polygon needs a series of lines.</p>
+</li>
+</ul>
+<p>Ref:<br>[1] <a href="http://www.geeksforgeeks.org/commonly-asked-oop-interview-questions/" target="_blank" rel="noopener">http://www.geeksforgeeks.org/commonly-asked-oop-interview-questions/</a><br>[2] <a href="http://gd.tuwien.ac.at/languages/c/c++oop-pmueller/tutorial.html" target="_blank" rel="noopener">http://gd.tuwien.ac.at/languages/c/c++oop-pmueller/tutorial.html</a><br>[3] <a href="https://stackoverflow.com/questions/16014290/simple-way-to-understand-encapsulation-and-abstraction" target="_blank" rel="noopener">https://stackoverflow.com/questions/16014290/simple-way-to-understand-encapsulation-and-abstraction</a><br>[4] <a href="https://stackoverflow.com/questions/1031273/what-is-polymorphism-what-is-it-for-and-how-is-it-used" target="_blank" rel="noopener">https://stackoverflow.com/questions/1031273/what-is-polymorphism-what-is-it-for-and-how-is-it-used</a></p>
+<h2 id="A-scalable-chat-application-on-phone-browsing"><a href="#A-scalable-chat-application-on-phone-browsing" class="headerlink" title="A scalable chat application on phone browsing"></a>A scalable chat application on phone browsing</h2><p>Design a scalable chat application on phone.</p>
+<ul>
+<li>Parental Control - Parents being able to read the chat.</li>
+</ul>
+<h2 id="Memory-leak-Memory-allocation-and-how-processes-manage-memory"><a href="#Memory-leak-Memory-allocation-and-how-processes-manage-memory" class="headerlink" title="Memory leak, Memory allocation and how processes manage memory"></a>Memory leak, Memory allocation and how processes manage memory</h2><ol>
+<li>This was discussion question asked during phone interview. Started with abstract ans and lead to kernel level memory management (i-node, memory pointers etc) Basically interviewer was interested in knowing how deep you can go. (~23-25min)</li>
+<li><code>Coding Q related to Super SubString</code></li>
+</ol>
+<ul>
+<li><p>Memory leak happen when memory is allocated dynamically on the heap and in future the pointer variable is overwritten in the future so it is lost and that memory is now becomes stray no code is able to free. it in a process this type error happen over and over again the system will run out of memory to allocate. The memory allocation and de-allocation task is done by memory management sub system of the OS. This sub system allocates the physical memory which is mapped to the virtual address space of the process. The mapping resides in the page table of the process. When this memory is accessed MMU translates the virtual address to physical address using page table. Page table entry is cached in TLB of the processor.</p>
+</li>
+<li><p>Start with the basics: Memory leak occurs when you allocate memory to heap, but do not manually garbage collect (de-allocate memory) when objects are no longer relevant. So you have an entity allocating heap memory, but no entity deallocating the memory when no longer needed. - obviously this pertains to languages like C/C++, not Java, C# which possess garbage collection mechanisms under the hood. Now you can breakdown your knowledge/understanding of how/where memory is laid out (stack memory allocation, memory hierarchy: cache l1,l2,l3 ,pages, virtual memory, DRAM, performance optimizations like TLB).</p>
+</li>
+</ul>
+<h2 id="Design-a-system-that-can-handle-hourly-backups-for-mobile-phones"><a href="#Design-a-system-that-can-handle-hourly-backups-for-mobile-phones" class="headerlink" title="Design a system that can handle hourly backups for mobile phones"></a>Design a system that can handle hourly backups for mobile phones</h2><p>Question Description:<br>You are in charge of designing a system that can handle regular backups for mobile devices. For the purposes of this problem, you should assume that users are storing a relatively large amount of data, though a lot of this data is not changed between backups. You should also assume that your users travel frequently, and your system should be able to deal with users moving between regions<br>Solution:<br>The problem is fairly open ended, but you should be able to touch on a few key points here. First, since sending data over cellular networks is expensive and slow, some form of deduplication should be used to reduce the amount of data that needs to be sent over the network and stored on your servers. Second, you should discuss how you would handle users who travel between regions. Will you send all of their data to their “home server”, or use some sort of consistency protocol to maintain a global set of backups? Do you need strong consistency here, or can your system handle some amount of inconsistency? You should discuss read/write trade-offs here too. Users will not need to restore a backup very often, so sacrificing read performance is probably a reasonable design choice.</p>
+<h2 id="how-to-handle-large-log-data-and-store-particular-info-to-sql"><a href="#how-to-handle-large-log-data-and-store-particular-info-to-sql" class="headerlink" title="how to handle large log data and store particular info to sql"></a>how to handle large log data and store particular info to sql</h2><p>I was asked to answer a question in a phone interview for Amazon.<br>The question is as follow:<br>Image there is a website generates user access log in Terabytes scale every day. Each log contains many different information such as username, visiting time, location, page visited, and etc.<br>what’s your solution if we want to only store certain info(for example, user, login time, location) to a sql database. How to optimize the process.<br>This is an open question. So I believe there is no correct answer. what is your thought?</p>
+<ul>
+<li>method 1<ol>
+<li>Rotate logs periodically - 5mins, 1hour etc</li>
+<li>Push roasted logs to say s3.</li>
+<li>Have a process that listens on s3 notifications, and on receiving one, pulls given log, extracts required info and inserts to DB. Depending on scale, could be a lambda doing this too.<br>With this basic set up, we should think about load pattern, SLA requirements, cost erc</li>
+</ol>
+</li>
+<li>method 2<br>Assumptions:<ul>
+<li>The required data is much smaller than the record size.</li>
+<li>There is a cluster of web-servers collecting logs</li>
+<li>Web servers typically have access processing capacity<br>SQL Server:</li>
+<li>Assuming MySQL here (for simplicity)</li>
+<li>There is a simple table schema storing this data serially. This is a write/read table (no updates)</li>
+<li>Because of the amount of data, the table is most likely sharded. Based on days/weeks/months etc.</li>
+<li>There is a max IOPS this server can support. Cannot have lambda’s bombard it with writes.<br>Web server:</li>
+<li>The logs are created in files in a say logs folder</li>
+<li>The file names are by the hour/minute/10 minute as required<br>Approach 1:</li>
+<li>Convert each log file into a smaller file that only includes the data we need to store. Those 3 columns. A simple awk script should do that and should be really fast.</li>
+<li>Zip these files and push them into a queue. A distributed queue such as Kafka would be nice. Else even a redis cluster would do since the data per day will be GB after the trimming</li>
+<li>Have a dedicated server read these queue and import them into MySQL via bulk load scripts. Since the data is in CSV and schema aware, a bulk load script will be much faster. The server would be continuously pulling data file from the queue in inserting them into the SQL server. It would be shard aware. Which means depending on the timestamped file name, it would insert into appropriate shard.<br>Benefits:</li>
+<li>Optimize for network traffic. A trimmed file which is zipped will reduce the network traffic significantly.</li>
+<li>A queue will make sure that if something happens to the server loading the data in SQL, it will provide it the time to recover so that no logs are lost</li>
+<li>It uses some of the spare capacity on the web-servers for pre-processing, which a web cluster generally has</li>
+<li>It has minimal components<br>keys：<br>Remember, SQL database was not designed for heavy writing. SQL database was designed for heavy relation data reading. No SQL would be a better solution at the first point. But still, if you want a SQL solution, you can create a pipeline with Apache Kafka and MemSQl. Here is the solution:</li>
+</ul>
+<ol>
+<li>Push your log data into Kafka Queue. Kafa use zookeeper for manager cluster nodes and absolute brilliant solution for heavy writing.</li>
+<li>If you need to show the live data into your analytics, you can use memsql or any other similar solution.</li>
+<li>Otherwise, connect your data to consume from the Apache Kafka queue. If you have really huge throughput pick, Kafka will hold and eventually will be updated into your database.</li>
+</ol>
+</li>
+</ul>
+<h2 id="connecting-ropes-question"><a href="#connecting-ropes-question" class="headerlink" title="connecting ropes question"></a>connecting ropes question</h2><p>There are n balls of different weights, we need to melt all the balls to make a new big ball. The cost to melt two balls is equal to sum of their weights.<br> We need to melt the balls with minimum cost.<br>For example if we are given 4 balls of weights 4, 3, 2 and 6. We can melt the balls in following ways.<br>1) First melt balls of weight 2 and 3. Now we have three balls of weight 4, 6 and 5.<br>2) Now melt balls of weight 4 and 5. Now we have two balls of weight 6 and 9.<br>3) Finally melt the two balls and all balls have melted to a big ball.<br>Total cost for melting all balls is 5 + 9 + 15 = 29<br>This is a variation of connecting ropes question on geeks: <a href="https://www.geeksforgeeks.org/connect-n-ropes-minimum-cost/" target="_blank" rel="noopener">https://www.geeksforgeeks.org/connect-n-ropes-minimum-cost/</a></p>
+<p>f we observe the above problem closely, we can notice that the lengths of the ropes which are picked first are included more than once in total cost. Therefore, the idea is to connect smallest two ropes first and recur for remaining ropes. This approach is similar to <a href="https://www.geeksforgeeks.org/greedy-algorithms-set-3-huffman-coding/" target="_blank" rel="noopener">Huffman Coding</a>. We put smallest ropes down the tree so that they can be repeated multiple times rather than the longer ropes.</p>
+<p>Following is complete algorithm for finding the minimum cost for connecting n ropes.<br>Let there be n ropes of lengths stored in an array len[0..n-1]<br>1) Create a min heap and insert all lengths into the min heap.<br>2) Do following while number of elements in min heap is not one.<br>……a) Extract the minimum and second minimum from min heap<br>……b) Add the above two extracted values and insert the added value to the min-heap.<br>3) Return the value of only left item in min heap.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class ConnectRopes</span><br><span class="line">&#123;</span><br><span class="line">static int minCost(int arr[], int n)</span><br><span class="line">&#123;</span><br><span class="line">    // Create a priority queue</span><br><span class="line">    PriorityQueue&lt;Integer&gt; pq =</span><br><span class="line">                        new PriorityQueue&lt;Integer&gt;();</span><br><span class="line"> </span><br><span class="line">    // Adding items to the pQueue</span><br><span class="line">    for(int i=0;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        pq.add(arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    // Initialize result</span><br><span class="line">    int res = 0;</span><br><span class="line"> </span><br><span class="line">    // While size of priority queue </span><br><span class="line">    // is more than 1</span><br><span class="line">    while (pq.size() &gt; 1)</span><br><span class="line">    &#123;</span><br><span class="line">        // Extract shortest two ropes from pq</span><br><span class="line">        int first = pq.poll();</span><br><span class="line">        int second = pq.poll();</span><br><span class="line"> </span><br><span class="line">        // Connect the ropes: update result</span><br><span class="line">        // and insert the new rope to pq</span><br><span class="line">        res += first + second;</span><br><span class="line">        pq.add(first + second);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">// Driver program to test above function</span><br><span class="line">public static void main(String args[])</span><br><span class="line">&#123;</span><br><span class="line">    int len[] = &#123;4, 3, 2, 6&#125;;</span><br><span class="line">    int size = len.length;</span><br><span class="line">    System.out.println(&quot;Total cost for connecting&quot;+</span><br><span class="line">                &quot; ropes is &quot; + minCost(len, size));</span><br><span class="line">     </span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>If you like, please donate to me</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="faith WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/interview/" rel="tag"># interview</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/29/interview-for-SDE-2/" rel="next" title="interview for SDE 2">
+                <i class="fa fa-chevron-left"></i> interview for SDE 2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/13/interview-for-SDE-4/" rel="prev" title="interview for SDE 4">
+                interview for SDE 4 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="faith" />
+            
+              <p class="site-author-name" itemprop="name">faith</p>
+              <p class="site-description motion-element" itemprop="description">Talk is cheap. Show me the code.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/iamfaith" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xianzixiang@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Find-2nd-degree-connections"><span class="nav-number">1.</span> <span class="nav-text">Find 2nd degree connections</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tree-have-2-parents"><span class="nav-number">2.</span> <span class="nav-text">Tree have 2 parents</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-are-the-main-features-of-OOP"><span class="nav-number">3.</span> <span class="nav-text">What are the main features of OOP?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-scalable-chat-application-on-phone-browsing"><span class="nav-number">4.</span> <span class="nav-text">A scalable chat application on phone browsing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memory-leak-Memory-allocation-and-how-processes-manage-memory"><span class="nav-number">5.</span> <span class="nav-text">Memory leak, Memory allocation and how processes manage memory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Design-a-system-that-can-handle-hourly-backups-for-mobile-phones"><span class="nav-number">6.</span> <span class="nav-text">Design a system that can handle hourly backups for mobile phones</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#how-to-handle-large-log-data-and-store-particular-info-to-sql"><span class="nav-number">7.</span> <span class="nav-text">how to handle large log data and store particular info to sql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#connecting-ropes-question"><span class="nav-number">8.</span> <span class="nav-text">connecting ropes question</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Faith</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v6.6.6</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/velocity/1.5.0/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/velocity/1.5.0/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.6.6"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.6.6"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.6"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.6"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.6.6"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

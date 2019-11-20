@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.bootcss.com/fancybox/3.1.20/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.6.6" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.6">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.6">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.6">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.6" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="mysql," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="Faith' s Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="一、基础规范(1) 使用INNODB存储引擎 (2) 表字符集使用UTF8 (3) 所有表都需要添加注释 (4) 单表数据量建议控制在5000W以内 (5) 不在数据库中存储图⽚、文件等大数据 (6) 禁止在线上做数据库压力测试 (7) 禁⽌从测试、开发环境直连数据库 二、命名规范(1) 库名表名字段名必须有固定的命名长度，12个字符以内 (2) 库名、表名、字段名禁⽌止超过32个字符。须见名之意">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql relevant conventions and specifications">
+<meta property="og:url" content="https://faithio.tk/2019/02/20/mysql-relevant-conventions-and-specifications/index.html">
+<meta property="og:site_name" content="Faith&#39; s Blog">
+<meta property="og:description" content="一、基础规范(1) 使用INNODB存储引擎 (2) 表字符集使用UTF8 (3) 所有表都需要添加注释 (4) 单表数据量建议控制在5000W以内 (5) 不在数据库中存储图⽚、文件等大数据 (6) 禁止在线上做数据库压力测试 (7) 禁⽌从测试、开发环境直连数据库 二、命名规范(1) 库名表名字段名必须有固定的命名长度，12个字符以内 (2) 库名、表名、字段名禁⽌止超过32个字符。须见名之意">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-04-02T12:27:43.118Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql relevant conventions and specifications">
+<meta name="twitter:description" content="一、基础规范(1) 使用INNODB存储引擎 (2) 表字符集使用UTF8 (3) 所有表都需要添加注释 (4) 单表数据量建议控制在5000W以内 (5) 不在数据库中存储图⽚、文件等大数据 (6) 禁止在线上做数据库压力测试 (7) 禁⽌从测试、开发环境直连数据库 二、命名规范(1) 库名表名字段名必须有固定的命名长度，12个字符以内 (2) 库名、表名、字段名禁⽌止超过32个字符。须见名之意">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.6.6',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://faithio.tk/2019/02/20/mysql-relevant-conventions-and-specifications/"/>
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('please enter the passowrd for this post') !== ''){
+                alert('password error!');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1438507724851578",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+
+  <title>mysql relevant conventions and specifications | Faith' s Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Faith' s Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-cv">
+          <a href="/cv/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            cv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-algorithm">
+          <a href="/algorithm/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            algorithm
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-leetcode">
+          <a href="/leetcode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            leetcode
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2019/02/20/mysql-relevant-conventions-and-specifications/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="faith">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Faith' s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mysql relevant conventions and specifications</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-20T06:30:26-05:00">
+                2019-02-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、基础规范"><a href="#一、基础规范" class="headerlink" title="一、基础规范"></a><strong>一、基础规范</strong></h2><p>(1) 使用INNODB存储引擎</p>
+<p>(2) 表字符集使用UTF8</p>
+<p>(3) 所有表都需要添加注释</p>
+<p>(4) 单表数据量建议控制在5000W以内</p>
+<p>(5) 不在数据库中存储图⽚、文件等大数据</p>
+<p>(6) 禁止在线上做数据库压力测试</p>
+<p>(7) 禁⽌从测试、开发环境直连数据库</p>
+<h2 id="二、命名规范"><a href="#二、命名规范" class="headerlink" title="二、命名规范"></a><strong>二、命名规范</strong></h2><p>(1) 库名表名字段名必须有固定的命名长度，12个字符以内</p>
+<p>(2) 库名、表名、字段名禁⽌止超过32个字符。须见名之意，一律小写</p>
+<p>(3) 库名、表名、字段名禁止使⽤MySQL保留字</p>
+<p>(4) 临时库、表名必须以tmp为前缀，并以日期为后缀</p>
+<p>(5) 备份库、表必须以bak为前缀，并以日期为后缀</p>
+<h2 id="三、库、表、字段开发设计规范"><a href="#三、库、表、字段开发设计规范" class="headerlink" title="三、库、表、字段开发设计规范"></a><strong>三、库、表、字段开发设计规范</strong></h2><p>(1) 禁⽌使用分区表</p>
+<p>(2) 拆分大字段和访问频率低的字段，分离冷热数据</p>
+<p>(3) 用HASH进⾏散表，表名后缀使⽤⼗进制数，下标从0开始</p>
+<p>(4) 按日期时间分表需符合YYYY[MM][DD][HH]格式</p>
+<p>(5) 采用合适的分库分表策略。例如千库十表、十库百表等</p>
+<p>(6) 尽可能不使用TEXT、BLOB类型</p>
+<p>(7) 用DECIMAL代替FLOAT和DOUBLE存储精确浮点数</p>
+<p>(8) 越简单越好：将字符转化为数字、使用TINYINT来代替ENUM类型</p>
+<p>(9) 所有字段均定义为NOT NULL</p>
+<p>(10) 使用UNSIGNED存储非负整数</p>
+<p>(11) INT类型固定占用4字节存储</p>
+<p>(12) 使用timestamp存储时间</p>
+<p>(13) 使用INT UNSIGNED存储IPV4</p>
+<p>(14) 使用VARBINARY存储大小写敏感的变长字符串</p>
+<p>(15) 禁止在数据库中存储明文密码，把密码加密后存储</p>
+<p>(16) 用好数值类型字段 如果数值字段没有那么大，就不要用 bigint</p>
+<p>(17) 存储ip最好用int存储而非char(15)</p>
+<p>(18) 不允许使用ENUM</p>
+<p>(19) 避免使用NULL字段</p>
+<p>NULL字段很难查询优化，NULL字段的索引需要额外空间，NULL字段的复合索引无效</p>
+<p>(20) 少用text/blob，varchar的性能会比text高很多，实在避免不了blob，请拆表</p>
+<p>(21) 数据库中不允许存储大文件，或者照片，可以将大对象放到磁盘上，数据库中存储它的路径</p>
+<h2 id="四、索引规范"><a href="#四、索引规范" class="headerlink" title="四、索引规范"></a><strong>四、索引规范</strong></h2><h3 id="1、索引的数量要控制："><a href="#1、索引的数量要控制：" class="headerlink" title="1、索引的数量要控制："></a>1、索引的数量要控制：</h3><p>(1) 单张表中索引数量不超过5个</p>
+<p>(2) 单个索引中的字段数不超过5个</p>
+<p>(3) 对字符串使⽤用前缀索引，前缀索引长度不超过8个字符</p>
+<p>(4) 建议优先考虑前缀索引，必要时可添加伪列并建立索引</p>
+<h3 id="2、主键准则"><a href="#2、主键准则" class="headerlink" title="2、主键准则"></a>2、主键准则</h3><p>(1) 表必须有主键</p>
+<p>(2) 不使用更新频繁的列作为主键</p>
+<p>(3) 尽量不选择字符串列作为主键</p>
+<p>(4) 不使用UUID MD5 HASH这些作为主键(数值太离散了)</p>
+<p>(5) 默认使⽤非空的唯一键作为主键</p>
+<p>(6) 建议选择自增或发号器</p>
+<h3 id="3、重要的SQL必须被索引，比如："><a href="#3、重要的SQL必须被索引，比如：" class="headerlink" title="3、重要的SQL必须被索引，比如："></a>3、重要的SQL必须被索引，比如：</h3><p>(1) UPDATE、DELETE语句的WHERE条件列</p>
+<p>(2) ORDER BY、GROUPBY、DISTINCT的字段</p>
+<h3 id="4、多表JOIN的字段注意以下："><a href="#4、多表JOIN的字段注意以下：" class="headerlink" title="4、多表JOIN的字段注意以下："></a>4、多表JOIN的字段注意以下：</h3><p>(1) 区分度最大的字段放在前面</p>
+<p>(2) 核⼼SQL优先考虑覆盖索引</p>
+<p>(3) 避免冗余和重复索引</p>
+<p>(4) 索引要综合评估数据密度和分布以及考虑查询和更新比例</p>
+<h3 id="5、索引禁忌"><a href="#5、索引禁忌" class="headerlink" title="5、索引禁忌"></a>5、索引禁忌</h3><p>(1) 不在低基数列上建立索引，例如“性别”</p>
+<p>(2) 不在索引列进行数学运算和函数运算</p>
+<h3 id="6、尽量不使用外键"><a href="#6、尽量不使用外键" class="headerlink" title="6、尽量不使用外键"></a>6、尽量不使用外键</h3><p>(1) 外键用来保护参照完整性，可在业务端实现</p>
+<p>(2) 对父表和子表的操作会相互影响，降低可用性</p>
+<h3 id="7、索引命名：非唯一索引必须以idx字段1字段2命名，唯一所以必须以uniq字段1字段2命名，索引名称必须全部小写"><a href="#7、索引命名：非唯一索引必须以idx字段1字段2命名，唯一所以必须以uniq字段1字段2命名，索引名称必须全部小写" class="headerlink" title="7、索引命名：非唯一索引必须以idx字段1字段2命名，唯一所以必须以uniq字段1字段2命名，索引名称必须全部小写"></a>7、索引命名：非唯一索引必须以idx字段1字段2命名，唯一所以必须以uniq字段1字段2命名，索引名称必须全部小写</h3><h3 id="8、新建的唯一索引必须不能和主键重复"><a href="#8、新建的唯一索引必须不能和主键重复" class="headerlink" title="8、新建的唯一索引必须不能和主键重复"></a>8、新建的唯一索引必须不能和主键重复</h3><h3 id="9、索引字段的默认值不能为NULL，要改为其他的default或者空。NULL非常影响索引的查询效率"><a href="#9、索引字段的默认值不能为NULL，要改为其他的default或者空。NULL非常影响索引的查询效率" class="headerlink" title="9、索引字段的默认值不能为NULL，要改为其他的default或者空。NULL非常影响索引的查询效率"></a>9、索引字段的默认值不能为NULL，要改为其他的default或者空。NULL非常影响索引的查询效率</h3><h3 id="10、反复查看与表相关的SQL，符合最左前缀的特点建立索引。多条字段重复的语句，要修改语句条件字段的顺序，为其建立一条联合索引，减少索引数量"><a href="#10、反复查看与表相关的SQL，符合最左前缀的特点建立索引。多条字段重复的语句，要修改语句条件字段的顺序，为其建立一条联合索引，减少索引数量" class="headerlink" title="10、反复查看与表相关的SQL，符合最左前缀的特点建立索引。多条字段重复的语句，要修改语句条件字段的顺序，为其建立一条联合索引，减少索引数量"></a>10、反复查看与表相关的SQL，符合最左前缀的特点建立索引。多条字段重复的语句，要修改语句条件字段的顺序，为其建立一条联合索引，减少索引数量</h3><h3 id="11、能使用唯一索引就要使用唯一索引，提高查询效率"><a href="#11、能使用唯一索引就要使用唯一索引，提高查询效率" class="headerlink" title="11、能使用唯一索引就要使用唯一索引，提高查询效率"></a>11、能使用唯一索引就要使用唯一索引，提高查询效率</h3><h3 id="12、研发要经常使用explain，如果发现索引选择性差，必须让他们学会使用hint"><a href="#12、研发要经常使用explain，如果发现索引选择性差，必须让他们学会使用hint" class="headerlink" title="12、研发要经常使用explain，如果发现索引选择性差，必须让他们学会使用hint"></a>12、研发要经常使用explain，如果发现索引选择性差，必须让他们学会使用hint</h3><h2 id="五、SQL规范"><a href="#五、SQL规范" class="headerlink" title="五、SQL规范"></a><strong>五、SQL规范</strong></h2><p>(1) sql语句尽可能简单</p>
+<p>大的sql想办法拆成小的sql语句(充分利用QUERYCACHE和充分利用多核CPU)</p>
+<p>(2) 事务要简单，整个事务的时间长度不要太长</p>
+<p>(3) 避免使用触发器、函数、存储过程</p>
+<p>(4) 降低业务耦合度，为scale out、sharding留有余地</p>
+<p>(5) 避免在数据库中进⾏数学运算(MySQL不擅长数学运算和逻辑判断)</p>
+<p>(4) 不要用select *，查询哪几个字段就select 这几个字段</p>
+<p>(5) sql中使用到OR的改写为用IN() (or的效率没有in的效率高)</p>
+<p>(6) in里面数字的个数建议控制在1000以内</p>
+<p>(7) limit分页注意效率。Limit越大，效率越低。可以改写limit，比如例子改写：</p>
+<p>select id from tlimit 10000, 10; =&gt; select id from t where id &gt; 10000limit10;</p>
+<p>(9) 使用union all替代union</p>
+<p>(10) 避免使⽤大表的JOIN</p>
+<p>(11) 使用group by 分组、自动排序</p>
+<p>(12) 对数据的更新要打散后批量更新，不要一次更新太多数据</p>
+<p>(13) 减少与数据库的交互次数</p>
+<p>(13) 注意使用性能分析工具</p>
+<p>Sql explain / showprofile / mysqlsla</p>
+<p>(14) SQL语句要求所有研发，SQL关键字全部是大写，每个词只允许有一个空格</p>
+<p>(15) SQL语句不可以出现隐式转换，比如selectid from 表 where id=’1’</p>
+<p>(16) IN条件里面的数据数量要少，我记得应该是500个以内，要学会使用exist代替in，exist在一些场景查询会比in快</p>
+<p>(17) 能不用NOT IN就不用NOTIN，坑太多了。。会把空和NULL给查出来</p>
+<p>(18) 在SQL语句中，禁止使用前缀是%的like</p>
+<p>(19) 不使用负向查询，如not in/like</p>
+<p>(19) 关于分页查询：程序里建议合理使用分页来提高效率limit，offset较大要配合子查询使用</p>
+<p>(20) 禁止在数据库中跑大查询</p>
+<p>(21) 使⽤预编译语句，只传参数，比传递SQL语句更高效；一次解析，多次使用；降低SQL注入概率</p>
+<p>(22) 禁止使⽤order by rand()</p>
+<p>(23) 禁⽌单条SQL语句同时更新多个表</p>
+<h2 id="六、流程规范"><a href="#六、流程规范" class="headerlink" title="六、流程规范"></a><strong>六、流程规范</strong></h2><p>(1) 所有的建表操作需要提前告知该表涉及的查询sql；</p>
+<p>(2) 所有的建表需要确定建立哪些索引后才可以建表上线；</p>
+<p>(3) 所有的改表结构、加索引操作都需要将涉及到所改表的查询sql发出来告知DBA等相关人员；</p>
+<p>(4) 在建新表加字段之前，要求研发至少要提前3天邮件出来，给dba们评估、优化和审核的时间</p>
+<p>(5)批量导入、导出数据必须提前通知DBA协助观察</p>
+<p>(6) 禁⽌在线上从库执行后台管理和统计类查询</p>
+<p>(7) 禁⽌有super权限的应用程序账号存在</p>
+<p>(8) 推广活动或上线新功能必须提前通知DBA进⾏行流量评估</p>
+<p>(9) 不在业务高峰期批量更新、查询数据库</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>If you like, please donate to me</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="faith WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/08/English-learning-notes/" rel="next" title="English learning notes">
+                <i class="fa fa-chevron-left"></i> English learning notes
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/10/cerbot-auto-https-auto-renewal/" rel="prev" title="cerbot-auto https auto renewal">
+                cerbot-auto https auto renewal <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="faith" />
+            
+              <p class="site-author-name" itemprop="name">faith</p>
+              <p class="site-description motion-element" itemprop="description">Talk is cheap. Show me the code.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/iamfaith" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xianzixiang@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、基础规范"><span class="nav-number">1.</span> <span class="nav-text">一、基础规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、命名规范"><span class="nav-number">2.</span> <span class="nav-text">二、命名规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、库、表、字段开发设计规范"><span class="nav-number">3.</span> <span class="nav-text">三、库、表、字段开发设计规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、索引规范"><span class="nav-number">4.</span> <span class="nav-text">四、索引规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、索引的数量要控制："><span class="nav-number">4.1.</span> <span class="nav-text">1、索引的数量要控制：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、主键准则"><span class="nav-number">4.2.</span> <span class="nav-text">2、主键准则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、重要的SQL必须被索引，比如："><span class="nav-number">4.3.</span> <span class="nav-text">3、重要的SQL必须被索引，比如：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、多表JOIN的字段注意以下："><span class="nav-number">4.4.</span> <span class="nav-text">4、多表JOIN的字段注意以下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、索引禁忌"><span class="nav-number">4.5.</span> <span class="nav-text">5、索引禁忌</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、尽量不使用外键"><span class="nav-number">4.6.</span> <span class="nav-text">6、尽量不使用外键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、索引命名：非唯一索引必须以idx字段1字段2命名，唯一所以必须以uniq字段1字段2命名，索引名称必须全部小写"><span class="nav-number">4.7.</span> <span class="nav-text">7、索引命名：非唯一索引必须以idx字段1字段2命名，唯一所以必须以uniq字段1字段2命名，索引名称必须全部小写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8、新建的唯一索引必须不能和主键重复"><span class="nav-number">4.8.</span> <span class="nav-text">8、新建的唯一索引必须不能和主键重复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9、索引字段的默认值不能为NULL，要改为其他的default或者空。NULL非常影响索引的查询效率"><span class="nav-number">4.9.</span> <span class="nav-text">9、索引字段的默认值不能为NULL，要改为其他的default或者空。NULL非常影响索引的查询效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10、反复查看与表相关的SQL，符合最左前缀的特点建立索引。多条字段重复的语句，要修改语句条件字段的顺序，为其建立一条联合索引，减少索引数量"><span class="nav-number">4.10.</span> <span class="nav-text">10、反复查看与表相关的SQL，符合最左前缀的特点建立索引。多条字段重复的语句，要修改语句条件字段的顺序，为其建立一条联合索引，减少索引数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11、能使用唯一索引就要使用唯一索引，提高查询效率"><span class="nav-number">4.11.</span> <span class="nav-text">11、能使用唯一索引就要使用唯一索引，提高查询效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12、研发要经常使用explain，如果发现索引选择性差，必须让他们学会使用hint"><span class="nav-number">4.12.</span> <span class="nav-text">12、研发要经常使用explain，如果发现索引选择性差，必须让他们学会使用hint</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、SQL规范"><span class="nav-number">5.</span> <span class="nav-text">五、SQL规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、流程规范"><span class="nav-number">6.</span> <span class="nav-text">六、流程规范</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Faith</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v6.6.6</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/velocity/1.5.0/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/velocity/1.5.0/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.6.6"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.6.6"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.6"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.6"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.6.6"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

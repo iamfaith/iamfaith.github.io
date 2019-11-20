@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.bootcss.com/fancybox/3.1.20/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.6.6" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.6">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.6">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.6">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.6" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="interview,javascript," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="Faith' s Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="JavaScript专题之深浅拷贝https://github.com/mqyqingfeng/Blog/issues/32 JavaScript深入之call和apply的模拟实现call一句话介绍 call：  call() 方法在使用一个指定的 this 值和若干个指定的参数值的前提下调用某个函数或方法。  举个例子： var foo = &amp;#123;    value: 1&amp;#125;;f">
+<meta name="keywords" content="interview,javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Something you must know about JS">
+<meta property="og:url" content="https://faithio.tk/2018/08/01/Something-you-must-know-about-JS/index.html">
+<meta property="og:site_name" content="Faith&#39; s Blog">
+<meta property="og:description" content="JavaScript专题之深浅拷贝https://github.com/mqyqingfeng/Blog/issues/32 JavaScript深入之call和apply的模拟实现call一句话介绍 call：  call() 方法在使用一个指定的 this 值和若干个指定的参数值的前提下调用某个函数或方法。  举个例子： var foo = &amp;#123;    value: 1&amp;#125;;f">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype1.png">
+<meta property="og:image" content="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype2.png">
+<meta property="og:image" content="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype3.png">
+<meta property="og:image" content="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype4.png">
+<meta property="og:image" content="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype5.png">
+<meta property="og:updated_time" content="2018-08-01T03:23:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Something you must know about JS">
+<meta name="twitter:description" content="JavaScript专题之深浅拷贝https://github.com/mqyqingfeng/Blog/issues/32 JavaScript深入之call和apply的模拟实现call一句话介绍 call：  call() 方法在使用一个指定的 this 值和若干个指定的参数值的前提下调用某个函数或方法。  举个例子： var foo = &amp;#123;    value: 1&amp;#125;;f">
+<meta name="twitter:image" content="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.6.6',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://faithio.tk/2018/08/01/Something-you-must-know-about-JS/"/>
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('please enter the passowrd for this post') !== ''){
+                alert('password error!');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1438507724851578",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+
+  <title>Something you must know about JS | Faith' s Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Faith' s Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-cv">
+          <a href="/cv/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            cv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-algorithm">
+          <a href="/algorithm/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            algorithm
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-leetcode">
+          <a href="/leetcode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            leetcode
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2018/08/01/Something-you-must-know-about-JS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="faith">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Faith' s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Something you must know about JS</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-01T10:56:59-04:00">
+                2018-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JavaScript专题之深浅拷贝"><a href="#JavaScript专题之深浅拷贝" class="headerlink" title="JavaScript专题之深浅拷贝"></a>JavaScript专题之深浅拷贝</h1><p><a href="https://github.com/mqyqingfeng/Blog/issues/32" target="_blank" rel="noopener">https://github.com/mqyqingfeng/Blog/issues/32</a></p>
+<h1 id="JavaScript深入之call和apply的模拟实现"><a href="#JavaScript深入之call和apply的模拟实现" class="headerlink" title="JavaScript深入之call和apply的模拟实现"></a>JavaScript深入之call和apply的模拟实现</h1><h2 id="call"><a href="#call" class="headerlink" title="call"></a>call</h2><p>一句话介绍 call：</p>
+<blockquote>
+<p>call() 方法在使用一个指定的 this 值和若干个指定的参数值的前提下调用某个函数或方法。</p>
+</blockquote>
+<p>举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var foo = &#123;</span><br><span class="line">    value: 1</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    console.log(this.value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar.call(foo); // 1</span><br></pre></td></tr></table></figure>
+<p>注意两点：</p>
+<ol>
+<li>call 改变了 this 的指向，指向到 foo</li>
+<li>bar 函数执行了</li>
+</ol>
+<h2 id="模拟实现第一步"><a href="#模拟实现第一步" class="headerlink" title="模拟实现第一步"></a>模拟实现第一步</h2><p>那么我们该怎么模拟实现这两个效果呢？</p>
+<p>试想当调用 call 的时候，把 foo 对象改造成如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var foo = &#123;</span><br><span class="line">    value: 1,</span><br><span class="line">    bar: function() &#123;</span><br><span class="line">        console.log(this.value)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">foo.bar(); // 1</span><br></pre></td></tr></table></figure>
+<p>这个时候 this 就指向了 foo，是不是很简单呢？</p>
+<p>但是这样却给 foo 对象本身添加了一个属性，这可不行呐！</p>
+<p>不过也不用担心，我们用 delete 再删除它不就好了~</p>
+<p>所以我们模拟的步骤可以分为：</p>
+<ol>
+<li>将函数设为对象的属性</li>
+<li>执行该函数</li>
+<li>删除该函数</li>
+</ol>
+<p>以上个例子为例，就是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 第一步</span><br><span class="line">foo.fn = bar</span><br><span class="line">// 第二步</span><br><span class="line">foo.fn()</span><br><span class="line">// 第三步</span><br><span class="line">delete foo.fn</span><br></pre></td></tr></table></figure>
+<p>fn 是对象的属性名，反正最后也要删除它，所以起成什么都无所谓。</p>
+<p>根据这个思路，我们可以尝试着去写第一版的 <strong>call2</strong> 函数：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 第一版</span><br><span class="line">Function.prototype.call2 = function(context) &#123;</span><br><span class="line">    // 首先要获取调用call的函数，用this可以获取</span><br><span class="line">    context.fn = this;</span><br><span class="line">    context.fn();</span><br><span class="line">    delete context.fn;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 测试一下</span><br><span class="line">var foo = &#123;</span><br><span class="line">    value: 1</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    console.log(this.value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar.call2(foo); // 1</span><br></pre></td></tr></table></figure>
+<p>正好可以打印 1 哎！是不是很开心！(～￣▽￣)～</p>
+<h2 id="模拟实现第二步"><a href="#模拟实现第二步" class="headerlink" title="模拟实现第二步"></a>模拟实现第二步</h2><p>最一开始也讲了，call 函数还能给定参数执行函数。举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var foo = &#123;</span><br><span class="line">    value: 1</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function bar(name, age) &#123;</span><br><span class="line">    console.log(name)</span><br><span class="line">    console.log(age)</span><br><span class="line">    console.log(this.value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar.call(foo, &apos;kevin&apos;, 18);</span><br><span class="line">// kevin</span><br><span class="line">// 18</span><br><span class="line">// 1</span><br></pre></td></tr></table></figure>
+<p>注意：传入的参数并不确定，这可咋办？</p>
+<p>不急，我们可以从 Arguments 对象中取值，取出第二个到最后一个参数，然后放到一个数组里。</p>
+<p>比如这样：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 以上个例子为例，此时的arguments为：</span><br><span class="line">// arguments = &#123;</span><br><span class="line">//      0: foo,</span><br><span class="line">//      1: &apos;kevin&apos;,</span><br><span class="line">//      2: 18,</span><br><span class="line">//      length: 3</span><br><span class="line">// &#125;</span><br><span class="line">// 因为arguments是类数组对象，所以可以用for循环</span><br><span class="line">var args = [];</span><br><span class="line">for(var i = 1, len = arguments.length; i &lt; len; i++) &#123;</span><br><span class="line">    args.push(&apos;arguments[&apos; + i + &apos;]&apos;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 执行后 args为 [&quot;arguments[1]&quot;, &quot;arguments[2]&quot;, &quot;arguments[3]&quot;]</span><br></pre></td></tr></table></figure>
+<p>不定长的参数问题解决了，我们接着要把这个参数数组放到要执行的函数的参数里面去。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 将数组里的元素作为多个参数放进函数的形参里</span><br><span class="line">context.fn(args.join(&apos;,&apos;))</span><br><span class="line">// (O_o)??</span><br><span class="line">// 这个方法肯定是不行的啦！！！</span><br></pre></td></tr></table></figure>
+<p>也许有人想到用 ES6 的方法，不过 call 是 ES3 的方法，我们为了模拟实现一个 ES3 的方法，要用到ES6的方法，好像……，嗯，也可以啦。但是我们这次用 eval 方法拼成一个函数，类似于这样：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">eval(&apos;context.fn(&apos; + args +&apos;)&apos;)</span><br></pre></td></tr></table></figure>
+<p>这里 args 会自动调用 Array.toString() 这个方法。</p>
+<p>所以我们的第二版克服了两个大问题，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 第二版</span><br><span class="line">Function.prototype.call2 = function(context) &#123;</span><br><span class="line">    context.fn = this;</span><br><span class="line">    var args = [];</span><br><span class="line">    for(var i = 1, len = arguments.length; i &lt; len; i++) &#123;</span><br><span class="line">        args.push(&apos;arguments[&apos; + i + &apos;]&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    eval(&apos;context.fn(&apos; + args +&apos;)&apos;);</span><br><span class="line">    delete context.fn;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 测试一下</span><br><span class="line">var foo = &#123;</span><br><span class="line">    value: 1</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function bar(name, age) &#123;</span><br><span class="line">    console.log(name)</span><br><span class="line">    console.log(age)</span><br><span class="line">    console.log(this.value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar.call2(foo, &apos;kevin&apos;, 18); </span><br><span class="line">// kevin</span><br><span class="line">// 18</span><br><span class="line">// 1</span><br></pre></td></tr></table></figure>
+<p>(๑•̀ㅂ•́)و✧</p>
+<h2 id="模拟实现第三步"><a href="#模拟实现第三步" class="headerlink" title="模拟实现第三步"></a>模拟实现第三步</h2><p>模拟代码已经完成 80%，还有两个小点要注意：</p>
+<p><strong>1.this 参数可以传 null，当为 null 的时候，视为指向 window</strong></p>
+<p>举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    console.log(this.value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar.call(null); // 1</span><br></pre></td></tr></table></figure>
+<p>虽然这个例子本身不使用 call，结果依然一样。</p>
+<p><strong>2.函数是可以有返回值的！</strong></p>
+<p>举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">    value: 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar(name, age) &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        value: this.value,</span><br><span class="line">        name: name,</span><br><span class="line">        age: age</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(bar.call(obj, &apos;kevin&apos;, 18));</span><br><span class="line">// Object &#123;</span><br><span class="line">//    value: 1,</span><br><span class="line">//    name: &apos;kevin&apos;,</span><br><span class="line">//    age: 18</span><br><span class="line">// &#125;</span><br></pre></td></tr></table></figure>
+<p>不过都很好解决，让我们直接看第三版也就是最后一版的代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 第三版</span><br><span class="line">Function.prototype.call2 = function (context) &#123;</span><br><span class="line">    var context = context || window;</span><br><span class="line">    context.fn = this;</span><br><span class="line"></span><br><span class="line">    var args = [];</span><br><span class="line">    for(var i = 1, len = arguments.length; i &lt; len; i++) &#123;</span><br><span class="line">        args.push(&apos;arguments[&apos; + i + &apos;]&apos;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var result = eval(&apos;context.fn(&apos; + args +&apos;)&apos;);</span><br><span class="line"></span><br><span class="line">    delete context.fn</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 测试一下</span><br><span class="line">var value = 2;</span><br><span class="line"></span><br><span class="line">var obj = &#123;</span><br><span class="line">    value: 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar(name, age) &#123;</span><br><span class="line">    console.log(this.value);</span><br><span class="line">    return &#123;</span><br><span class="line">        value: this.value,</span><br><span class="line">        name: name,</span><br><span class="line">        age: age</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar.call2(null); // 2</span><br><span class="line"></span><br><span class="line">console.log(bar.call2(obj, &apos;kevin&apos;, 18));</span><br><span class="line">// 1</span><br><span class="line">// Object &#123;</span><br><span class="line">//    value: 1,</span><br><span class="line">//    name: &apos;kevin&apos;,</span><br><span class="line">//    age: 18</span><br><span class="line">// &#125;</span><br></pre></td></tr></table></figure>
+<p>到此，我们完成了 call 的模拟实现，给自己一个赞 ｂ（￣▽￣）ｄ</p>
+<h2 id="apply的模拟实现"><a href="#apply的模拟实现" class="headerlink" title="apply的模拟实现"></a>apply的模拟实现</h2><p>apply 的实现跟 call 类似，在这里直接给代码，代码来自于知乎 @郑航的实现：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Function.prototype.apply = function (context, arr) &#123;</span><br><span class="line">    var context = Object(context) || window;</span><br><span class="line">    context.fn = this;</span><br><span class="line"></span><br><span class="line">    var result;</span><br><span class="line">    if (!arr) &#123;</span><br><span class="line">        result = context.fn();</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        var args = [];</span><br><span class="line">        for (var i = 0, len = arr.length; i &lt; len; i++) &#123;</span><br><span class="line">            args.push(&apos;arr[&apos; + i + &apos;]&apos;);</span><br><span class="line">        &#125;</span><br><span class="line">        result = eval(&apos;context.fn(&apos; + args + &apos;)&apos;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    delete context.fn</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="JavaScript深入之bind的模拟实现"><a href="#JavaScript深入之bind的模拟实现" class="headerlink" title="JavaScript深入之bind的模拟实现"></a>JavaScript深入之bind的模拟实现</h1><h2 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h2><p>一句话介绍 bind:</p>
+<blockquote>
+<p>bind() 方法会创建一个新函数。当这个新函数被调用时，bind() 的第一个参数将作为它运行时的 this，之后的一序列参数将会在传递的实参前传入作为它的参数。(来自于 MDN )</p>
+</blockquote>
+<p>由此我们可以首先得出 bind 函数的两个特点：</p>
+<ol>
+<li>返回一个函数</li>
+<li>可以传入参数</li>
+</ol>
+<h2 id="返回函数的模拟实现"><a href="#返回函数的模拟实现" class="headerlink" title="返回函数的模拟实现"></a>返回函数的模拟实现</h2><p>从第一个特点开始，我们举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var foo = &#123;</span><br><span class="line">    value: 1</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    console.log(this.value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 返回了一个函数</span><br><span class="line">var bindFoo = bar.bind(foo); </span><br><span class="line"></span><br><span class="line">bindFoo(); // 1</span><br></pre></td></tr></table></figure>
+<p>关于指定 this 的指向，我们可以使用 call 或者 apply 实现，关于 call 和 apply 的模拟实现，可以查看<a href="https://github.com/mqyqingfeng/Blog/issues/11" target="_blank" rel="noopener">《JavaScript深入之call和apply的模拟实现》</a>。我们来写第一版的代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 第一版</span><br><span class="line">Function.prototype.bind2 = function (context) &#123;</span><br><span class="line">    var self = this;</span><br><span class="line">    return function () &#123;</span><br><span class="line">        return self.apply(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此外，之所以 <code>return self.apply(context)</code>，是考虑到绑定函数可能是有返回值的，依然是这个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var foo = &#123;</span><br><span class="line">    value: 1</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">	return this.value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var bindFoo = bar.bind(foo);</span><br><span class="line"></span><br><span class="line">console.log(bindFoo()); // 1</span><br></pre></td></tr></table></figure>
+<h2 id="传参的模拟实现"><a href="#传参的模拟实现" class="headerlink" title="传参的模拟实现"></a>传参的模拟实现</h2><p>接下来看第二点，可以传入参数。这个就有点让人费解了，我在 bind 的时候，是否可以传参呢？我在执行 bind 返回的函数的时候，可不可以传参呢？让我们看个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var foo = &#123;</span><br><span class="line">    value: 1</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function bar(name, age) &#123;</span><br><span class="line">    console.log(this.value);</span><br><span class="line">    console.log(name);</span><br><span class="line">    console.log(age);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var bindFoo = bar.bind(foo, &apos;daisy&apos;);</span><br><span class="line">bindFoo(&apos;18&apos;);</span><br><span class="line">// 1</span><br><span class="line">// daisy</span><br><span class="line">// 18</span><br></pre></td></tr></table></figure>
+<p>函数需要传 name 和 age 两个参数，竟然还可以在 bind 的时候，只传一个 name，在执行返回的函数的时候，再传另一个参数 age!</p>
+<p>这可咋办？不急，我们用 arguments 进行处理：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 第二版</span><br><span class="line">Function.prototype.bind2 = function (context) &#123;</span><br><span class="line"></span><br><span class="line">    var self = this;</span><br><span class="line">    // 获取bind2函数从第二个参数到最后一个参数</span><br><span class="line">    var args = Array.prototype.slice.call(arguments, 1);</span><br><span class="line"></span><br><span class="line">    return function () &#123;</span><br><span class="line">        // 这个时候的arguments是指bind返回的函数传入的参数</span><br><span class="line">        var bindArgs = Array.prototype.slice.call(arguments);</span><br><span class="line">        return self.apply(context, args.concat(bindArgs));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="构造函数效果的模拟实现"><a href="#构造函数效果的模拟实现" class="headerlink" title="构造函数效果的模拟实现"></a>构造函数效果的模拟实现</h2><p>完成了这两点，最难的部分到啦！因为 bind 还有一个特点，就是</p>
+<blockquote>
+<p>一个绑定函数也能使用new操作符创建对象：这种行为就像把原函数当成构造器。提供的 this 值被忽略，同时调用时的参数被提供给模拟函数。</p>
+</blockquote>
+<p>也就是说当 bind 返回的函数作为构造函数的时候，bind 时指定的 this 值会失效，但传入的参数依然生效。举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var value = 2;</span><br><span class="line"></span><br><span class="line">var foo = &#123;</span><br><span class="line">    value: 1</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function bar(name, age) &#123;</span><br><span class="line">    this.habit = &apos;shopping&apos;;</span><br><span class="line">    console.log(this.value);</span><br><span class="line">    console.log(name);</span><br><span class="line">    console.log(age);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar.prototype.friend = &apos;kevin&apos;;</span><br><span class="line"></span><br><span class="line">var bindFoo = bar.bind(foo, &apos;daisy&apos;);</span><br><span class="line"></span><br><span class="line">var obj = new bindFoo(&apos;18&apos;);</span><br><span class="line">// undefined</span><br><span class="line">// daisy</span><br><span class="line">// 18</span><br><span class="line">console.log(obj.habit);</span><br><span class="line">console.log(obj.friend);</span><br><span class="line">// shopping</span><br><span class="line">// kevin</span><br></pre></td></tr></table></figure>
+<p>注意：尽管在全局和 foo 中都声明了 value 值，最后依然返回了 undefind，说明绑定的 this 失效了，如果大家了解 new 的模拟实现，就会知道这个时候的 this 已经指向了 obj。</p>
+<p>(哈哈，我这是为我的下一篇文章<a href="https://github.com/mqyqingfeng/Blog/issues/13" target="_blank" rel="noopener">《JavaScript深入系列之new的模拟实现》</a>打广告)。</p>
+<p>所以我们可以通过修改返回的函数的原型来实现，让我们写一下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 第三版</span><br><span class="line">Function.prototype.bind2 = function (context) &#123;</span><br><span class="line">    var self = this;</span><br><span class="line">    var args = Array.prototype.slice.call(arguments, 1);</span><br><span class="line"></span><br><span class="line">    var fBound = function () &#123;</span><br><span class="line">        var bindArgs = Array.prototype.slice.call(arguments);</span><br><span class="line">        // 当作为构造函数时，this 指向实例，此时结果为 true，将绑定函数的 this 指向该实例，可以让实例获得来自绑定函数的值</span><br><span class="line">        // 以上面的是 demo 为例，如果改成 `this instanceof fBound ? null : context`，实例只是一个空对象，将 null 改成 this ，实例会具有 habit 属性</span><br><span class="line">        // 当作为普通函数时，this 指向 window，此时结果为 false，将绑定函数的 this 指向 context</span><br><span class="line">        return self.apply(this instanceof fBound ? this : context, args.concat(bindArgs));</span><br><span class="line">    &#125;</span><br><span class="line">    // 修改返回函数的 prototype 为绑定函数的 prototype，实例就可以继承绑定函数的原型中的值</span><br><span class="line">    fBound.prototype = this.prototype;</span><br><span class="line">    return fBound;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果对原型链稍有困惑，可以查看<a href="https://github.com/mqyqingfeng/Blog/issues/2" target="_blank" rel="noopener">《JavaScript深入之从原型到原型链》</a>。</p>
+<h2 id="构造函数效果的优化实现"><a href="#构造函数效果的优化实现" class="headerlink" title="构造函数效果的优化实现"></a>构造函数效果的优化实现</h2><p>但是在这个写法中，我们直接将 fBound.prototype = this.prototype，我们直接修改 fBound.prototype 的时候，也会直接修改绑定函数的 prototype。这个时候，我们可以通过一个空函数来进行中转：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 第四版</span><br><span class="line">Function.prototype.bind2 = function (context) &#123;</span><br><span class="line"></span><br><span class="line">    var self = this;</span><br><span class="line">    var args = Array.prototype.slice.call(arguments, 1);</span><br><span class="line"></span><br><span class="line">    var fNOP = function () &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    var fBound = function () &#123;</span><br><span class="line">        var bindArgs = Array.prototype.slice.call(arguments);</span><br><span class="line">        return self.apply(this instanceof fNOP ? this : context, args.concat(bindArgs));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fNOP.prototype = this.prototype;</span><br><span class="line">    fBound.prototype = new fNOP();</span><br><span class="line">    return fBound;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>到此为止，大的问题都已经解决，给自己一个赞！o(￣▽￣)ｄ</p>
+<h2 id="三个小问题"><a href="#三个小问题" class="headerlink" title="三个小问题"></a>三个小问题</h2><p>接下来处理些小问题:</p>
+<p><strong>1.apply 这段代码跟 MDN 上的稍有不同</strong></p>
+<p>在 MDN 中文版讲 bind 的模拟实现时，apply 这里的代码是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">self.apply(this instanceof self ? this : context || this, args.concat(bindArgs))</span><br></pre></td></tr></table></figure>
+<p>多了一个关于 context 是否存在的判断，然而这个是错误的！</p>
+<p>举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var value = 2;</span><br><span class="line">var foo = &#123;</span><br><span class="line">    value: 1,</span><br><span class="line">    bar: bar.bind(null)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    console.log(this.value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo.bar() // 2</span><br></pre></td></tr></table></figure>
+<p>以上代码正常情况下会打印 2，如果换成了 context || this，这段代码就会打印 1！</p>
+<p>所以这里不应该进行 context 的判断，大家查看 MDN 同样内容的英文版，就不存在这个判断！</p>
+<p>(2018年3月27日更新，中文版已经改了😀)</p>
+<p><strong>2.调用 bind 的不是函数咋办？</strong></p>
+<p>不行，我们要报错！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (typeof this !== &quot;function&quot;) &#123;</span><br><span class="line">  throw new Error(&quot;Function.prototype.bind - what is trying to be bound is not callable&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>3.我要在线上用</strong></p>
+<p>那别忘了做个兼容：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Function.prototype.bind = Function.prototype.bind || function () &#123;</span><br><span class="line">    ……</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>当然最好是用 <a href="https://github.com/es-shims/es5-shim" target="_blank" rel="noopener">es5-shim</a> 啦。</p>
+<h2 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h2><p>所以最最后的代码就是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Function.prototype.bind2 = function (context) &#123;</span><br><span class="line"></span><br><span class="line">    if (typeof this !== &quot;function&quot;) &#123;</span><br><span class="line">      throw new Error(&quot;Function.prototype.bind - what is trying to be bound is not callable&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var self = this;</span><br><span class="line">    var args = Array.prototype.slice.call(arguments, 1);</span><br><span class="line"></span><br><span class="line">    var fNOP = function () &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    var fBound = function () &#123;</span><br><span class="line">        var bindArgs = Array.prototype.slice.call(arguments);</span><br><span class="line">        return self.apply(this instanceof fNOP ? this : context, args.concat(bindArgs));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fNOP.prototype = this.prototype;</span><br><span class="line">    fBound.prototype = new fNOP();</span><br><span class="line">    return fBound;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="JavaScript深入之从原型到原型链"><a href="#JavaScript深入之从原型到原型链" class="headerlink" title="JavaScript深入之从原型到原型链"></a>JavaScript深入之从原型到原型链</h1><h2 id="构造函数创建对象"><a href="#构造函数创建对象" class="headerlink" title="构造函数创建对象"></a>构造函数创建对象</h2><p>我们先使用构造函数创建一个对象：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">person.name = &apos;Kevin&apos;;</span><br><span class="line">console.log(person.name) // Kevin</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，Person 就是一个构造函数，我们使用 new 创建了一个实例对象 person。</p>
+<p>很简单吧，接下来进入正题：</p>
+<h2 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h2><p>每个函数都有一个 prototype 属性，就是我们经常在各种例子中看到的那个 prototype ，比如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">// 虽然写在注释里，但是你要注意：</span><br><span class="line">// prototype是函数才会有的属性</span><br><span class="line">Person.prototype.name = &apos;Kevin&apos;;</span><br><span class="line">var person1 = new Person();</span><br><span class="line">var person2 = new Person();</span><br><span class="line">console.log(person1.name) // Kevin</span><br><span class="line">console.log(person2.name) // Kevin</span><br></pre></td></tr></table></figure>
+<p>那这个函数的 prototype 属性到底指向的是什么呢？是这个函数的原型吗？</p>
+<p>其实，函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的<strong>实例</strong>的原型，也就是这个例子中的 person1 和 person2 的原型。</p>
+<p>那什么是原型呢？你可以这样理解：每一个JavaScript对象(null除外)在创建的时候就会与之关联另一个对象，这个对象就是我们所说的原型，每一个对象都会从原型”继承”属性。</p>
+<p>让我们用一张图表示构造函数和实例原型之间的关系：</p>
+<p><a href="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype1.png" target="_blank" rel="noopener"><img src="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype1.png" alt="构造函数和实例原型的关系图"></a></p>
+<p>在这张图中我们用 Object.prototype 表示实例原型。</p>
+<p>那么我们该怎么表示实例与实例原型，也就是 person 和 Person.prototype 之间的关系呢，这时候我们就要讲到第二个属性：</p>
+<h2 id="proto"><a href="#proto" class="headerlink" title="proto"></a><strong>proto</strong></h2><p>这是每一个JavaScript对象(除了 null )都具有的一个属性，叫<strong>proto</strong>，这个属性会指向该对象的原型。</p>
+<p>为了证明这一点,我们可以在火狐或者谷歌中输入：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">console.log(person.__proto__ === Person.prototype); // true</span><br></pre></td></tr></table></figure>
+<p>于是我们更新下关系图：</p>
+<p><a href="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype2.png" target="_blank" rel="noopener"><img src="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype2.png" alt="实例与实例原型的关系图"></a></p>
+<p>既然实例对象和构造函数都可以指向原型，那么原型是否有属性指向构造函数或者实例呢？</p>
+<h2 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h2><p>指向实例倒是没有，因为一个构造函数可以生成多个实例，但是原型指向构造函数倒是有的，这就要讲到第三个属性：constructor，每个原型都有一个 constructor 属性指向关联的构造函数。</p>
+<p>为了验证这一点，我们可以尝试：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">console.log(Person === Person.prototype.constructor); // true</span><br></pre></td></tr></table></figure>
+<p>所以再更新下关系图：</p>
+<p><a href="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype3.png" target="_blank" rel="noopener"><img src="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype3.png" alt="实例原型与构造函数的关系图"></a></p>
+<p>综上我们已经得出：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person = new Person();</span><br><span class="line"></span><br><span class="line">console.log(person.__proto__ == Person.prototype) // true</span><br><span class="line">console.log(Person.prototype.constructor == Person) // true</span><br><span class="line">// 顺便学习一个ES5的方法,可以获得对象的原型</span><br><span class="line">console.log(Object.getPrototypeOf(person) === Person.prototype) // true</span><br></pre></td></tr></table></figure>
+<p>了解了构造函数、实例原型、和实例之间的关系，接下来我们讲讲实例和原型的关系：</p>
+<h2 id="实例与原型"><a href="#实例与原型" class="headerlink" title="实例与原型"></a>实例与原型</h2><p>当读取实例的属性时，如果找不到，就会查找与对象关联的原型中的属性，如果还查不到，就去找原型的原型，一直找到最顶层为止。</p>
+<p>举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.name = &apos;Kevin&apos;;</span><br><span class="line"></span><br><span class="line">var person = new Person();</span><br><span class="line"></span><br><span class="line">person.name = &apos;Daisy&apos;;</span><br><span class="line">console.log(person.name) // Daisy</span><br><span class="line"></span><br><span class="line">delete person.name;</span><br><span class="line">console.log(person.name) // Kevin</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，我们给实例对象 person 添加了 name 属性，当我们打印 person.name 的时候，结果自然为 Daisy。</p>
+<p>但是当我们删除了 person 的 name 属性时，读取 person.name，从 person 对象中找不到 name 属性就会从 person 的原型也就是 person.<strong>proto</strong> ，也就是 Person.prototype中查找，幸运的是我们找到了 name 属性，结果为 Kevin。</p>
+<p>但是万一还没有找到呢？原型的原型又是什么呢？</p>
+<h2 id="原型的原型"><a href="#原型的原型" class="headerlink" title="原型的原型"></a>原型的原型</h2><p>在前面，我们已经讲了原型也是一个对象，既然是对象，我们就可以用最原始的方式创建它，那就是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var obj = new Object();</span><br><span class="line">obj.name = &apos;Kevin&apos;</span><br><span class="line">console.log(obj.name) // Kevin</span><br></pre></td></tr></table></figure>
+<p>其实原型对象就是通过 Object 构造函数生成的，结合之前所讲，实例的 <strong>proto</strong> 指向构造函数的 prototype ，所以我们再更新下关系图：</p>
+<p><a href="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype4.png" target="_blank" rel="noopener"><img src="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype4.png" alt="原型的原型关系图"></a></p>
+<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p>那 Object.prototype 的原型呢？</p>
+<p>null，我们可以打印：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">console.log(Object.prototype.__proto__ === null) // true</span><br></pre></td></tr></table></figure>
+<p>然而 null 究竟代表了什么呢？</p>
+<p>引用阮一峰老师的 <a href="http://www.ruanyifeng.com/blog/2014/03/undefined-vs-null.html" target="_blank" rel="noopener">《undefined与null的区别》</a> 就是：</p>
+<blockquote>
+<p>null 表示“没有对象”，即该处不应该有值。</p>
+</blockquote>
+<p>所以 Object.prototype.<strong>proto</strong> 的值为 null 跟 Object.prototype 没有原型，其实表达了一个意思。</p>
+<p>所以查找属性的时候查到 Object.prototype 就可以停止查找了。</p>
+<p>最后一张关系图也可以更新为：</p>
+<p><a href="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype5.png" target="_blank" rel="noopener"><img src="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype5.png" alt="原型链示意图"></a></p>
+<p>顺便还要说一下，图中由相互关联的原型组成的链状结构就是原型链，也就是蓝色的这条线。</p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>最后，补充三点大家可能不会注意的地方：</p>
+<h3 id="constructor"><a href="#constructor" class="headerlink" title="constructor"></a>constructor</h3><p>首先是 constructor 属性，我们看个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">console.log(person.constructor === Person); // true</span><br></pre></td></tr></table></figure>
+<p>当获取 person.constructor 时，其实 person 中并没有 constructor 属性,当不能读取到constructor 属性时，会从 person 的原型也就是 Person.prototype 中读取，正好原型中有该属性，所以：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">person.constructor === Person.prototype.constructor</span><br></pre></td></tr></table></figure>
+<h3 id="proto-1"><a href="#proto-1" class="headerlink" title="proto"></a><strong>proto</strong></h3><p>其次是 <strong>proto</strong> ，绝大部分浏览器都支持这个非标准的方法访问原型，然而它并不存在于 Person.prototype 中，实际上，它是来自于 Object.prototype ，与其说是一个属性，不如说是一个 getter/setter，当使用 obj.<strong>proto</strong> 时，可以理解成返回了 Object.getPrototypeOf(obj)。</p>
+<h3 id="真的是继承吗？"><a href="#真的是继承吗？" class="headerlink" title="真的是继承吗？"></a>真的是继承吗？</h3><p>最后是关于继承，前面我们讲到“每一个对象都会从原型‘继承’属性”，实际上，继承是一个十分具有迷惑性的说法，引用《你不知道的JavaScript》中的话，就是：</p>
+<p>继承意味着复制操作，然而 JavaScript 默认并不会复制对象的属性，相反，JavaScript 只是在两个对象之间创建一个关联，这样，一个对象就可以通过委托访问另一个对象的属性和函数，所以与其叫继承，委托的说法反而更准确些。</p>
+<h1 id="JavaScript深入之词法作用域和动态作用域"><a href="#JavaScript深入之词法作用域和动态作用域" class="headerlink" title="JavaScript深入之词法作用域和动态作用域"></a>JavaScript深入之词法作用域和动态作用域</h1><h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
+<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
+<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
+<h2 id="静态作用域与动态作用域"><a href="#静态作用域与动态作用域" class="headerlink" title="静态作用域与动态作用域"></a>静态作用域与动态作用域</h2><p>因为 JavaScript 采用的是词法作用域，函数的作用域在函数定义的时候就决定了。</p>
+<p>而与词法作用域相对的是动态作用域，函数的作用域是在函数调用的时候才决定的。</p>
+<p>让我们认真看个例子就能明白之间的区别：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar();</span><br><span class="line"></span><br><span class="line">// 结果是 ???</span><br></pre></td></tr></table></figure>
+<p>假设JavaScript采用静态作用域，让我们分析下执行过程：</p>
+<p>执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。</p>
+<p>假设JavaScript采用动态作用域，让我们分析下执行过程：</p>
+<p>执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</p>
+<p>前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。</p>
+<h2 id="动态作用域"><a href="#动态作用域" class="headerlink" title="动态作用域"></a>动态作用域</h2><p>也许你会好奇什么语言是动态作用域？</p>
+<p>bash 就是动态作用域，不信的话，把下面的脚本存成例如 scope.bash，然后进入相应的目录，用命令行执行 <code>bash ./scope.bash</code>，看看打印的值是多少。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value=1</span><br><span class="line">function foo () &#123;</span><br><span class="line">    echo $value;</span><br><span class="line">&#125;</span><br><span class="line">function bar () &#123;</span><br><span class="line">    local value=2;</span><br><span class="line">    foo;</span><br><span class="line">&#125;</span><br><span class="line">bar</span><br></pre></td></tr></table></figure>
+<p>这个文件也可以在 <a href="https://github.com/mqyqingfeng/Blog/blob/master/demos/scope/scope.bash" target="_blank" rel="noopener">Github 博客仓库</a>中找到。</p>
+<h2 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h2><p>最后，让我们看一个《JavaScript权威指南》中的例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var scope = &quot;global scope&quot;;</span><br><span class="line">function checkscope()&#123;</span><br><span class="line">    var scope = &quot;local scope&quot;;</span><br><span class="line">    function f()&#123;</span><br><span class="line">        return scope;</span><br><span class="line">    &#125;</span><br><span class="line">    return f();</span><br><span class="line">&#125;</span><br><span class="line">checkscope();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var scope = &quot;global scope&quot;;</span><br><span class="line">function checkscope()&#123;</span><br><span class="line">    var scope = &quot;local scope&quot;;</span><br><span class="line">    function f()&#123;</span><br><span class="line">        return scope;</span><br><span class="line">    &#125;</span><br><span class="line">    return f;</span><br><span class="line">&#125;</span><br><span class="line">checkscope()();</span><br></pre></td></tr></table></figure>
+<p>猜猜两段代码各自的执行结果是多少？</p>
+<p>这里直接告诉大家结果，两段代码都会打印：<code>local scope</code>。</p>
+<p>原因也很简单，因为JavaScript采用的是词法作用域，函数的作用域基于函数创建的位置。</p>
+<p>而引用《JavaScript权威指南》的回答就是：</p>
+<p>JavaScript 函数的执行用到了作用域链，这个作用域链是在函数定义的时候创建的。嵌套的函数 f() 定义在这个作用域链里，其中的变量 scope 一定是局部变量，不管何时何地执行函数 f()，这种绑定在执行 f() 时依然有效。</p>
+<h1 id="JavaScript专题之函数柯里化"><a href="#JavaScript专题之函数柯里化" class="headerlink" title="JavaScript专题之函数柯里化"></a>JavaScript专题之函数柯里化</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>维基百科中对柯里化 (Currying) 的定义为：</p>
+<blockquote>
+<p>In mathematics and computer science, currying is the technique of translating the evaluation of a function that takes multiple arguments (or a tuple of arguments) into evaluating a sequence of functions, each with a single argument.</p>
+</blockquote>
+<p>翻译成中文：</p>
+<p>在数学和计算机科学中，柯里化是一种将使用多个参数的一个函数转换成一系列使用一个参数的函数的技术。</p>
+<p>举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function add(a, b) &#123;</span><br><span class="line">    return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 执行 add 函数，一次传入两个参数即可</span><br><span class="line">add(1, 2) // 3</span><br><span class="line"></span><br><span class="line">// 假设有一个 curry 函数可以做到柯里化</span><br><span class="line">var addCurry = curry(add);</span><br><span class="line">addCurry(1)(2) // 3</span><br></pre></td></tr></table></figure>
+<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>我们会讲到如何写出这个 curry 函数，并且会将这个 curry 函数写的很强大，但是在编写之前，我们需要知道柯里化到底有什么用？</p>
+<p>举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 示意而已</span><br><span class="line">function ajax(type, url, data) &#123;</span><br><span class="line">    var xhr = new XMLHttpRequest();</span><br><span class="line">    xhr.open(type, url, true);</span><br><span class="line">    xhr.send(data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 虽然 ajax 这个函数非常通用，但在重复调用的时候参数冗余</span><br><span class="line">ajax(&apos;POST&apos;, &apos;www.test.com&apos;, &quot;name=kevin&quot;)</span><br><span class="line">ajax(&apos;POST&apos;, &apos;www.test2.com&apos;, &quot;name=kevin&quot;)</span><br><span class="line">ajax(&apos;POST&apos;, &apos;www.test3.com&apos;, &quot;name=kevin&quot;)</span><br><span class="line"></span><br><span class="line">// 利用 curry</span><br><span class="line">var ajaxCurry = curry(ajax);</span><br><span class="line"></span><br><span class="line">// 以 POST 类型请求数据</span><br><span class="line">var post = ajaxCurry(&apos;POST&apos;);</span><br><span class="line">post(&apos;www.test.com&apos;, &quot;name=kevin&quot;);</span><br><span class="line"></span><br><span class="line">// 以 POST 类型请求来自于 www.test.com 的数据</span><br><span class="line">var postFromTest = post(&apos;www.test.com&apos;);</span><br><span class="line">postFromTest(&quot;name=kevin&quot;);</span><br></pre></td></tr></table></figure>
+<p>想想 jQuery 虽然有 $.ajax 这样通用的方法，但是也有 $.get 和 $.post 的语法糖。(当然 jQuery 底层是否是这样做的，我就没有研究了)。</p>
+<p>curry 的这种用途可以理解为：参数复用。本质上是降低通用性，提高适用性。</p>
+<p>可是即便如此，是不是依然感觉没什么用呢？</p>
+<p>如果我们仅仅是把参数一个一个传进去，意义可能不大，但是如果我们是把柯里化后的函数传给其他函数比如 map 呢？</p>
+<p>举个例子：</p>
+<p>比如我们有这样一段数据：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var person = [&#123;name: &apos;kevin&apos;&#125;, &#123;name: &apos;daisy&apos;&#125;]</span><br></pre></td></tr></table></figure>
+<p>如果我们要获取所有的 name 值，我们可以这样做：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var name = person.map(function (item) &#123;</span><br><span class="line">    return item.name;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>不过如果我们有 curry 函数：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var prop = curry(function (key, obj) &#123;</span><br><span class="line">    return obj[key]</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var name = person.map(prop(&apos;name&apos;))</span><br></pre></td></tr></table></figure>
+<p>我们为了获取 name 属性还要再编写一个 prop 函数，是不是又麻烦了些？</p>
+<p>但是要注意，prop 函数编写一次后，以后可以多次使用，实际上代码从原本的三行精简成了一行，而且你看代码是不是更加易懂了？</p>
+<p><code>person.map(prop(&#39;name&#39;))</code> 就好像直白的告诉你：person 对象遍历(map)获取(prop) name 属性。</p>
+<p>是不是感觉有点意思了呢？</p>
+<h2 id="第一版"><a href="#第一版" class="headerlink" title="第一版"></a>第一版</h2><p>未来我们会接触到更多有关柯里化的应用，不过那是未来的事情了，现在我们该编写这个 curry 函数了。</p>
+<p>一个经常会看到的 curry 函数的实现为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 第一版</span><br><span class="line">var curry = function (fn) &#123;</span><br><span class="line">    var args = [].slice.call(arguments, 1);</span><br><span class="line">    return function() &#123;</span><br><span class="line">        var newArgs = args.concat([].slice.call(arguments));</span><br><span class="line">        return fn.apply(this, newArgs);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>我们可以这样使用：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function add(a, b) &#123;</span><br><span class="line">    return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var addCurry = curry(add, 1, 2);</span><br><span class="line">addCurry() // 3</span><br><span class="line">//或者</span><br><span class="line">var addCurry = curry(add, 1);</span><br><span class="line">addCurry(2) // 3</span><br><span class="line">//或者</span><br><span class="line">var addCurry = curry(add);</span><br><span class="line">addCurry(1, 2) // 3</span><br></pre></td></tr></table></figure>
+<p>已经有柯里化的感觉了，但是还没有达到要求，不过我们可以把这个函数用作辅助函数，帮助我们写真正的 curry 函数。</p>
+<h2 id="第二版"><a href="#第二版" class="headerlink" title="第二版"></a>第二版</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 第二版</span><br><span class="line">function sub_curry(fn) &#123;</span><br><span class="line">    var args = [].slice.call(arguments, 1);</span><br><span class="line">    return function() &#123;</span><br><span class="line">        return fn.apply(this, args.concat([].slice.call(arguments)));</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function curry(fn, length) &#123;</span><br><span class="line"></span><br><span class="line">    length = length || fn.length;</span><br><span class="line"></span><br><span class="line">    var slice = Array.prototype.slice;</span><br><span class="line"></span><br><span class="line">    return function() &#123;</span><br><span class="line">        if (arguments.length &lt; length) &#123;</span><br><span class="line">            var combined = [fn].concat(slice.call(arguments));</span><br><span class="line">            return curry(sub_curry.apply(this, combined), length - arguments.length);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return fn.apply(this, arguments);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们验证下这个函数：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var fn = curry(function(a, b, c) &#123;</span><br><span class="line">    return [a, b, c];</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">fn(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;) // [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span><br><span class="line">fn(&quot;a&quot;, &quot;b&quot;)(&quot;c&quot;) // [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span><br><span class="line">fn(&quot;a&quot;)(&quot;b&quot;)(&quot;c&quot;) // [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span><br><span class="line">fn(&quot;a&quot;)(&quot;b&quot;, &quot;c&quot;) // [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span><br></pre></td></tr></table></figure>
+<p>效果已经达到我们的预期，然而这个 curry 函数的实现好难理解呐……</p>
+<p>为了让大家更好的理解这个 curry 函数，我给大家写个极简版的代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function sub_curry(fn)&#123;</span><br><span class="line">    return function()&#123;</span><br><span class="line">        return fn()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function curry(fn, length)&#123;</span><br><span class="line">    length = length || 4;</span><br><span class="line">    return function()&#123;</span><br><span class="line">        if (length &gt; 1) &#123;</span><br><span class="line">            return curry(sub_curry(fn), --length)</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return fn()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var fn0 = function()&#123;</span><br><span class="line">    console.log(1)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var fn1 = curry(fn0)</span><br><span class="line"></span><br><span class="line">fn1()()()() // 1</span><br></pre></td></tr></table></figure>
+<p>大家先从理解这个 curry 函数开始。</p>
+<p>当执行 fn1() 时，函数返回：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curry(sub_curry(fn0))</span><br><span class="line">// 相当于</span><br><span class="line">curry(function()&#123;</span><br><span class="line">    return fn0()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>当执行 fn1()() 时，函数返回：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curry(sub_curry(function()&#123;</span><br><span class="line">    return fn0()</span><br><span class="line">&#125;))</span><br><span class="line">// 相当于</span><br><span class="line">curry(function()&#123;</span><br><span class="line">    return (function()&#123;</span><br><span class="line">        return fn0()</span><br><span class="line">    &#125;)()</span><br><span class="line">&#125;)</span><br><span class="line">// 相当于</span><br><span class="line">curry(function()&#123;</span><br><span class="line">    return fn0()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>当执行 fn1()()() 时，函数返回：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 跟 fn1()() 的分析过程一样</span><br><span class="line">curry(function()&#123;</span><br><span class="line">    return fn0()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>当执行 fn1()()()() 时，因为此时 length &gt; 2 为 false，所以执行 fn()：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fn()</span><br><span class="line">// 相当于</span><br><span class="line">(function()&#123;</span><br><span class="line">    return fn0()</span><br><span class="line">&#125;)()</span><br><span class="line">// 相当于</span><br><span class="line">fn0()</span><br><span class="line">// 执行 fn0 函数，打印 1</span><br></pre></td></tr></table></figure>
+<p>再回到真正的 curry 函数，我们以下面的例子为例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var fn0 = function(a, b, c, d) &#123;</span><br><span class="line">    return [a, b, c, d];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var fn1 = curry(fn0);</span><br><span class="line"></span><br><span class="line">fn1(&quot;a&quot;, &quot;b&quot;)(&quot;c&quot;)(&quot;d&quot;)</span><br></pre></td></tr></table></figure>
+<p>当执行 fn1(“a”, “b”) 时：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fn1(&quot;a&quot;, &quot;b&quot;)</span><br><span class="line">// 相当于</span><br><span class="line">curry(fn0)(&quot;a&quot;, &quot;b&quot;)</span><br><span class="line">// 相当于</span><br><span class="line">curry(sub_curry(fn0, &quot;a&quot;, &quot;b&quot;))</span><br><span class="line">// 相当于</span><br><span class="line">// 注意 ... 只是一个示意，表示该函数执行时传入的参数会作为 fn0 后面的参数传入</span><br><span class="line">curry(function(...)&#123;</span><br><span class="line">    return fn0(&quot;a&quot;, &quot;b&quot;, ...)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>当执行 fn1(“a”, “b”)(“c”) 时，函数返回：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curry(sub_curry(function(...)&#123;</span><br><span class="line">    return fn0(&quot;a&quot;, &quot;b&quot;, ...)</span><br><span class="line">&#125;), &quot;c&quot;)</span><br><span class="line">// 相当于</span><br><span class="line">curry(function(...)&#123;</span><br><span class="line">    return (function(...) &#123;return fn0(&quot;a&quot;, &quot;b&quot;, ...)&#125;)(&quot;c&quot;)</span><br><span class="line">&#125;)</span><br><span class="line">// 相当于</span><br><span class="line">curry(function(...)&#123;</span><br><span class="line">     return fn0(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, ...)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>当执行 fn1(“a”, “b”)(“c”)(“d”) 时，此时 arguments.length &lt; length 为 false ，执行 fn(arguments)，相当于：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(function(...)&#123;</span><br><span class="line">    return fn0(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, ...)</span><br><span class="line">&#125;)(&quot;d&quot;)</span><br><span class="line">// 相当于</span><br><span class="line">fn0(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;)</span><br></pre></td></tr></table></figure>
+<p>函数执行结束。</p>
+<p>所以，其实整段代码又很好理解：</p>
+<p>sub_curry 的作用就是用函数包裹原函数，然后给原函数传入之前的参数，当执行 fn0(…)(…) 的时候，执行包裹函数，返回原函数，然后再调用 sub_curry 再包裹原函数，然后将新的参数混合旧的参数再传入原函数，直到函数参数的数目达到要求为止。</p>
+<p>如果要明白 curry 函数的运行原理，大家还是要动手写一遍，尝试着分析执行步骤。</p>
+<h2 id="更易懂的实现"><a href="#更易懂的实现" class="headerlink" title="更易懂的实现"></a>更易懂的实现</h2><p>当然了，如果你觉得还是无法理解，你可以选择下面这种实现方式，可以实现同样的效果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function curry(fn, args) &#123;</span><br><span class="line">    var length = fn.length;</span><br><span class="line"></span><br><span class="line">    args = args || [];</span><br><span class="line"></span><br><span class="line">    return function() &#123;</span><br><span class="line"></span><br><span class="line">        var _args = args.slice(0),</span><br><span class="line"></span><br><span class="line">            arg, i;</span><br><span class="line"></span><br><span class="line">        for (i = 0; i &lt; arguments.length; i++) &#123;</span><br><span class="line"></span><br><span class="line">            arg = arguments[i];</span><br><span class="line"></span><br><span class="line">            _args.push(arg);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        if (_args.length &lt; length) &#123;</span><br><span class="line">            return curry.call(this, fn, _args);</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return fn.apply(this, _args);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var fn = curry(function(a, b, c) &#123;</span><br><span class="line">    console.log([a, b, c]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">fn(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;) // [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span><br><span class="line">fn(&quot;a&quot;, &quot;b&quot;)(&quot;c&quot;) // [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span><br><span class="line">fn(&quot;a&quot;)(&quot;b&quot;)(&quot;c&quot;) // [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span><br><span class="line">fn(&quot;a&quot;)(&quot;b&quot;, &quot;c&quot;) // [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span><br></pre></td></tr></table></figure>
+<p>或许大家觉得这种方式更好理解，又能实现一样的效果，为什么不直接就讲这种呢？</p>
+<p>因为想给大家介绍各种实现的方法嘛，不能因为难以理解就不给大家介绍呐~</p>
+<h3 id="第三版"><a href="#第三版" class="headerlink" title="第三版"></a>第三版</h3><p>curry 函数写到这里其实已经很完善了，但是注意这个函数的传参顺序必须是从左到右，根据形参的顺序依次传入，如果我不想根据这个顺序传呢？</p>
+<p>我们可以创建一个占位符，比如这样：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var fn = curry(function(a, b, c) &#123;</span><br><span class="line">    console.log([a, b, c]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">fn(&quot;a&quot;, _, &quot;c&quot;)(&quot;b&quot;) // [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span><br></pre></td></tr></table></figure>
+<p>我们直接看第三版的代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 第三版</span><br><span class="line">function curry(fn, args, holes) &#123;</span><br><span class="line">    length = fn.length;</span><br><span class="line"></span><br><span class="line">    args = args || [];</span><br><span class="line"></span><br><span class="line">    holes = holes || [];</span><br><span class="line"></span><br><span class="line">    return function() &#123;</span><br><span class="line"></span><br><span class="line">        var _args = args.slice(0),</span><br><span class="line">            _holes = holes.slice(0),</span><br><span class="line">            argsLen = args.length,</span><br><span class="line">            holesLen = holes.length,</span><br><span class="line">            arg, i, index = 0;</span><br><span class="line"></span><br><span class="line">        for (i = 0; i &lt; arguments.length; i++) &#123;</span><br><span class="line">            arg = arguments[i];</span><br><span class="line">            // 处理类似 fn(1, _, _, 4)(_, 3) 这种情况，index 需要指向 holes 正确的下标</span><br><span class="line">            if (arg === _ &amp;&amp; holesLen) &#123;</span><br><span class="line">                index++</span><br><span class="line">                if (index &gt; holesLen) &#123;</span><br><span class="line">                    _args.push(arg);</span><br><span class="line">                    _holes.push(argsLen - 1 + index - holesLen)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            // 处理类似 fn(1)(_) 这种情况</span><br><span class="line">            else if (arg === _) &#123;</span><br><span class="line">                _args.push(arg);</span><br><span class="line">                _holes.push(argsLen + i);</span><br><span class="line">            &#125;</span><br><span class="line">            // 处理类似 fn(_, 2)(1) 这种情况</span><br><span class="line">            else if (holesLen) &#123;</span><br><span class="line">                // fn(_, 2)(_, 3)</span><br><span class="line">                if (index &gt;= holesLen) &#123;</span><br><span class="line">                    _args.push(arg);</span><br><span class="line">                &#125;</span><br><span class="line">                // fn(_, 2)(1) 用参数 1 替换占位符</span><br><span class="line">                else &#123;</span><br><span class="line">                    _args.splice(_holes[index], 1, arg);</span><br><span class="line">                    _holes.splice(index, 1)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            else &#123;</span><br><span class="line">                _args.push(arg);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        if (_holes.length || _args.length &lt; length) &#123;</span><br><span class="line">            return curry.call(this, fn, _args, _holes);</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return fn.apply(this, _args);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var _ = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">var fn = curry(function(a, b, c, d, e) &#123;</span><br><span class="line">    console.log([a, b, c, d, e]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 验证 输出全部都是 [1, 2, 3, 4, 5]</span><br><span class="line">fn(1, 2, 3, 4, 5);</span><br><span class="line">fn(_, 2, 3, 4, 5)(1);</span><br><span class="line">fn(1, _, 3, 4, 5)(2);</span><br><span class="line">fn(1, _, 3)(_, 4)(2)(5);</span><br><span class="line">fn(1, _, _, 4)(_, 3)(2)(5);</span><br><span class="line">fn(_, 2)(_, _, 4)(1)(3)(5)</span><br></pre></td></tr></table></figure>
+<h1 id="JavaScript专题之数组去重"><a href="#JavaScript专题之数组去重" class="headerlink" title="JavaScript专题之数组去重"></a>JavaScript专题之数组去重</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>数组去重方法老生常谈，既然是常谈，我也来谈谈。</p>
+<h2 id="双层循环"><a href="#双层循环" class="headerlink" title="双层循环"></a>双层循环</h2><p>也许我们首先想到的是使用 indexOf 来循环判断一遍，但在这个方法之前，让我们先看看最原始的方法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var array = [1, 1, &apos;1&apos;, &apos;1&apos;];</span><br><span class="line"></span><br><span class="line">function unique(array) &#123;</span><br><span class="line">    // res用来存储结果</span><br><span class="line">    var res = [];</span><br><span class="line">    for (var i = 0, arrayLen = array.length; i &lt; arrayLen; i++) &#123;</span><br><span class="line">        for (var j = 0, resLen = res.length; j &lt; resLen; j++ ) &#123;</span><br><span class="line">            if (array[i] === res[j]) &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        // 如果array[i]是唯一的，那么执行完循环，j等于resLen</span><br><span class="line">        if (j === resLen) &#123;</span><br><span class="line">            res.push(array[i])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(unique(array)); // [1, &quot;1&quot;]</span><br></pre></td></tr></table></figure>
+<p>在这个方法中，我们使用循环嵌套，最外层循环 array，里面循环 res，如果 array[i] 的值跟 res[j] 的值相等，就跳出循环，如果都不等于，说明元素是唯一的，这时候 j 的值就会等于 res 的长度，根据这个特点进行判断，将值添加进 res。</p>
+<p>看起来很简单吧，之所以要讲一讲这个方法，是因为——————兼容性好！</p>
+<h2 id="indexOf"><a href="#indexOf" class="headerlink" title="indexOf"></a>indexOf</h2><p>我们可以用 indexOf 简化内层的循环：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var array = [1, 1, &apos;1&apos;];</span><br><span class="line"></span><br><span class="line">function unique(array) &#123;</span><br><span class="line">    var res = [];</span><br><span class="line">    for (var i = 0, len = array.length; i &lt; len; i++) &#123;</span><br><span class="line">        var current = array[i];</span><br><span class="line">        if (res.indexOf(current) === -1) &#123;</span><br><span class="line">            res.push(current)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(unique(array));</span><br></pre></td></tr></table></figure>
+<h2 id="排序后去重"><a href="#排序后去重" class="headerlink" title="排序后去重"></a>排序后去重</h2><p>试想我们先将要去重的数组使用 sort 方法排序后，相同的值就会被排在一起，然后我们就可以只判断当前元素与上一个元素是否相同，相同就说明重复，不相同就添加进 res，让我们写个 demo：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var array = [1, 1, &apos;1&apos;];</span><br><span class="line"></span><br><span class="line">function unique(array) &#123;</span><br><span class="line">    var res = [];</span><br><span class="line">    var sortedArray = array.concat().sort();</span><br><span class="line">    var seen;</span><br><span class="line">    for (var i = 0, len = sortedArray.length; i &lt; len; i++) &#123;</span><br><span class="line">        // 如果是第一个元素或者相邻的元素不相同</span><br><span class="line">        if (!i || seen !== sortedArray[i]) &#123;</span><br><span class="line">            res.push(sortedArray[i])</span><br><span class="line">        &#125;</span><br><span class="line">        seen = sortedArray[i];</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(unique(array));</span><br></pre></td></tr></table></figure>
+<p>如果我们对一个已经排好序的数组去重，这种方法效率肯定高于使用 indexOf。</p>
+<h2 id="unique-API"><a href="#unique-API" class="headerlink" title="unique API"></a>unique API</h2><p>知道了这两种方法后，我们可以去尝试写一个名为 unique 的工具函数，我们根据一个参数 isSorted 判断传入的数组是否是已排序的，如果为 true，我们就判断相邻元素是否相同，如果为 false，我们就使用 indexOf 进行判断</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var array1 = [1, 2, &apos;1&apos;, 2, 1];</span><br><span class="line">var array2 = [1, 1, &apos;1&apos;, 2, 2];</span><br><span class="line"></span><br><span class="line">// 第一版</span><br><span class="line">function unique(array, isSorted) &#123;</span><br><span class="line">    var res = [];</span><br><span class="line">    var seen = [];</span><br><span class="line"></span><br><span class="line">    for (var i = 0, len = array.length; i &lt; len; i++) &#123;</span><br><span class="line">        var value = array[i];</span><br><span class="line">        if (isSorted) &#123;</span><br><span class="line">            if (!i || seen !== value) &#123;</span><br><span class="line">                res.push(value)</span><br><span class="line">            &#125;</span><br><span class="line">            seen = value;</span><br><span class="line">        &#125;</span><br><span class="line">        else if (res.indexOf(value) === -1) &#123;</span><br><span class="line">            res.push(value);</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(unique(array1)); // [1, 2, &quot;1&quot;]</span><br><span class="line">console.log(unique(array2, true)); // [1, &quot;1&quot;, 2]</span><br></pre></td></tr></table></figure>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>尽管 unqique 已经可以试下去重功能，但是为了让这个 API 更加强大，我们来考虑一个需求：</p>
+<p>新需求：字母的大小写视为一致，比如’a’和’A’，保留一个就可以了！</p>
+<p>虽然我们可以先处理数组中的所有数据，比如将所有的字母转成小写，然后再传入unique函数，但是有没有方法可以省掉处理数组的这一遍循环，直接就在去重的循环中做呢？让我们去完成这个需求：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var array3 = [1, 1, &apos;a&apos;, &apos;A&apos;, 2, 2];</span><br><span class="line"></span><br><span class="line">// 第二版</span><br><span class="line">// iteratee 英文释义：迭代 重复</span><br><span class="line">function unique(array, isSorted, iteratee) &#123;</span><br><span class="line">    var res = [];</span><br><span class="line">    var seen = [];</span><br><span class="line"></span><br><span class="line">    for (var i = 0, len = array.length; i &lt; len; i++) &#123;</span><br><span class="line">        var value = array[i];</span><br><span class="line">        var computed = iteratee ? iteratee(value, i, array) : value;</span><br><span class="line">        if (isSorted) &#123;</span><br><span class="line">            if (!i || seen !== computed) &#123;</span><br><span class="line">                res.push(value)</span><br><span class="line">            &#125;</span><br><span class="line">            seen = computed;</span><br><span class="line">        &#125;</span><br><span class="line">        else if (iteratee) &#123;</span><br><span class="line">            if (seen.indexOf(computed) === -1) &#123;</span><br><span class="line">                seen.push(computed);</span><br><span class="line">                res.push(value);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        else if (res.indexOf(value) === -1) &#123;</span><br><span class="line">            res.push(value);</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(unique(array3, false, function(item)&#123;</span><br><span class="line">    return typeof item == &apos;string&apos; ? item.toLowerCase() : item</span><br><span class="line">&#125;)); // [1, &quot;a&quot;, 2]</span><br></pre></td></tr></table></figure>
+<p>在这一版也是最后一版的实现中，函数传递三个参数：</p>
+<p>array：表示要去重的数组，必填</p>
+<p>isSorted：表示函数传入的数组是否已排过序，如果为 true，将会采用更快的方法进行去重</p>
+<p>iteratee：传入一个函数，可以对每个元素进行重新的计算，然后根据处理的结果进行去重</p>
+<p>至此，我们已经仿照着 underscore 的思路写了一个 unique 函数，具体可以查看 <a href="https://github.com/jashkenas/underscore/blob/master/underscore.js#L562" target="_blank" rel="noopener">Github</a>。</p>
+<h2 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h2><p>ES5 提供了 filter 方法，我们可以用来简化外层循环：</p>
+<p>比如使用 indexOf 的方法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var array = [1, 2, 1, 1, &apos;1&apos;];</span><br><span class="line"></span><br><span class="line">function unique(array) &#123;</span><br><span class="line">    var res = array.filter(function(item, index, array)&#123;</span><br><span class="line">        return array.indexOf(item) === index;</span><br><span class="line">    &#125;)</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(unique(array));</span><br></pre></td></tr></table></figure>
+<p>排序去重的方法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var array = [1, 2, 1, 1, &apos;1&apos;];</span><br><span class="line"></span><br><span class="line">function unique(array) &#123;</span><br><span class="line">    return array.concat().sort().filter(function(item, index, array)&#123;</span><br><span class="line">        return !index || item !== array[index - 1]</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(unique(array));</span><br></pre></td></tr></table></figure>
+<h2 id="Object-键值对"><a href="#Object-键值对" class="headerlink" title="Object 键值对"></a>Object 键值对</h2><p>去重的方法众多，尽管我们已经跟着 underscore 写了一个 unqiue API，但是让我们看看其他的方法拓展下视野：</p>
+<p>这种方法是利用一个空的 Object 对象，我们把数组的值存成 Object 的 key 值，比如 Object[value1] = true，在判断另一个值的时候，如果 Object[value2]存在的话，就说明该值是重复的。示例代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var array = [1, 2, 1, 1, &apos;1&apos;];</span><br><span class="line"></span><br><span class="line">function unique(array) &#123;</span><br><span class="line">    var obj = &#123;&#125;;</span><br><span class="line">    return array.filter(function(item, index, array)&#123;</span><br><span class="line">        return obj.hasOwnProperty(item) ? false : (obj[item] = true)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(unique(array)); // [1, 2]</span><br></pre></td></tr></table></figure>
+<p>我们可以发现，是有问题的，因为 1 和 ‘1’ 是不同的，但是这种方法会判断为同一个值，这是因为对象的键值只能是字符串，所以我们可以使用 <code>typeof item + item</code> 拼成字符串作为 key 值来避免这个问题：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var array = [1, 2, 1, 1, &apos;1&apos;];</span><br><span class="line"></span><br><span class="line">function unique(array) &#123;</span><br><span class="line">    var obj = &#123;&#125;;</span><br><span class="line">    return array.filter(function(item, index, array)&#123;</span><br><span class="line">        return obj.hasOwnProperty(typeof item + item) ? false : (obj[typeof item + item] = true)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(unique(array)); // [1, 2, &quot;1&quot;]</span><br></pre></td></tr></table></figure>
+<p>然而，即便如此，我们依然无法正确区分出两个对象，比如 {value: 1} 和 {value: 2}，因为 <code>typeof item + item</code> 的结果都会是 <code>object[object Object]</code>，不过我们可以使用 JSON.stringify 将对象序列化：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var array = [&#123;value: 1&#125;, &#123;value: 1&#125;, &#123;value: 2&#125;];</span><br><span class="line"></span><br><span class="line">function unique(array) &#123;</span><br><span class="line">    var obj = &#123;&#125;;</span><br><span class="line">    return array.filter(function(item, index, array)&#123;</span><br><span class="line">        console.log(typeof item + JSON.stringify(item))</span><br><span class="line">        return obj.hasOwnProperty(typeof item + JSON.stringify(item)) ? false : (obj[typeof item + JSON.stringify(item)] = true)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(unique(array)); // [&#123;value: 1&#125;, &#123;value: 2&#125;]</span><br></pre></td></tr></table></figure>
+<h2 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h2><p>随着 ES6 的到来，去重的方法又有了进展，比如我们可以使用 Set 和 Map 数据结构，以 Set 为例，ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。</p>
+<p>是不是感觉就像是为去重而准备的？让我们来写一版：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var array = [1, 2, 1, 1, &apos;1&apos;];</span><br><span class="line"></span><br><span class="line">function unique(array) &#123;</span><br><span class="line">   return Array.from(new Set(array));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(unique(array)); // [1, 2, &quot;1&quot;]</span><br></pre></td></tr></table></figure>
+<p>甚至可以再简化下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function unique(array) &#123;</span><br><span class="line">    return [...new Set(array)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还可以再简化下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var unique = (a) =&gt; [...new Set(a)]</span><br></pre></td></tr></table></figure>
+<p>此外，如果用 Map 的话：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function unique (arr) &#123;</span><br><span class="line">    const seen = new Map()</span><br><span class="line">    return arr.filter((a) =&gt; !seen.has(a) &amp;&amp; seen.set(a, 1))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="JavaScript-的进化"><a href="#JavaScript-的进化" class="headerlink" title="JavaScript 的进化"></a>JavaScript 的进化</h2><p>我们可以看到，去重方法从原始的 14 行代码到 ES6 的 1 行代码，其实也说明了 JavaScript 这门语言在不停的进步，相信以后的开发也会越来越高效。</p>
+<h2 id="特殊类型比较"><a href="#特殊类型比较" class="headerlink" title="特殊类型比较"></a>特殊类型比较</h2><p>去重的方法就到此结束了，然而要去重的元素类型可能是多种多样，除了例子中简单的 1 和 ‘1’ 之外，其实还有 null、undefined、NaN、对象等，那么对于这些元素，之前的这些方法的去重结果又是怎样呢？</p>
+<p>在此之前，先让我们先看几个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var str1 = &apos;1&apos;;</span><br><span class="line">var str2 = new String(&apos;1&apos;);</span><br><span class="line"></span><br><span class="line">console.log(str1 == str2); // true</span><br><span class="line">console.log(str1 === str2); // false</span><br><span class="line"></span><br><span class="line">console.log(null == null); // true</span><br><span class="line">console.log(null === null); // true</span><br><span class="line"></span><br><span class="line">console.log(undefined == undefined); // true</span><br><span class="line">console.log(undefined === undefined); // true</span><br><span class="line"></span><br><span class="line">console.log(NaN == NaN); // false</span><br><span class="line">console.log(NaN === NaN); // false</span><br><span class="line"></span><br><span class="line">console.log(/a/ == /a/); // false</span><br><span class="line">console.log(/a/ === /a/); // false</span><br><span class="line"></span><br><span class="line">console.log(&#123;&#125; == &#123;&#125;); // false</span><br><span class="line">console.log(&#123;&#125; === &#123;&#125;); // false</span><br></pre></td></tr></table></figure>
+<p>那么，对于这样一个数组</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var array = [1, 1, &apos;1&apos;, &apos;1&apos;, null, null, undefined, undefined, new String(&apos;1&apos;), new String(&apos;1&apos;), /a/, /a/, NaN, NaN];</span><br></pre></td></tr></table></figure>
+<p>以上各种方法去重的结果到底是什么样的呢？</p>
+<p>我特地整理了一个列表，我们重点关注下对象和 NaN 的去重情况：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>结果</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>for循环</td>
+<td>[1, “1”, null, undefined, String, String, /a/, /a/, NaN, NaN]</td>
+<td>对象和 NaN 不去重</td>
+</tr>
+<tr>
+<td>indexOf</td>
+<td>[1, “1”, null, undefined, String, String, /a/, /a/, NaN, NaN]</td>
+<td>对象和 NaN 不去重</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>[/a/, /a/, “1”, 1, String, 1, String, NaN, NaN, null, undefined]</td>
+<td>对象和 NaN 不去重 数字 1 也不去重</td>
+</tr>
+<tr>
+<td>filter + indexOf</td>
+<td>[1, “1”, null, undefined, String, String, /a/, /a/]</td>
+<td>对象不去重 NaN 会被忽略掉</td>
+</tr>
+<tr>
+<td>filter + sort</td>
+<td>[/a/, /a/, “1”, 1, String, 1, String, NaN, NaN, null, undefined]</td>
+<td>对象和 NaN 不去重 数字 1 不去重</td>
+</tr>
+<tr>
+<td>优化后的键值对方法</td>
+<td>[1, “1”, null, undefined, String, /a/, NaN]</td>
+<td>全部去重</td>
+</tr>
+<tr>
+<td>Set</td>
+<td>[1, “1”, null, undefined, String, String, /a/, /a/, NaN]</td>
+<td>对象不去重 NaN 去重</td>
+</tr>
+</tbody>
+</table>
+<p>想了解为什么会出现以上的结果，看两个 demo 便能明白：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// demo1</span><br><span class="line">var arr = [1, 2, NaN];</span><br><span class="line">arr.indexOf(NaN); // -1</span><br></pre></td></tr></table></figure>
+<p>indexOf 底层还是使用 === 进行判断，因为 NaN === NaN的结果为 false，所以使用 indexOf 查找不到 NaN 元素</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// demo2</span><br><span class="line">function unique(array) &#123;</span><br><span class="line">   return Array.from(new Set(array));</span><br><span class="line">&#125;</span><br><span class="line">console.log(unique([NaN, NaN])) // [NaN]</span><br></pre></td></tr></table></figure>
+<p>Set 认为尽管 NaN === NaN 为 false，但是这两个元素是重复的。</p>
+<h1 id="JavaScript深入之创建对象的多种方式以及优缺点"><a href="#JavaScript深入之创建对象的多种方式以及优缺点" class="headerlink" title="JavaScript深入之创建对象的多种方式以及优缺点"></a>JavaScript深入之创建对象的多种方式以及优缺点</h1><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>这篇文章讲解创建对象的各种方式，以及优缺点。</p>
+<p>但是注意：</p>
+<p>这篇文章更像是笔记，因为《JavaScript高级程序设计》写得真是太好了！</p>
+<h2 id="1-工厂模式"><a href="#1-工厂模式" class="headerlink" title="1. 工厂模式"></a>1. 工厂模式</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function createPerson(name) &#123;</span><br><span class="line">    var o = new Object();</span><br><span class="line">    o.name = name;</span><br><span class="line">    o.getName = function () &#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    return o;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person1 = createPerson(&apos;kevin&apos;);</span><br></pre></td></tr></table></figure>
+<p>缺点：对象无法识别，因为所有的实例都指向一个原型</p>
+<h2 id="2-构造函数模式"><a href="#2-构造函数模式" class="headerlink" title="2. 构造函数模式"></a>2. 构造函数模式</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.getName = function () &#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person1 = new Person(&apos;kevin&apos;);</span><br></pre></td></tr></table></figure>
+<p>优点：实例可以识别为一个特定的类型</p>
+<p>缺点：每次创建实例时，每个方法都要被创建一次</p>
+<h2 id="2-1-构造函数模式优化"><a href="#2-1-构造函数模式优化" class="headerlink" title="2.1 构造函数模式优化"></a>2.1 构造函数模式优化</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.getName = getName;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function getName() &#123;</span><br><span class="line">    console.log(this.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person1 = new Person(&apos;kevin&apos;);</span><br></pre></td></tr></table></figure>
+<p>优点：解决了每个方法都要被重新创建的问题</p>
+<p>缺点：这叫啥封装……</p>
+<h2 id="3-原型模式"><a href="#3-原型模式" class="headerlink" title="3. 原型模式"></a>3. 原型模式</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.name = &apos;keivn&apos;;</span><br><span class="line">Person.prototype.getName = function () &#123;</span><br><span class="line">    console.log(this.name);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var person1 = new Person();</span><br></pre></td></tr></table></figure>
+<p>优点：方法不会重新创建</p>
+<p>缺点：1. 所有的属性和方法都共享 2. 不能初始化参数</p>
+<h2 id="3-1-原型模式优化"><a href="#3-1-原型模式优化" class="headerlink" title="3.1 原型模式优化"></a>3.1 原型模式优化</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">    name: &apos;kevin&apos;,</span><br><span class="line">    getName: function () &#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var person1 = new Person();</span><br></pre></td></tr></table></figure>
+<p>优点：封装性好了一点</p>
+<p>缺点：重写了原型，丢失了constructor属性</p>
+<h2 id="3-2-原型模式优化"><a href="#3-2-原型模式优化" class="headerlink" title="3.2 原型模式优化"></a>3.2 原型模式优化</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">    constructor: Person,</span><br><span class="line">    name: &apos;kevin&apos;,</span><br><span class="line">    getName: function () &#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var person1 = new Person();</span><br></pre></td></tr></table></figure>
+<p>优点：实例可以通过constructor属性找到所属构造函数</p>
+<p>缺点：原型模式该有的缺点还是有</p>
+<h2 id="4-组合模式"><a href="#4-组合模式" class="headerlink" title="4. 组合模式"></a>4. 组合模式</h2><p>构造函数模式与原型模式双剑合璧。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">    constructor: Person,</span><br><span class="line">    getName: function () &#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var person1 = new Person();</span><br></pre></td></tr></table></figure>
+<p>优点：该共享的共享，该私有的私有，使用最广泛的方式</p>
+<p>缺点：有的人就是希望全部都写在一起，即更好的封装性</p>
+<h2 id="4-1-动态原型模式"><a href="#4-1-动态原型模式" class="headerlink" title="4.1 动态原型模式"></a>4.1 动态原型模式</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    if (typeof this.getName != &quot;function&quot;) &#123;</span><br><span class="line">        Person.prototype.getName = function () &#123;</span><br><span class="line">            console.log(this.name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person1 = new Person();</span><br></pre></td></tr></table></figure>
+<p>注意：使用动态原型模式时，不能用对象字面量重写原型</p>
+<p>解释下为什么：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    if (typeof this.getName != &quot;function&quot;) &#123;</span><br><span class="line">        Person.prototype = &#123;</span><br><span class="line">            constructor: Person,</span><br><span class="line">            getName: function () &#123;</span><br><span class="line">                console.log(this.name);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person1 = new Person(&apos;kevin&apos;);</span><br><span class="line">var person2 = new Person(&apos;daisy&apos;);</span><br><span class="line"></span><br><span class="line">// 报错 并没有该方法</span><br><span class="line">person1.getName();</span><br><span class="line"></span><br><span class="line">// 注释掉上面的代码，这句是可以执行的。</span><br><span class="line">person2.getName();</span><br></pre></td></tr></table></figure>
+<p>为了解释这个问题，假设开始执行<code>var person1 = new Person(&#39;kevin&#39;)</code>。</p>
+<p>如果对 new 和 apply 的底层执行过程不是很熟悉，可以阅读底部相关链接中的文章。</p>
+<p>我们回顾下 new 的实现步骤：</p>
+<ol>
+<li>首先新建一个对象</li>
+<li>然后将对象的原型指向 Person.prototype</li>
+<li>然后 Person.apply(obj)</li>
+<li>返回这个对象</li>
+</ol>
+<p>注意这个时候，回顾下 apply 的实现步骤，会执行 obj.Person 方法，这个时候就会执行 if 语句里的内容，注意构造函数的 prototype 属性指向了实例的原型，使用字面量方式直接覆盖 Person.prototype，并不会更改实例的原型的值，person1 依然是指向了以前的原型，而不是 Person.prototype。而之前的原型是没有 getName 方法的，所以就报错了！</p>
+<p>如果你就是想用字面量方式写代码，可以尝试下这种：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    if (typeof this.getName != &quot;function&quot;) &#123;</span><br><span class="line">        Person.prototype = &#123;</span><br><span class="line">            constructor: Person,</span><br><span class="line">            getName: function () &#123;</span><br><span class="line">                console.log(this.name);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return new Person(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person1 = new Person(&apos;kevin&apos;);</span><br><span class="line">var person2 = new Person(&apos;daisy&apos;);</span><br><span class="line"></span><br><span class="line">person1.getName(); // kevin</span><br><span class="line">person2.getName();  // daisy</span><br></pre></td></tr></table></figure>
+<h3 id="5-1-寄生构造函数模式"><a href="#5-1-寄生构造函数模式" class="headerlink" title="5.1 寄生构造函数模式"></a>5.1 寄生构造函数模式</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line"></span><br><span class="line">    var o = new Object();</span><br><span class="line">    o.name = name;</span><br><span class="line">    o.getName = function () &#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    return o;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person1 = new Person(&apos;kevin&apos;);</span><br><span class="line">console.log(person1 instanceof Person) // false</span><br><span class="line">console.log(person1 instanceof Object)  // true</span><br></pre></td></tr></table></figure>
+<p>寄生构造函数模式，我个人认为应该这样读：</p>
+<p>寄生-构造函数-模式，也就是说寄生在构造函数的一种方法。</p>
+<p>也就是说打着构造函数的幌子挂羊头卖狗肉，你看创建的实例使用 instanceof 都无法指向构造函数！</p>
+<p>这样方法可以在特殊情况下使用。比如我们想创建一个具有额外方法的特殊数组，但是又不想直接修改Array构造函数，我们可以这样写：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function SpecialArray() &#123;</span><br><span class="line">    var values = new Array();</span><br><span class="line"></span><br><span class="line">    for (var i = 0, len = arguments.length; i &lt; len; i++) &#123;</span><br><span class="line">        values.push(arguments[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    values.toPipedString = function () &#123;</span><br><span class="line">        return this.join(&quot;|&quot;);</span><br><span class="line">    &#125;;</span><br><span class="line">    return values;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var colors = new SpecialArray(&apos;red&apos;, &apos;blue&apos;, &apos;green&apos;);</span><br><span class="line">var colors2 = SpecialArray(&apos;red2&apos;, &apos;blue2&apos;, &apos;green2&apos;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">console.log(colors);</span><br><span class="line">console.log(colors.toPipedString()); // red|blue|green</span><br><span class="line"></span><br><span class="line">console.log(colors2);</span><br><span class="line">console.log(colors2.toPipedString()); // red2|blue2|green2</span><br></pre></td></tr></table></figure>
+<p>你会发现，其实所谓的寄生构造函数模式就是比工厂模式在创建对象的时候，多使用了一个new，实际上两者的结果是一样的。</p>
+<p>但是作者可能是希望能像使用普通 Array 一样使用 SpecialArray，虽然把 SpecialArray 当成函数也一样能用，但是这并不是作者的本意，也变得不优雅。</p>
+<p>在可以使用其他模式的情况下，不要使用这种模式。</p>
+<p>但是值得一提的是，上面例子中的循环：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for (var i = 0, len = arguments.length; i &lt; len; i++) &#123;</span><br><span class="line">    values.push(arguments[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以替换成：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">values.push.apply(values, arguments);</span><br></pre></td></tr></table></figure>
+<h2 id="5-2-稳妥构造函数模式"><a href="#5-2-稳妥构造函数模式" class="headerlink" title="5.2 稳妥构造函数模式"></a>5.2 稳妥构造函数模式</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function person(name)&#123;</span><br><span class="line">    var o = new Object();</span><br><span class="line">    o.sayName = function()&#123;</span><br><span class="line">        console.log(name);</span><br><span class="line">    &#125;;</span><br><span class="line">    return o;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person1 = person(&apos;kevin&apos;);</span><br><span class="line"></span><br><span class="line">person1.sayName(); // kevin</span><br><span class="line"></span><br><span class="line">person1.name = &quot;daisy&quot;;</span><br><span class="line"></span><br><span class="line">person1.sayName(); // kevin</span><br><span class="line"></span><br><span class="line">console.log(person1.name); // daisy</span><br></pre></td></tr></table></figure>
+<p>所谓稳妥对象，指的是没有公共属性，而且其方法也不引用 this 的对象。</p>
+<p>与寄生构造函数模式有两点不同：</p>
+<ol>
+<li>新创建的实例方法不引用 this</li>
+<li>不使用 new 操作符调用构造函数</li>
+</ol>
+<p>稳妥对象最适合在一些安全的环境中。</p>
+<p>稳妥构造函数模式也跟工厂模式一样，无法识别对象所属类型。</p>
+<h1 id="JavaScript深入之继承的多种方式和优缺点"><a href="#JavaScript深入之继承的多种方式和优缺点" class="headerlink" title="JavaScript深入之继承的多种方式和优缺点"></a>JavaScript深入之继承的多种方式和优缺点</h1><h2 id="写在前面-1"><a href="#写在前面-1" class="headerlink" title="写在前面"></a>写在前面</h2><p>本文讲解JavaScript各种继承方式和优缺点。</p>
+<p>但是注意：</p>
+<p>这篇文章更像是笔记，哎，再让我感叹一句：《JavaScript高级程序设计》写得真是太好了！</p>
+<h2 id="1-原型链继承"><a href="#1-原型链继承" class="headerlink" title="1.原型链继承"></a>1.原型链继承</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Parent () &#123;</span><br><span class="line">    this.name = &apos;kevin&apos;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Parent.prototype.getName = function () &#123;</span><br><span class="line">    console.log(this.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Child () &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Child.prototype = new Parent();</span><br><span class="line"></span><br><span class="line">var child1 = new Child();</span><br><span class="line"></span><br><span class="line">console.log(child1.getName()) // kevin</span><br></pre></td></tr></table></figure>
+<p>问题：</p>
+<p>1.引用类型的属性被所有实例共享，举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Parent () &#123;</span><br><span class="line">    this.names = [&apos;kevin&apos;, &apos;daisy&apos;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Child () &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Child.prototype = new Parent();</span><br><span class="line"></span><br><span class="line">var child1 = new Child();</span><br><span class="line"></span><br><span class="line">child1.names.push(&apos;yayu&apos;);</span><br><span class="line"></span><br><span class="line">console.log(child1.names); // [&quot;kevin&quot;, &quot;daisy&quot;, &quot;yayu&quot;]</span><br><span class="line"></span><br><span class="line">var child2 = new Child();</span><br><span class="line"></span><br><span class="line">console.log(child2.names); // [&quot;kevin&quot;, &quot;daisy&quot;, &quot;yayu&quot;]</span><br></pre></td></tr></table></figure>
+<p>2.在创建 Child 的实例时，不能向Parent传参</p>
+<h2 id="2-借用构造函数-经典继承"><a href="#2-借用构造函数-经典继承" class="headerlink" title="2.借用构造函数(经典继承)"></a>2.借用构造函数(经典继承)</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Parent () &#123;</span><br><span class="line">    this.names = [&apos;kevin&apos;, &apos;daisy&apos;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Child () &#123;</span><br><span class="line">    Parent.call(this);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var child1 = new Child();</span><br><span class="line"></span><br><span class="line">child1.names.push(&apos;yayu&apos;);</span><br><span class="line"></span><br><span class="line">console.log(child1.names); // [&quot;kevin&quot;, &quot;daisy&quot;, &quot;yayu&quot;]</span><br><span class="line"></span><br><span class="line">var child2 = new Child();</span><br><span class="line"></span><br><span class="line">console.log(child2.names); // [&quot;kevin&quot;, &quot;daisy&quot;]</span><br></pre></td></tr></table></figure>
+<p>优点：</p>
+<p>1.避免了引用类型的属性被所有实例共享</p>
+<p>2.可以在 Child 中向 Parent 传参</p>
+<p>举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Parent (name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Child (name) &#123;</span><br><span class="line">    Parent.call(this, name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var child1 = new Child(&apos;kevin&apos;);</span><br><span class="line"></span><br><span class="line">console.log(child1.name); // kevin</span><br><span class="line"></span><br><span class="line">var child2 = new Child(&apos;daisy&apos;);</span><br><span class="line"></span><br><span class="line">console.log(child2.name); // daisy</span><br></pre></td></tr></table></figure>
+<p>缺点：</p>
+<p>方法都在构造函数中定义，每次创建实例都会创建一遍方法。</p>
+<h2 id="3-组合继承"><a href="#3-组合继承" class="headerlink" title="3.组合继承"></a>3.组合继承</h2><p>原型链继承和经典继承双剑合璧。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Parent (name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.colors = [&apos;red&apos;, &apos;blue&apos;, &apos;green&apos;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Parent.prototype.getName = function () &#123;</span><br><span class="line">    console.log(this.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Child (name, age) &#123;</span><br><span class="line"></span><br><span class="line">    Parent.call(this, name);</span><br><span class="line">    </span><br><span class="line">    this.age = age;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Child.prototype = new Parent();</span><br><span class="line">Child.prototype.constructor = Child;</span><br><span class="line"></span><br><span class="line">var child1 = new Child(&apos;kevin&apos;, &apos;18&apos;);</span><br><span class="line"></span><br><span class="line">child1.colors.push(&apos;black&apos;);</span><br><span class="line"></span><br><span class="line">console.log(child1.name); // kevin</span><br><span class="line">console.log(child1.age); // 18</span><br><span class="line">console.log(child1.colors); // [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;, &quot;black&quot;]</span><br><span class="line"></span><br><span class="line">var child2 = new Child(&apos;daisy&apos;, &apos;20&apos;);</span><br><span class="line"></span><br><span class="line">console.log(child2.name); // daisy</span><br><span class="line">console.log(child2.age); // 20</span><br><span class="line">console.log(child2.colors); // [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;]</span><br></pre></td></tr></table></figure>
+<p>优点：融合原型链继承和构造函数的优点，是 JavaScript 中最常用的继承模式。</p>
+<h2 id="4-原型式继承"><a href="#4-原型式继承" class="headerlink" title="4.原型式继承"></a>4.原型式继承</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function createObj(o) &#123;</span><br><span class="line">    function F()&#123;&#125;</span><br><span class="line">    F.prototype = o;</span><br><span class="line">    return new F();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>就是 ES5 Object.create 的模拟实现，将传入的对象作为创建的对象的原型。</p>
+<p>缺点：</p>
+<p>包含引用类型的属性值始终都会共享相应的值，这点跟原型链继承一样。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var person = &#123;</span><br><span class="line">    name: &apos;kevin&apos;,</span><br><span class="line">    friends: [&apos;daisy&apos;, &apos;kelly&apos;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person1 = createObj(person);</span><br><span class="line">var person2 = createObj(person);</span><br><span class="line"></span><br><span class="line">person1.name = &apos;person1&apos;;</span><br><span class="line">console.log(person2.name); // kevin</span><br><span class="line"></span><br><span class="line">person1.firends.push(&apos;taylor&apos;);</span><br><span class="line">console.log(person2.friends); // [&quot;daisy&quot;, &quot;kelly&quot;, &quot;taylor&quot;]</span><br></pre></td></tr></table></figure>
+<p>注意：修改<code>person1.name</code>的值，<code>person2.name</code>的值并未发生改变，并不是因为<code>person1</code>和<code>person2</code>有独立的 name 值，而是因为<code>person1.name = &#39;person1&#39;</code>，给<code>person1</code>添加了 name 值，并非修改了原型上的 name 值。</p>
+<h2 id="5-寄生式继承"><a href="#5-寄生式继承" class="headerlink" title="5. 寄生式继承"></a>5. 寄生式继承</h2><p>创建一个仅用于封装继承过程的函数，该函数在内部以某种形式来做增强对象，最后返回对象。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function createObj (o) &#123;</span><br><span class="line">    var clone = Object.create(o);</span><br><span class="line">    clone.sayName = function () &#123;</span><br><span class="line">        console.log(&apos;hi&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    return clone;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>缺点：跟借用构造函数模式一样，每次创建对象都会创建一遍方法。</p>
+<h2 id="6-寄生组合式继承"><a href="#6-寄生组合式继承" class="headerlink" title="6. 寄生组合式继承"></a>6. 寄生组合式继承</h2><p>为了方便大家阅读，在这里重复一下组合继承的代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Parent (name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.colors = [&apos;red&apos;, &apos;blue&apos;, &apos;green&apos;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Parent.prototype.getName = function () &#123;</span><br><span class="line">    console.log(this.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Child (name, age) &#123;</span><br><span class="line">    Parent.call(this, name);</span><br><span class="line">    this.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Child.prototype = new Parent();</span><br><span class="line"></span><br><span class="line">var child1 = new Child(&apos;kevin&apos;, &apos;18&apos;);</span><br><span class="line"></span><br><span class="line">console.log(child1)</span><br></pre></td></tr></table></figure>
+<p>组合继承最大的缺点是会调用两次父构造函数。</p>
+<p>一次是设置子类型实例的原型的时候：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Child.prototype = new Parent();</span><br></pre></td></tr></table></figure>
+<p>一次在创建子类型实例的时候：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var child1 = new Child(&apos;kevin&apos;, &apos;18&apos;);</span><br></pre></td></tr></table></figure>
+<p>回想下 new 的模拟实现，其实在这句中，我们会执行：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Parent.call(this, name);</span><br></pre></td></tr></table></figure>
+<p>在这里，我们又会调用了一次 Parent 构造函数。</p>
+<p>所以，在这个例子中，如果我们打印 child1 对象，我们会发现 Child.prototype 和 child1 都有一个属性为<code>colors</code>，属性值为<code>[&#39;red&#39;, &#39;blue&#39;, &#39;green&#39;]</code>。</p>
+<p>那么我们该如何精益求精，避免这一次重复调用呢？</p>
+<p>如果我们不使用 Child.prototype = new Parent() ，而是间接的让 Child.prototype 访问到 Parent.prototype 呢？</p>
+<p>看看如何实现：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Parent (name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.colors = [&apos;red&apos;, &apos;blue&apos;, &apos;green&apos;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Parent.prototype.getName = function () &#123;</span><br><span class="line">    console.log(this.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Child (name, age) &#123;</span><br><span class="line">    Parent.call(this, name);</span><br><span class="line">    this.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 关键的三步</span><br><span class="line">var F = function () &#123;&#125;;</span><br><span class="line"></span><br><span class="line">F.prototype = Parent.prototype;</span><br><span class="line"></span><br><span class="line">Child.prototype = new F();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var child1 = new Child(&apos;kevin&apos;, &apos;18&apos;);</span><br><span class="line"></span><br><span class="line">console.log(child1);</span><br></pre></td></tr></table></figure>
+<p>最后我们封装一下这个继承方法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function object(o) &#123;</span><br><span class="line">    function F() &#123;&#125;</span><br><span class="line">    F.prototype = o;</span><br><span class="line">    return new F();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function prototype(child, parent) &#123;</span><br><span class="line">    var prototype = object(parent.prototype);</span><br><span class="line">    prototype.constructor = child;</span><br><span class="line">    child.prototype = prototype;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 当我们使用的时候：</span><br><span class="line">prototype(Child, Parent);</span><br></pre></td></tr></table></figure>
+<p>引用《JavaScript高级程序设计》中对寄生组合式继承的夸赞就是：</p>
+<p>这种方式的高效率体现它只调用了一次 Parent 构造函数，并且因此避免了在 Parent.prototype 上面创建不必要的、多余的属性。与此同时，原型链还能保持不变；因此，还能够正常使用 instanceof 和 isPrototypeOf。开发人员普遍认为寄生组合式继承是引用类型最理想的继承范式。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>If you like, please donate to me</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="faith WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/interview/" rel="tag"># interview</a>
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/31/Day-6-Speaking/" rel="next" title="Day 6 Speaking">
+                <i class="fa fa-chevron-left"></i> Day 6 Speaking
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/01/Day-7-Speaking/" rel="prev" title="Day 7 Speaking">
+                Day 7 Speaking <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="faith" />
+            
+              <p class="site-author-name" itemprop="name">faith</p>
+              <p class="site-description motion-element" itemprop="description">Talk is cheap. Show me the code.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/iamfaith" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xianzixiang@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript专题之深浅拷贝"><span class="nav-number">1.</span> <span class="nav-text">JavaScript专题之深浅拷贝</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript深入之call和apply的模拟实现"><span class="nav-number">2.</span> <span class="nav-text">JavaScript深入之call和apply的模拟实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#call"><span class="nav-number">2.1.</span> <span class="nav-text">call</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟实现第一步"><span class="nav-number">2.2.</span> <span class="nav-text">模拟实现第一步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟实现第二步"><span class="nav-number">2.3.</span> <span class="nav-text">模拟实现第二步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟实现第三步"><span class="nav-number">2.4.</span> <span class="nav-text">模拟实现第三步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apply的模拟实现"><span class="nav-number">2.5.</span> <span class="nav-text">apply的模拟实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript深入之bind的模拟实现"><span class="nav-number">3.</span> <span class="nav-text">JavaScript深入之bind的模拟实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bind"><span class="nav-number">3.1.</span> <span class="nav-text">bind</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回函数的模拟实现"><span class="nav-number">3.2.</span> <span class="nav-text">返回函数的模拟实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传参的模拟实现"><span class="nav-number">3.3.</span> <span class="nav-text">传参的模拟实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数效果的模拟实现"><span class="nav-number">3.4.</span> <span class="nav-text">构造函数效果的模拟实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数效果的优化实现"><span class="nav-number">3.5.</span> <span class="nav-text">构造函数效果的优化实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三个小问题"><span class="nav-number">3.6.</span> <span class="nav-text">三个小问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最终代码"><span class="nav-number">3.7.</span> <span class="nav-text">最终代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript深入之从原型到原型链"><span class="nav-number">4.</span> <span class="nav-text">JavaScript深入之从原型到原型链</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数创建对象"><span class="nav-number">4.1.</span> <span class="nav-text">构造函数创建对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#prototype"><span class="nav-number">4.2.</span> <span class="nav-text">prototype</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#proto"><span class="nav-number">4.3.</span> <span class="nav-text">proto</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#constructor-NaN"><span class="nav-number">4.4.</span> <span class="nav-text">constructor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例与原型"><span class="nav-number">4.5.</span> <span class="nav-text">实例与原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型的原型"><span class="nav-number">4.6.</span> <span class="nav-text">原型的原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型链"><span class="nav-number">4.7.</span> <span class="nav-text">原型链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number">4.8.</span> <span class="nav-text">补充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#constructor"><span class="nav-number">4.8.1.</span> <span class="nav-text">constructor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proto-1"><span class="nav-number">4.8.2.</span> <span class="nav-text">proto</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#真的是继承吗？"><span class="nav-number">4.8.3.</span> <span class="nav-text">真的是继承吗？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript深入之词法作用域和动态作用域"><span class="nav-number">5.</span> <span class="nav-text">JavaScript深入之词法作用域和动态作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域"><span class="nav-number">5.1.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态作用域与动态作用域"><span class="nav-number">5.2.</span> <span class="nav-text">静态作用域与动态作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态作用域"><span class="nav-number">5.3.</span> <span class="nav-text">动态作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思考题"><span class="nav-number">5.4.</span> <span class="nav-text">思考题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript专题之函数柯里化"><span class="nav-number">6.</span> <span class="nav-text">JavaScript专题之函数柯里化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">6.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用途"><span class="nav-number">6.2.</span> <span class="nav-text">用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一版"><span class="nav-number">6.3.</span> <span class="nav-text">第一版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二版"><span class="nav-number">6.4.</span> <span class="nav-text">第二版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更易懂的实现"><span class="nav-number">6.5.</span> <span class="nav-text">更易懂的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第三版"><span class="nav-number">6.5.1.</span> <span class="nav-text">第三版</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript专题之数组去重"><span class="nav-number">7.</span> <span class="nav-text">JavaScript专题之数组去重</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">7.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双层循环"><span class="nav-number">7.2.</span> <span class="nav-text">双层循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#indexOf"><span class="nav-number">7.3.</span> <span class="nav-text">indexOf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序后去重"><span class="nav-number">7.4.</span> <span class="nav-text">排序后去重</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unique-API"><span class="nav-number">7.5.</span> <span class="nav-text">unique API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化"><span class="nav-number">7.6.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#filter"><span class="nav-number">7.7.</span> <span class="nav-text">filter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-键值对"><span class="nav-number">7.8.</span> <span class="nav-text">Object 键值对</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6"><span class="nav-number">7.9.</span> <span class="nav-text">ES6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript-的进化"><span class="nav-number">7.10.</span> <span class="nav-text">JavaScript 的进化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊类型比较"><span class="nav-number">7.11.</span> <span class="nav-text">特殊类型比较</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript深入之创建对象的多种方式以及优缺点"><span class="nav-number">8.</span> <span class="nav-text">JavaScript深入之创建对象的多种方式以及优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">8.1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-工厂模式"><span class="nav-number">8.2.</span> <span class="nav-text">1. 工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-构造函数模式"><span class="nav-number">8.3.</span> <span class="nav-text">2. 构造函数模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-构造函数模式优化"><span class="nav-number">8.4.</span> <span class="nav-text">2.1 构造函数模式优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-原型模式"><span class="nav-number">8.5.</span> <span class="nav-text">3. 原型模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-原型模式优化"><span class="nav-number">8.6.</span> <span class="nav-text">3.1 原型模式优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-原型模式优化"><span class="nav-number">8.7.</span> <span class="nav-text">3.2 原型模式优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-组合模式"><span class="nav-number">8.8.</span> <span class="nav-text">4. 组合模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-动态原型模式"><span class="nav-number">8.9.</span> <span class="nav-text">4.1 动态原型模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-寄生构造函数模式"><span class="nav-number">8.9.1.</span> <span class="nav-text">5.1 寄生构造函数模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-稳妥构造函数模式"><span class="nav-number">8.10.</span> <span class="nav-text">5.2 稳妥构造函数模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript深入之继承的多种方式和优缺点"><span class="nav-number">9.</span> <span class="nav-text">JavaScript深入之继承的多种方式和优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面-1"><span class="nav-number">9.1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-原型链继承"><span class="nav-number">9.2.</span> <span class="nav-text">1.原型链继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-借用构造函数-经典继承"><span class="nav-number">9.3.</span> <span class="nav-text">2.借用构造函数(经典继承)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-组合继承"><span class="nav-number">9.4.</span> <span class="nav-text">3.组合继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-原型式继承"><span class="nav-number">9.5.</span> <span class="nav-text">4.原型式继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-寄生式继承"><span class="nav-number">9.6.</span> <span class="nav-text">5. 寄生式继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-寄生组合式继承"><span class="nav-number">9.7.</span> <span class="nav-text">6. 寄生组合式继承</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Faith</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v6.6.6</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/velocity/1.5.0/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/velocity/1.5.0/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.6.6"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.6.6"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.6"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.6"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.6.6"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

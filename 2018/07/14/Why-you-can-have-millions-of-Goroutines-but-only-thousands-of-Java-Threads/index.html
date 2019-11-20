@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.bootcss.com/fancybox/3.1.20/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.6.6" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.6">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.6">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.6">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.6" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,技术,galang,scala,language-internals,technology," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="Faith' s Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="ProblemsMany seasoned engineers working in JVM based languages have seen errors like this: [error] (run-main-0) java.lang.OutOfMemoryError: unable to create native thread: [error] java.lang.OutOfMemor">
+<meta name="keywords" content="java,技术,galang,scala,language-internals,technology">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Why you can have millions of Goroutines but only thousands of Java Threads">
+<meta property="og:url" content="https://faithio.tk/2018/07/14/Why-you-can-have-millions-of-Goroutines-but-only-thousands-of-Java-Threads/index.html">
+<meta property="og:site_name" content="Faith&#39; s Blog">
+<meta property="og:description" content="ProblemsMany seasoned engineers working in JVM based languages have seen errors like this: [error] (run-main-0) java.lang.OutOfMemoryError: unable to create native thread: [error] java.lang.OutOfMemor">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-07-14T03:58:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Why you can have millions of Goroutines but only thousands of Java Threads">
+<meta name="twitter:description" content="ProblemsMany seasoned engineers working in JVM based languages have seen errors like this: [error] (run-main-0) java.lang.OutOfMemoryError: unable to create native thread: [error] java.lang.OutOfMemor">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.6.6',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://faithio.tk/2018/07/14/Why-you-can-have-millions-of-Goroutines-but-only-thousands-of-Java-Threads/"/>
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('please enter the passowrd for this post') !== ''){
+                alert('password error!');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1438507724851578",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+
+  <title>Why you can have millions of Goroutines but only thousands of Java Threads | Faith' s Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Faith' s Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-cv">
+          <a href="/cv/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            cv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-algorithm">
+          <a href="/algorithm/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            algorithm
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-leetcode">
+          <a href="/leetcode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            leetcode
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2018/07/14/Why-you-can-have-millions-of-Goroutines-but-only-thousands-of-Java-Threads/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="faith">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Faith' s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Why you can have millions of Goroutines but only thousands of Java Threads</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-14T11:10:16-04:00">
+                2018-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Problems"><a href="#Problems" class="headerlink" title="Problems"></a><a name="problems"></a>Problems</h3><p>Many seasoned engineers working in JVM based languages have seen errors like this:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[error] (run-main-0) java.lang.OutOfMemoryError: unable to create native thread: </span><br><span class="line">[error] java.lang.OutOfMemoryError: unable to create native thread: </span><br><span class="line">[error] 	at java.base/java.lang.Thread.start0(Native Method)</span><br><span class="line">[error] 	at java.base/java.lang.Thread.start(Thread.java:813)</span><br><span class="line">...</span><br><span class="line">[error] 	at java.base/java.lang.Thread.run(Thread.java:844)</span><br></pre></td></tr></table></figure>
+<p><code>OutOfMemory</code>…err…out of threads. On my laptop running Linux, this happens after a paltry 11500 threads.</p>
+<p>If you try the same thing in Go by starting Goroutines that sleep indefinitely, you get a very different result. On my laptop, I got up to 70 million goroutines before I got bored. So why can you have so many more Goroutines than threads? The answer is a fun journey down the operating system and back up again. And this isn’t just an academic issue – it has real world implications for how you design software. I’ve run into JVM thread limits in production literally dozens of times, either because some bad code was leaking threads, or because an engineer simply wasn’t aware of the JVM’s thread limitations.</p>
+<h3 id="What’s-a-thread-anyway"><a href="#What’s-a-thread-anyway" class="headerlink" title="What’s a thread anyway?"></a><a name="head"></a>What’s a thread anyway?</h3><p>The term “thread” can mean a lot of different things. In this post, I’m going to use it to refer to a logical thread. That is: a series of operations with are run in a linear order; a logical path of execution. CPUs can only execute about one logical thread per core truly concurrently.<a href="https://rcoh.me/posts/why-you-can-have-a-million-go-routines-but-only-1000-java-threads/#fn:1" target="_blank" rel="noopener">1</a>An inherent side effect: If you have more threads than cores, threads must be paused to allow other threads to do work, then later resumed when it’s their turn again. To support being paused and resumed, a thread minimally needs two things:</p>
+<ol>
+<li>An instruction pointer of some kind. AKA: What line of code was I executing when I was paused?</li>
+<li>A stack. AKA: What is my current state? The stack contains local variables as well as pointers to heap allocated variables. All threads within the same process share the same heap.<a href="https://rcoh.me/posts/why-you-can-have-a-million-go-routines-but-only-1000-java-threads/#fn:4" target="_blank" rel="noopener">2</a></li>
+</ol>
+<p>Given these two things, the system scheduling threads onto the CPU has enough information to pause a thread, allow other threads to run, then later resume the original thread where it left off. This operation is usually completely transparent to the threads. From the perspective of a thread, it is running continuously. The only way a thread could observe being descheduled is by measuring the time between subsequent operations.<a href="https://rcoh.me/posts/why-you-can-have-a-million-go-routines-but-only-1000-java-threads/#fn:5" target="_blank" rel="noopener">3</a></p>
+<p>Getting back to our original question: why can you have so many more Goroutines?</p>
+<h3 id="The-JVM-uses-operating-system-threads"><a href="#The-JVM-uses-operating-system-threads" class="headerlink" title="The JVM uses operating system threads"></a>The JVM uses operating system threads</h3><p>Although, it’s not required by the spec, all modern, general purpose JVMs that I’m aware of delegate threading to operating system threads on all platforms where this is possible. Going forward, I’ll use the phrase “user space threads” to refer to threads that are scheduled by the language instead of by the kernel/OS. Threads implemented by the operating system have two properties that drastically limit how many of them can exist; no solution that maps language threads 1:1 with operating system threads can support massive concurrency.</p>
+<h4 id="In-the-JVM-Fixed-Stack-Size"><a href="#In-the-JVM-Fixed-Stack-Size" class="headerlink" title="In the JVM: Fixed Stack Size"></a>In the JVM: Fixed Stack Size</h4><p><strong>Using operating system threads incurs a constant, large, memory cost per thread</strong></p>
+<p>The second major problem with operating system threads comes because each OS thread has its own fixed-size stack. Though the size is configurable, in a 64-bit environment, the JVM defaults to a 1MB stack per thread. You can make the default stack size smaller, but you tradeoff memory usage with increased risk of stack overflow. The more recursion in your code, the more likely you are to hit stack overflow. If you keep the default value, 1k threads will use almost 1GB of RAM! RAM is cheap these days, but almost no one has the terabyte of ram you’d need to run a million threads with this machinery.</p>
+<h4 id="How-Go-does-it-differently-Dynamically-Sized-Stacks"><a href="#How-Go-does-it-differently-Dynamically-Sized-Stacks" class="headerlink" title="How Go does it differently: Dynamically Sized Stacks"></a>How Go does it differently: Dynamically Sized Stacks</h4><p>Golang prevents large (mostly unused) stacks running the system out of memory with a clever trick: Go’s stacks are dynamically sized, growing and shrinking with the amount of data stored. This isn’t a trivial thing to do, and the design has gone through a <a href="https://blog.cloudflare.com/how-stacks-are-handled-in-go/" target="_blank" rel="noopener">couple</a> <a href="https://groups.google.com/forum/#!topic/golang-dev/i7vORoJ3XIw" target="_blank" rel="noopener">of</a><a href="https://docs.google.com/document/d/1wAaf1rYoM4S4gtnPh0zOlGzWtrZFQ5suE8qr2sD8uWQ/pub" target="_blank" rel="noopener">iterations</a>.<a href="https://rcoh.me/posts/why-you-can-have-a-million-go-routines-but-only-1000-java-threads/#fn:2" target="_blank" rel="noopener">4</a> While I’m not going to get into the internal details here (they’re more than enough for their own posts and others have written about it at length), the upshot is that a new goroutine will have a stack of only about 4KB. With 4KB per stack, you can put 2.5 million goroutines in a gigabyte of RAM – a huge improvement over Java’s 1MB per thread.</p>
+<h4 id="In-the-JVM-Context-Switching-Delay"><a href="#In-the-JVM-Context-Switching-Delay" class="headerlink" title="In the JVM: Context Switching Delay"></a>In the JVM: Context Switching Delay</h4><p><strong>Using operating system threads caps you in the double digit thousands, simply from context switching delay</strong>.</p>
+<p>Because the JVM uses operating system threads, it relies on the operating system kernel to schedule them. The operating system has a list of all the running processes and threads, and attempts to give them each a “fair” share of time running on the CPU.<a href="https://rcoh.me/posts/why-you-can-have-a-million-go-routines-but-only-1000-java-threads/#fn:nice" target="_blank" rel="noopener">5</a> When the kernel switches from one thread to another, it has a significant amount of work do. The new thread or process running must be started with a view of world that abstracts away the fact that other threads are running on the same CPU. I won’t the get into the nitty gritty here, but you can <a href="https://en.wikipedia.org/wiki/Context_switch" target="_blank" rel="noopener">read more</a> if you’re curious. The critical takeaway is that switching contexts will take on the order of 1-100µ seconds. This may not seem like much, but at a fairly realistic 10µ seconds per switch, if you want to schedule each thread at least once per second, you’ll only be able to run about 100k threads on 1 core. And this doesn’t actually give the threads time to do any useful work.</p>
+<h4 id="How-Go-does-it-differently-Run-multiple-Goroutines-on-a-single-OS-thread"><a href="#How-Go-does-it-differently-Run-multiple-Goroutines-on-a-single-OS-thread" class="headerlink" title="How Go does it differently: Run multiple Goroutines on a single OS thread"></a>How Go does it differently: Run multiple Goroutines on a single OS thread</h4><p>Golang implements its own scheduler that allows many Goroutines to run on the same OS thread. Even if Go ran the same context switching code as the kernel, it would save a significant amount of time by avoiding the need to switch into <a href="https://en.wikipedia.org/wiki/Protection_ring" target="_blank" rel="noopener">ring-0</a> to run the kernel and back again. But that’s just table stakes. To actually support 1 million goroutines, Go needs to do something much more sophisticated.</p>
+<p>Even if JVM brought threads to user space, it still wouldn’t be able to support millions of threads. Suppose for a minute that in your new system, switching between new threads takes only 100 nanoseconds. Even if all you did was context switch, you could only run about a million threads if you wanted to schedule each thread ten times per second. More importantly, you’d be maxing out your CPU to do so. Supporting truly massive concurrency requires another optimization: Only schedule a thread when you know it can do useful work! If you’re running that many threads, only a handful can be be doing useful work anyway. Go facilitates this by integrating channels and the scheduler. If a goroutine is waiting on a empty channel, the scheduler can see that and it won’t run the Goroutine. Go goes one step further and actually sticks the mostly-idle goroutines on their own operating system thread. This way the (hopefully much smaller) number of active goroutines can be scheduled by one thread while the millions of mostly-sleeping goroutines can be tended to separately. This helps keep latency down.</p>
+<p>Unless Java added language features that the scheduler could observe, supporting intelligent scheduling would be impossible. However, you can build runtime schedulers in “user space” that are aware of when a thread can do work. This forms the basis for frameworks like Akka that can support millions of actors<a href="https://rcoh.me/posts/why-you-can-have-a-million-go-routines-but-only-1000-java-threads/#fn:3" target="_blank" rel="noopener">6</a></p>
+<h3 id="Closing-Thoughts"><a href="#Closing-Thoughts" class="headerlink" title="Closing Thoughts"></a>Closing Thoughts</h3><p>Transitioning from a model using operating system threads to a model using lightweight, user space threads has happened over and over again and will probably continue to happen.<a href="https://rcoh.me/posts/why-you-can-have-a-million-go-routines-but-only-1000-java-threads/#fn:switch" target="_blank" rel="noopener">7</a> For use cases where a high degree of concurrency is required, it’s simply the only option. However, it doesn’t come without considerable complexity. If Go opted for OS threads instead of their own scheduler and growable-stack scheme, they would shave thousands of lines off the <a href="https://github.com/golang/go/blob/d9b006a7057d4666cb4fa9c421f2360ef3994b0f/src/runtime/proc.go" target="_blank" rel="noopener">runtime</a>. For many use cases, it’s simply a better model. The complexity can be abstracted away by language and library writers, and software engineers can write massively concurrent programs.</p>
+<h5 id="This-post’s-link-is-here-See-Chinese-version-here"><a href="#This-post’s-link-is-here-See-Chinese-version-here" class="headerlink" title="This post’s link is here. See Chinese version here."></a>This post’s link is <a href="https://rcoh.me/posts/why-you-can-have-a-million-go-routines-but-only-1000-java-threads/#fnref:1" target="_blank" rel="noopener">here</a>. See <a href="https://mp.weixin.qq.com/s?__biz=MzIzNjUxMzk2NQ==&amp;mid=2247489546&amp;idx=1&amp;sn=ce0ba24046fae77acde2b7d1c8b4ce08&amp;chksm=e8d7e7c8dfa06ede0720d03141e5af5a5be8c9a8286e1ea6ba14d7eb214bd907a4036c341ac0&amp;mpshare=1&amp;scene=1&amp;srcid=0714O4kudEIvKMkugpVIkdv7#rd" target="_blank" rel="noopener">Chinese version</a> here.</h5><hr>
+<ol>
+<li><a href="https://en.wikipedia.org/wiki/Hyper-threading" target="_blank" rel="noopener">Hyperthreading</a> doubles the effective cores. Instruction pipelining will also increase the effective parallelism the CPU allows. At the end of the day, however, it will be <code>O(numCores)</code>. <a href="#problems">[return]</a></li>
+<li>There’s probably some esoteric case where this isn’t true. I’m sure someone will tell me about it.   <a href="#problems">[return]</a></li>
+<li>This is actually an attack vector. Javascript can detect minute differences in timing caused by keyboard interrupts. This can be used by a malicious website to listen, not to your keystrokes, but to their timing. <a href="https://mlq.me/download/keystroke_js.pdf" target="_blank" rel="noopener">https://mlq.me/download/keystroke_js.pdf</a>  <a href="#problems">[return]</a></li>
+<li>Golang first started with a segmented-stacks model where the stack would actually expand into a separate area of memory, using some clever bookkeeping to keep track. A later implementation improved performance in specific cases by instead using a contiguous stack where instead of splitting the stack, much like resizing a hashtable, a new large stack is allocated and through some very tricky pointer manipulation, all the contents are carefully copied into the new, larger, stack.  <a href="#problems">[return]</a></li>
+<li>Threads can mark their priority by calling <code>nice</code> (see <code>man nice</code>) for more info to control how frequently they’re scheduled.  <a href="#problems">[return]</a></li>
+<li>Actors serve the same purpose as Goroutines for Scala/Java by enabling massive concurrency. Just like Goroutines, the actor scheduler can see which actors have messages in their mailbox and only run actors that are ready to do useful work. You can actually have even more actors than you can have goroutines because actors don’t need a stack. However, this means that if an actor does not quickly process a message, the scheduler will be blocked (since it can’t pause in the middle of the message since the Actor doesn’t have it’s own stack). A blocked scheduler means no messages are processed and things will quickly grind to a halt. Trade offs!  <a href="#problems">[return]</a></li>
+<li>In Apache, each request is handled by 1 OS thread, effectively capping Apache to thousands of concurrent connections. Nginx opts for a model where 1 OS thread tends to hundreds or even thousands of concurrent connections, allowing a much higher degree of concurrency. Erlang uses a similar model that allows millions of actors to execute concurrently. Gevent brings greenlets (user space threads) to Python, enabling a much higher degree of concurrency than would be supported otherwise (Python threads are OS threads).  <a href="#problems">[return]</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>If you like, please donate to me</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="faith WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/galang/" rel="tag"># galang</a>
+          
+            <a href="/tags/scala/" rel="tag"># scala</a>
+          
+            <a href="/tags/language-internals/" rel="tag"># language-internals</a>
+          
+            <a href="/tags/technology/" rel="tag"># technology</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/08/Notes-about-IELTS-writing-task-2/" rel="next" title="Notes about IELTS writing task 2">
+                <i class="fa fa-chevron-left"></i> Notes about IELTS writing task 2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/14/Way-to-say-attractive-in-native-speaking/" rel="prev" title="Way to say attractive in native speaking">
+                Way to say attractive in native speaking <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="faith" />
+            
+              <p class="site-author-name" itemprop="name">faith</p>
+              <p class="site-description motion-element" itemprop="description">Talk is cheap. Show me the code.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/iamfaith" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xianzixiang@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Problems"><span class="nav-number">1.</span> <span class="nav-text">Problems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What’s-a-thread-anyway"><span class="nav-number">2.</span> <span class="nav-text">What’s a thread anyway?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-JVM-uses-operating-system-threads"><span class="nav-number">3.</span> <span class="nav-text">The JVM uses operating system threads</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#In-the-JVM-Fixed-Stack-Size"><span class="nav-number">3.1.</span> <span class="nav-text">In the JVM: Fixed Stack Size</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#How-Go-does-it-differently-Dynamically-Sized-Stacks"><span class="nav-number">3.2.</span> <span class="nav-text">How Go does it differently: Dynamically Sized Stacks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#In-the-JVM-Context-Switching-Delay"><span class="nav-number">3.3.</span> <span class="nav-text">In the JVM: Context Switching Delay</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#How-Go-does-it-differently-Run-multiple-Goroutines-on-a-single-OS-thread"><span class="nav-number">3.4.</span> <span class="nav-text">How Go does it differently: Run multiple Goroutines on a single OS thread</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Closing-Thoughts"><span class="nav-number">4.</span> <span class="nav-text">Closing Thoughts</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#This-post’s-link-is-here-See-Chinese-version-here"><span class="nav-number">4.0.1.</span> <span class="nav-text">This post’s link is here. See Chinese version here.</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Faith</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v6.6.6</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/velocity/1.5.0/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/velocity/1.5.0/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.6.6"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.6.6"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.6"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.6"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.6.6"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

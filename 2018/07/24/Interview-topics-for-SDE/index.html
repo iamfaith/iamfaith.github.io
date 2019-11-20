@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.bootcss.com/fancybox/3.1.20/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.6.6" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.6">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.6">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.6">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.6" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="interview,java," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="Faith' s Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="JAVA基础题 String s = new String(“abc”) 创建了几个对象  死锁  HashMap什么情况下发生死链 HashTable/hashMap-线程不安全 区别  Java什么时候会发生内存泄漏-heap leak -Xms&amp;lt;size&amp;gt; -Xmx&amp;lt;size&amp;gt;  Unclosed Streams or Unclosed Connections 资源未">
+<meta name="keywords" content="interview,java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Interview topics for SDE">
+<meta property="og:url" content="https://faithio.tk/2018/07/24/Interview-topics-for-SDE/index.html">
+<meta property="og:site_name" content="Faith&#39; s Blog">
+<meta property="og:description" content="JAVA基础题 String s = new String(“abc”) 创建了几个对象  死锁  HashMap什么情况下发生死链 HashTable/hashMap-线程不安全 区别  Java什么时候会发生内存泄漏-heap leak -Xms&amp;lt;size&amp;gt; -Xmx&amp;lt;size&amp;gt;  Unclosed Streams or Unclosed Connections 资源未">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://faithio.tk/2018/07/24/Interview-topics-for-SDE/javaMem.png">
+<meta property="og:image" content="https://faithio.tk/2018/07/24/Interview-topics-for-SDE/https.png">
+<meta property="og:updated_time" content="2018-07-24T14:43:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Interview topics for SDE">
+<meta name="twitter:description" content="JAVA基础题 String s = new String(“abc”) 创建了几个对象  死锁  HashMap什么情况下发生死链 HashTable/hashMap-线程不安全 区别  Java什么时候会发生内存泄漏-heap leak -Xms&amp;lt;size&amp;gt; -Xmx&amp;lt;size&amp;gt;  Unclosed Streams or Unclosed Connections 资源未">
+<meta name="twitter:image" content="https://faithio.tk/2018/07/24/Interview-topics-for-SDE/javaMem.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.6.6',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://faithio.tk/2018/07/24/Interview-topics-for-SDE/"/>
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('please enter the passowrd for this post') !== ''){
+                alert('password error!');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1438507724851578",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+
+  <title>Interview topics for SDE | Faith' s Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Faith' s Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-cv">
+          <a href="/cv/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            cv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-algorithm">
+          <a href="/algorithm/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            algorithm
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-leetcode">
+          <a href="/leetcode/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            leetcode
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2018/07/24/Interview-topics-for-SDE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="faith">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Faith' s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Interview topics for SDE</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-24T19:39:58-04:00">
+                2018-07-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="JAVA"><a href="#JAVA" class="headerlink" title="JAVA"></a>JAVA</h2><h3 id="基础题"><a href="#基础题" class="headerlink" title="基础题"></a>基础题</h3><ol>
+<li><p>String s = new String(“abc”) 创建了几个对象</p>
+</li>
+<li><p>死锁</p>
+</li>
+<li><p>HashMap什么情况下发生死链</p>
+<p>HashTable/hashMap-线程不安全 区别</p>
+</li>
+<li><p>Java什么时候会发生内存泄漏-heap leak</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-Xms&lt;size&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-Xmx&lt;size&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="Unclosed-Streams-or-Unclosed-Connections-资源未关闭（数据库连接／文件）"><a href="#Unclosed-Streams-or-Unclosed-Connections-资源未关闭（数据库连接／文件）" class="headerlink" title="Unclosed Streams or Unclosed Connections 资源未关闭（数据库连接／文件）"></a>Unclosed Streams or <strong>Unclosed Connections</strong> 资源未关闭（数据库连接／文件）</h4><ul>
+<li><h4 id="auto-close-feature-introduced-in-Java-8"><a href="#auto-close-feature-introduced-in-Java-8" class="headerlink" title="auto-close feature introduced in Java 8"></a>auto-close feature introduced in Java 8</h4></li>
+</ul>
+</li>
+<li><h4 id="Adding-Objects-with-no-hashCode-and-equals-into-a-HashSet"><a href="#Adding-Objects-with-no-hashCode-and-equals-into-a-HashSet" class="headerlink" title="Adding Objects with no hashCode() and equals() into a HashSet"></a><strong>Adding Objects with no hashCode() and equals() into a HashSet</strong></h4><ul>
+<li><h4 id="hashCode-and-equals-implementations"><a href="#hashCode-and-equals-implementations" class="headerlink" title="hashCode() and equals() implementations"></a><em>hashCode()</em> and <em>equals()</em> implementations</h4></li>
+</ul>
+</li>
+<li><h4 id="Static-Field-Holding-On-to-the-Object-Reference-单例对象"><a href="#Static-Field-Holding-On-to-the-Object-Reference-单例对象" class="headerlink" title="Static Field Holding On to the Object Reference 单例对象"></a><strong>Static Field Holding On to the Object Reference </strong>单例对象</h4></li>
+<li><h4 id="Calling-String-intern-on-Long-String"><a href="#Calling-String-intern-on-Long-String" class="headerlink" title="Calling String.intern() on Long String"></a><strong>Calling String.intern() on Long String</strong></h4><ul>
+<li><h4 id="XX-MaxPermSize"><a href="#XX-MaxPermSize" class="headerlink" title="-XX:MaxPermSize="></a>-XX:MaxPermSize=<size></size></h4></li>
+<li><h4 id="interned-String-objects-are-stored-in-PermGen-space"><a href="#interned-String-objects-are-stored-in-PermGen-space" class="headerlink" title="interned String objects are stored in PermGen space"></a>interned <em>String</em> objects are stored in <em>PermGen</em> space</h4></li>
+<li><h4 id="use-Java-8-–-where-the-PermGen-space-is-replaced-by-the-Metaspace-–-which-won’t-lead-to-any-OutOfMemoryError-when-using-internon-Strings"><a href="#use-Java-8-–-where-the-PermGen-space-is-replaced-by-the-Metaspace-–-which-won’t-lead-to-any-OutOfMemoryError-when-using-internon-Strings" class="headerlink" title="use Java 8 – where the PermGen space is replaced by the Metaspace – which won’t lead to any OutOfMemoryError when using internon Strings"></a>use Java 8 – where the <em>PermGen</em> space is replaced by the <em>Metaspace</em> – which won’t lead to any <em>OutOfMemoryError</em> when using <em>intern</em>on Strings</h4></li>
+</ul>
+</li>
+<li><p>容器中的对象</p>
+</li>
+<li><p>堆外内存</p>
+</li>
+</ul>
+<h4 id="Do-Profiling-Visual-VM"><a href="#Do-Profiling-Visual-VM" class="headerlink" title="Do Profiling: Visual VM"></a>Do Profiling: Visual VM</h4></li>
+<li><p>JAVA：OutOfMemoryError（OOM）</p>
+<ul>
+<li>堆内存溢出</li>
+<li>虚拟机栈和本地方法栈溢出<ul>
+<li>-Xss设置栈大小 -Xoss设定本地方法栈大小</li>
+<li>不能减少线程或者换64虚拟机，减少最大堆和减少栈容量</li>
+</ul>
+</li>
+<li>方法区和运行时常量池溢出（permGen）<ul>
+<li>-XX：Permsize/ -XX:MaxPermSize</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>分布式高并发系统如何保证对外接口的幂等性</p>
+<ul>
+<li>在请求参数中附带唯一标识作为唯一键，唯一标识可以由业务字段加时间戳低位拼接而成，或者使用snowflake、UUID等ID生成算法</li>
+<li>找出业务本身的唯一约束。比如一个客户对同一只新股只能申购一次，那么客户号加申购代码可以组成唯一键，去重表</li>
+</ul>
+</li>
+</ol>
+<h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h3><ul>
+<li>Running：执行中。 </li>
+<li>Ready：除了CPU，其他资源都ok，等待调度。 </li>
+<li>Blocked：等待某个事件，如键盘输入。 </li>
+<li><p>状态切换（4种情况）：  </p>
+<ul>
+<li>Ready到Running：CPU调度到了，开始执行 </li>
+<li>Running到Ready：时间片到了 </li>
+<li>Running到Blocked：执行到某个时候，需要等待某个事件 </li>
+<li>Blocked到Ready：等待的事件发生了，进入Ready等待CPU调度</li>
+</ul>
+</li>
+<li><p>在性能上来说，如果竞争资源不激烈，两者的性能是差不多的，而当竞争资源非常激烈时（即有大量线程同时竞争），此时ReentrantLock的性能要远远优于synchronized。所以说，在具体使用时要根据适当情况选择。在JDK1.5中，synchronized是性能低效的。因为这是一个重量级操作，它对性能最大的影响是阻塞的是实现，挂起线程和恢复线程的操作都需要转入内核态中完成，这些操作给系统的并发性带来了很大的压力。相比之下使用Java提供的ReentrankLock对象，性能更高一些。到了JDK1.6，发生了变化，对synchronize加入了很多优化措施，有自适应自旋，锁消除，锁粗化，轻量级锁，偏向锁等等。导致在JDK1.6上synchronize的性能并不比Lock差。官方也表示，他们也更支持synchronize，在未来的版本中还有优化余地，所以还是提倡在synchronized能实现需求的情况下，优先考虑使用synchronized来进行同步。 </p>
+</li>
+</ul>
+<h3 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h3><h3 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h3><p><img src="/2018/07/24/Interview-topics-for-SDE/./javaMem.png" alt="https"></p>
+<ul>
+<li><p>堆内存（Heap Memory）： 存放Java对象 </p>
+<p> -<a href="./gc_heap.png">堆内存模型</a></p>
+<blockquote>
+<p>堆内存由垃圾回收器的自动内存管理系统回收。<br>堆内存分为两大部分：新生代和老年代。比例为1：2。<br>老年代主要存放应用程序中生命周期长的存活对象。<br>新生代又分为三个部分：一个Eden区和两个Survivor区，比例为8：1：1。<br>Eden区存放新生的对象。<br>Survivor存放每次垃圾回收后存活的对象。</p>
+<p><em>Java虚拟机（这里默认指Hotspot）采用的是分代回收算法</em></p>
+</blockquote>
+</li>
+<li><p>非堆内存（Non-Heap Memory）： 存放类加载信息和其它meta-data </p>
+</li>
+<li><p>其它（Other）： 存放JVM 自身代码等</p>
+</li>
+</ul>
+<h3 id="分代回收算法（复制算法和标记整理算法）"><a href="#分代回收算法（复制算法和标记整理算法）" class="headerlink" title="分代回收算法（复制算法和标记整理算法）"></a>分代回收算法（复制算法和标记整理算法）</h3><ul>
+<li>复制算法：适用于存活对象很少。回收对象多-新生代</li>
+<li>标记整理算法: 适用用于存活对象多，回收对象少-老年代</li>
+</ul>
+<p>堆区划分为老年代（Old Generation）和新生代（Young Generation），老年代的特点是每次垃圾收集时只有少量对象需要被回收，而新生代的特点是每次垃圾回收时都有大量的对象需要被回收</p>
+<p>参考：<a href="http://jayfeng.com/2016/03/11/%E7%90%86%E8%A7%A3Java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" target="_blank" rel="noopener">http://jayfeng.com/2016/03/11/理解Java垃圾回收机制/</a></p>
+<h4 id="为什么不是一块Survivor空间而是两块？"><a href="#为什么不是一块Survivor空间而是两块？" class="headerlink" title="为什么不是一块Survivor空间而是两块？"></a>为什么不是一块Survivor空间而是两块？</h4><p>这里涉及到一个新生代和老年代的存活周期的问题，比如一个对象在新生代经历15次（仅供参考）GC，就可以移到老年代了。问题来了，当我们第一次GC的时候，我们可以把Eden区的存活对象放到Survivor A空间，但是第二次GC的时候，Survivor A空间的存活对象也需要再次用Copying算法，放到Survivor B空间上，而把刚刚的Survivor A空间和Eden空间清除。第三次GC时，又把Survivor B空间的存活对象复制到Survivor A空间，如此反复。<br>所以，这里就需要两块Survivor空间来回倒腾。</p>
+<h4 id="为什么Eden空间这么大而Survivor空间要分的少一点？"><a href="#为什么Eden空间这么大而Survivor空间要分的少一点？" class="headerlink" title="为什么Eden空间这么大而Survivor空间要分的少一点？"></a>为什么Eden空间这么大而Survivor空间要分的少一点？</h4><p>新创建的对象都是放在Eden空间，这是很频繁的，尤其是大量的局部变量产生的临时对象，这些对象绝大部分都应该马上被回收，能存活下来被转移到survivor空间的往往不多。所以，设置较大的Eden空间和较小的Survivor空间是合理的，大大提高了内存的使用率，缓解了Copying算法的缺点。<br>我看8：1：1就挺好的，当然这个比例是可以调整的，包括上面的新生代和老年代的1：2的比例也是可以调整的。<br>新的问题又来了，从Eden空间往Survivor空间转移的时候Survivor空间不够了怎么办？直接放到老年代去。</p>
+<h4 id="Eden空间和两块Survivor空间的工作流程"><a href="#Eden空间和两块Survivor空间的工作流程" class="headerlink" title="Eden空间和两块Survivor空间的工作流程"></a>Eden空间和两块Survivor空间的工作流程</h4><p>现在假定有新生代Eden，Survivor A， Survivor B三块空间和老生代Old一块空间。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 分配了一个又一个对象</span><br><span class="line">放到Eden区</span><br><span class="line">// 不好，Eden区满了，只能GC(新生代GC：Minor GC)了</span><br><span class="line">把Eden区的存活对象copy到Survivor A区，然后清空Eden区（本来Survivor B区也需要清空的，不过本来就是空的）</span><br><span class="line">// 又分配了一个又一个对象</span><br><span class="line">放到Eden区</span><br><span class="line">// 不好，Eden区又满了，只能GC(新生代GC：Minor GC)了</span><br><span class="line">把Eden区和Survivor A区的存活对象copy到Survivor B区，然后清空Eden区和Survivor A区</span><br><span class="line">// 又分配了一个又一个对象</span><br><span class="line">放到Eden区</span><br><span class="line">// 不好，Eden区又满了，只能GC(新生代GC：Minor GC)了</span><br><span class="line">把Eden区和Survivor B区的存活对象copy到Survivor A区，然后清空Eden区和Survivor B区</span><br><span class="line">// ...</span><br><span class="line">// 有的对象来回在Survivor A区或者B区呆了比如15次，就被分配到老年代Old区</span><br><span class="line">// 有的对象太大，超过了Eden区，直接被分配在Old区</span><br><span class="line">// 有的存活对象，放不下Survivor区，也被分配到Old区</span><br><span class="line">// ...</span><br><span class="line">// 在某次Minor GC的过程中突然发现：</span><br><span class="line">// 不好，老年代Old区也满了，这是一次大GC(老年代GC：Major GC)</span><br><span class="line">Old区慢慢的整理一番，空间又够了</span><br><span class="line">// 继续Minor GC</span><br></pre></td></tr></table></figure>
+<h3 id="触发GC的类型"><a href="#触发GC的类型" class="headerlink" title="触发GC的类型"></a>触发GC的类型</h3><p>了解这些是为了解决实际问题，Java虚拟机会把每次触发GC的信息打印出来来帮助我们分析问题，所以掌握触发GC的类型是分析日志的基础。</p>
+<blockquote>
+<p>GC_FOR_MALLOC: 表示是在堆上分配对象时内存不足触发的GC。<br>GC_CONCURRENT: 当我们应用程序的堆内存达到一定量，或者可以理解为快要满的时候，系统会自动触发GC操作来释放内存。<br>GC_EXPLICIT: 表示是应用程序调用System.gc、VMRuntime.gc接口或者收到SIGUSR1信号时触发的GC。<br>GC_BEFORE_OOM: 表示是在准备抛OOM异常之前进行的最后努力而触发的GC。</p>
+</blockquote>
+<h2 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h2><ol>
+<li>求第K大的数<ul>
+<li>快速排序</li>
+</ul>
+</li>
+</ol>
+<h2 id="Https"><a href="#Https" class="headerlink" title="Https"></a>Https</h2><ol>
+<li>交互流程</li>
+</ol>
+<p><img src="./https.png" alt="https"></p>
+<ul>
+<li>为什么需要交换密钥<ol>
+<li>防止中间人攻击    </li>
+<li>RSA 加密效率较低（密钥交换时的非对称解密计算量占整个握手过程的 90% 以上）</li>
+<li>RSA 加密的明文长度不超过密钥长度。明文过长需自己处理分段加密（比如现在常用的公钥长度是 2048 位，意味着待加密内容不能超过 256 个字节。）</li>
+</ol>
+</li>
+<li>建议优先支持 RSA 和 ECDHE_RSA 密钥交换算法</li>
+</ul>
+<ol start="2">
+<li><p>防止盗链</p>
+<ul>
+<li>use https</li>
+<li>接口参数设置</li>
+</ul>
+<p>data=xxx&amp;tm=xxx&amp;sign=xxxx</p>
+<p>data: 按照字母顺序／tm:时间戳／sign:data + tm + salt（固定字符串）</p>
+<p>采用MD5 校验，或者其他AES／DES／非对称算法加密</p>
+<ul>
+<li>本地加密混淆<ul>
+<li>Android 加入so，so对签名进行认证，监听调试端口，禁止模拟器运行（模拟器的一些参数),so需要混淆，函数结构混淆</li>
+</ul>
+</li>
+<li>服务端简单限制<ul>
+<li>user-agent 和 refer 限制，甚至用socket</li>
+<li>验证登录，cookie／session／token</li>
+</ul>
+</li>
+<li>接口请求频次<ul>
+<li>不建议封ip，共用ip出口比较多</li>
+<li>deviceId最好服务器生成，本地容易伪造</li>
+</ul>
+</li>
+<li>返回结果加密</li>
+<li>定期检查访问日志</li>
+</ul>
+</li>
+</ol>
+<h2 id="Android-中的设计模式"><a href="#Android-中的设计模式" class="headerlink" title="Android 中的设计模式"></a>Android 中的设计模式</h2><ul>
+<li>Context/Java Stream的装饰者/包装者模式（Decorator/Wrapper pattern）</li>
+<li>适配器模式（ListView等的Adapter）</li>
+</ul>
+<h2 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h2><h3 id="跨域问题"><a href="#跨域问题" class="headerlink" title="跨域问题"></a>跨域问题</h3><h5 id="1、同源策略"><a href="#1、同源策略" class="headerlink" title="1、同源策略"></a>1、同源策略</h5><p>同源策略限制从一个源加载的文档或脚本如何与来自另一个源的资源进行交互。</p>
+<p>一个源的定义：如果协议，端口（如果指定了一个）和主机对于两个页面是相同的，则两个页面具有相同的源。</p>
+<h5 id="2、主域相同的跨域"><a href="#2、主域相同的跨域" class="headerlink" title="2、主域相同的跨域"></a>2、主域相同的跨域</h5><blockquote>
+<p>document.domain的场景只适用于不同子域的框架间的交互，及主域必须相同的不同源。</p>
+</blockquote>
+<h5 id="3、完全不同源的跨域（两个页面之间的通信）"><a href="#3、完全不同源的跨域（两个页面之间的通信）" class="headerlink" title="3、完全不同源的跨域（两个页面之间的通信）"></a>3、完全不同源的跨域（两个页面之间的通信）</h5><h6 id="3-1、通过location-hash跨域"><a href="#3-1、通过location-hash跨域" class="headerlink" title="3.1、通过location.hash跨域"></a>3.1、通过location.hash跨域</h6><p>假设域名a.com下的文件cs1.html要和jianshu.com域名下的cs2.html传递信息。<br>1、cs1.html首先创建自动创建一个隐藏的iframe，iframe的src指向jianshu.com域名下的cs2.html页面。<br>2、cs2.html响应请求后再将通过修改cs1.html的hash值来传递数据。<br>3、同时在cs1.html上加一个定时器，隔一段时间来判断location.hash的值有没有变化，一旦有变化则获取获取hash值。</p>
+<blockquote>
+<p>注：由于两个页面不在同一个域下IE、Chrome不允许修改parent.location.hash的值，所以要借助于a.com域名下的一个代理iframe。</p>
+</blockquote>
+<p>优点：1.可以解决域名完全不同的跨域。2.可以实现双向通讯。<br>缺点：location.hash会直接暴露在URL里，并且在一些浏览器里会产生历史记录，数据安全性不高也影响用户体验。另外由于URL大小的限制，支持传递的数据量也不大。有些浏览器不支持onhashchange事件，需要轮询来获知URL的变化。</p>
+<h6 id="3-2、通过window-name跨域"><a href="#3-2、通过window-name跨域" class="headerlink" title="3.2、通过window.name跨域"></a>3.2、通过window.name跨域</h6><p>window对象有个name属性，该属性有个特征：即在一个窗口(window)的生命周期内,窗口载入的所有的页面都是共享一个window.name的，每个页面对window.name都有读写的权限，window.name是持久存在一个窗口载入过的所有页面中的。window.name属性的神奇之处在于name 值在不同的页面（甚至不同域名）加载后依旧存在（如果没修改则值不会变化），并且可以支持非常长的 name 值（2MB）。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">window.name = data;//父窗口先打开一个子窗口，载入一个不同源的网页，该网页将信息写入。        </span><br><span class="line">location = &apos;http://parent.url.com/xxx.html&apos;;//接着，子窗口跳回一个与主窗口同域的网址。</span><br><span class="line">var data = document.getElementById(&apos;myFrame&apos;).contentWindow.name。//然后，主窗口就可以读取子窗口的window.name了。</span><br></pre></td></tr></table></figure>
+<p>如果是与iframe通信的场景就需要把iframe的src设置成当前域的一个页面地址。</p>
+<h6 id="3-3、通过window-postMessage跨域"><a href="#3-3、通过window-postMessage跨域" class="headerlink" title="3.3、通过window.postMessage跨域"></a>3.3、通过window.postMessage跨域</h6><p>HTML5为了解决这个问题，引入了一个全新的API：跨文档通信 API（Cross-document messaging）。这个API为window对象新增了一个window.postMessage方法，允许跨窗口通信，不论这两个窗口是否同源。</p>
+<h5 id="4、AJAX请求不同源的跨域"><a href="#4、AJAX请求不同源的跨域" class="headerlink" title="4、AJAX请求不同源的跨域"></a>4、AJAX请求不同源的跨域</h5><h6 id="4-1、通过JSONP跨域"><a href="#4-1、通过JSONP跨域" class="headerlink" title="4.1、通过JSONP跨域"></a>4.1、通过JSONP跨域</h6><p>基本原理：网页通过添加一个script元素，向服务器请求JSON数据，这种做法不受同源政策限制；服务器收到请求后，将数据放在一个指定名字的回调函数里传回来。例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function todo(data)&#123;</span><br><span class="line">  console.log(&apos;The author is: &apos;+ data.name);</span><br><span class="line">&#125;</span><br><span class="line">var script = document.createElement(&apos;script&apos;);</span><br><span class="line">script.src = &apos;http://www.jianshu.com/author?callback=todo&apos;;//向服务器www.jianshu.com发出请求。注意，该请求的查询字符串有一个callback参数，用来指定回调函数的名字。</span><br><span class="line">document.body.appendChild(script);</span><br><span class="line">//服务器收到这个请求以后，会将数据放在回调函数的参数位置返回。</span><br><span class="line">todo(&#123;&quot;name&quot;: &quot;fewjq&quot;&#125;);</span><br><span class="line">//由于&lt;script&gt;元素请求的脚本，直接作为代码运行。这时，只要浏览器定义了todo函数，该函数就会立即调用。作为参数的JSON数据被视为JavaScript对象。</span><br></pre></td></tr></table></figure>
+<p>优点：简单适用，老式浏览器全部支持，服务器改造小。不需要XMLHttpRequest或ActiveX的支持。<br>缺点：只支持GET请求。</p>
+<h6 id="4-2、通过WebSocket跨域"><a href="#4-2、通过WebSocket跨域" class="headerlink" title="4.2、通过WebSocket跨域"></a>4.2、通过WebSocket跨域</h6><p>WebSocket是一种通信协议，使用ws://（非加密）和wss://（加密）作为协议前缀。该协议不实行同源政策，只要服务器支持，就可以通过它进行跨源通信。</p>
+<h6 id="4-3、通过CORS跨域"><a href="#4-3、通过CORS跨域" class="headerlink" title="4.3、通过CORS跨域"></a>4.3、通过CORS跨域</h6><p>跨源资源共享标准( cross-origin sharing standard) 使得以下场景可以使用跨站 HTTP 请求：</p>
+<ul>
+<li>1、使用 XMLHttpRequest 或 Fetch发起跨站 HTTP 请求。</li>
+<li>2、Web 字体 (CSS 中通过 <a href="https://github.com/font-face" target="_blank" rel="noopener">@font-face</a> 使用跨站字体资源)，因此，网站就可以发布 TrueType 字体资源，并只允许已授权网站进行跨站调用。</li>
+<li>3、WebGL 贴图</li>
+<li>4、使用drawImage绘制</li>
+<li>5、Images/video 画面到canvas.</li>
+<li>6、样式表（使用 CSSOM）</li>
+<li>7、Scripts (for unmuted exceptions)</li>
+</ul>
+<h3 id="常见的浏览器内核有哪些？"><a href="#常见的浏览器内核有哪些？" class="headerlink" title="常见的浏览器内核有哪些？"></a>常见的浏览器内核有哪些？</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  Trident内核：IE,MaxThon,TT,The World,360,搜狗浏览器等。[又称MSHTML]</span><br><span class="line">  Gecko内核：Netscape6及以上版本，FF,MozillaSuite/SeaMonkey等</span><br><span class="line">  Presto内核：Opera7及以上。      [Opera内核原为：Presto，现为：Blink;]</span><br><span class="line">  Webkit内核：Safari,Chrome等。   [ Chrome的：Blink（WebKit的分支）]</span><br><span class="line"></span><br><span class="line">详细文章：[浏览器内核的解析和对比](http://www.cnblogs.com/fullhouse/archive/2011/12/19/2293455.html)</span><br></pre></td></tr></table></figure>
+<h3 id="webSocket如何兼容低浏览器？-阿里"><a href="#webSocket如何兼容低浏览器？-阿里" class="headerlink" title="webSocket如何兼容低浏览器？(阿里)"></a>webSocket如何兼容低浏览器？(阿里)</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Adobe Flash Socket 、</span><br><span class="line">ActiveX HTMLFile (IE) 、</span><br><span class="line">基于 multipart 编码发送 XHR 、</span><br><span class="line">基于长轮询的 XHR</span><br></pre></td></tr></table></figure>
+<h3 id="居中对齐"><a href="#居中对齐" class="headerlink" title="居中对齐"></a>居中对齐</h3><h3 id="为什么要初始化CSS样式。"><a href="#为什么要初始化CSS样式。" class="headerlink" title="为什么要初始化CSS样式。"></a>为什么要初始化CSS样式。</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- 因为浏览器的兼容问题，不同浏览器对有些标签的默认值是不同的，如果没对CSS初始化往往会出现浏览器之间的页面显示差异。</span><br><span class="line"></span><br><span class="line">- 当然，初始化样式会对SEO有一定的影响，但鱼和熊掌不可兼得，但力求影响最小的情况下初始化。</span><br><span class="line"></span><br><span class="line">最简单的初始化方法： * &#123;padding: 0; margin: 0;&#125; （强烈不建议）</span><br><span class="line"></span><br><span class="line">淘宝的样式初始化代码：</span><br><span class="line">body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td &#123; margin:0; padding:0; &#125;</span><br><span class="line">body, button, input, select, textarea &#123; font:12px/1.5tahoma, arial, \5b8b\4f53; &#125;</span><br><span class="line">h1, h2, h3, h4, h5, h6&#123; font-size:100%; &#125;</span><br><span class="line">address, cite, dfn, em, var &#123; font-style:normal; &#125;</span><br><span class="line">code, kbd, pre, samp &#123; font-family:couriernew, courier, monospace; &#125;</span><br><span class="line">small&#123; font-size:12px; &#125;</span><br><span class="line">ul, ol &#123; list-style:none; &#125;</span><br><span class="line">a &#123; text-decoration:none; &#125;</span><br><span class="line">a:hover &#123; text-decoration:underline; &#125;</span><br><span class="line">sup &#123; vertical-align:text-top; &#125;</span><br><span class="line">sub&#123; vertical-align:text-bottom; &#125;</span><br><span class="line">legend &#123; color:#000; &#125;</span><br><span class="line">fieldset, img &#123; border:0; &#125;</span><br><span class="line">button, input, select, textarea &#123; font-size:100%; &#125;</span><br><span class="line">table &#123; border-collapse:collapse; border-spacing:0; &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Ajax-解决浏览器缓存问题？"><a href="#Ajax-解决浏览器缓存问题？" class="headerlink" title="Ajax 解决浏览器缓存问题？"></a>Ajax 解决浏览器缓存问题？</h3><ol>
+<li>在ajax发送请求前加上 anyAjaxObj.setRequestHeader(“If-Modified-Since”,”0”)。</li>
+<li>在ajax发送请求前加上 anyAjaxObj.setRequestHeader(“Cache-Control”,”no-cache”)。</li>
+<li>在URL后面加上一个随机数： “fresh=” + Math.random();。</li>
+<li>在URL后面加上时间戳：”nowtime=” + new Date().getTime();。</li>
+<li>如果是使用jQuery，直接这样就可以了 $.ajaxSetup({cache:false})。这样页面的所有ajax都会执行这条语句就是不需要保存缓存记录。</li>
+</ol>
+<h3 id="你有用过哪些前端性能优化的方法？"><a href="#你有用过哪些前端性能优化的方法？" class="headerlink" title="你有用过哪些前端性能优化的方法？"></a>你有用过哪些前端性能优化的方法？</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">（1） 减少http请求次数：CSS Sprites, JS、CSS源码压缩、图片大小控制合适；网页Gzip，CDN托管，data缓存 ，图片服务器。</span><br><span class="line"></span><br><span class="line">（2） 前端模板 JS+数据，减少由于HTML标签导致的带宽浪费，前端用变量保存AJAX请求结果，每次操作本地变量，不用请求，减少请求次数</span><br><span class="line"></span><br><span class="line">（3） 用innerHTML代替DOM操作，减少DOM操作次数，优化javascript性能。</span><br><span class="line"></span><br><span class="line">（4） 当需要设置的样式很多时设置className而不是直接操作style。</span><br><span class="line"></span><br><span class="line">（5） 少用全局变量、缓存DOM节点查找的结果。减少IO读取操作。</span><br><span class="line"></span><br><span class="line">（6） 避免使用CSS Expression（css表达式)又称Dynamic properties(动态属性)。</span><br><span class="line"></span><br><span class="line">（7） 图片预加载，将样式表放在顶部，将脚本放在底部  加上时间戳。</span><br><span class="line"></span><br><span class="line">（8） 避免在页面的主体布局中使用table，table要等其中的内容完全下载之后才会显示出来，显示比div+css布局慢。</span><br><span class="line">对普通的网站有一个统一的思路，就是尽量向前端优化、减少数据库操作、减少磁盘IO。向前端优化指的是，在不影响功能和体验的情况下，能在浏览器执行的不要在服务端执行，能在缓存服务器上直接返回的不要到应用服务器，程序能直接取得的结果不要到外部取得，本机内能取得的数据不要到远程取，内存能取到的不要到磁盘取，缓存中有的不要去数据库查询。减少数据库操作指减少更新次数、缓存结果减少查询次数、将数据库执行的操作尽可能的让你的程序完成（例如join查询），减少磁盘IO指尽量不使用文件系统作为缓存、减少读写文件次数等。程序优化永远要优化慢的部分，换语言是无法“优化”的。</span><br></pre></td></tr></table></figure>
+<h3 id="http状态码有那些？分别代表是什么意思？"><a href="#http状态码有那些？分别代表是什么意思？" class="headerlink" title="http状态码有那些？分别代表是什么意思？"></a>http状态码有那些？分别代表是什么意思？</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">简单版</span><br><span class="line">[</span><br><span class="line">	100  Continue	继续，一般在发送post请求时，已发送了http header之后服务端将返回此信息，表示确认，之后发送具体参数信息</span><br><span class="line">	200  OK 		正常返回信息</span><br><span class="line">	201  Created  	请求成功并且服务器创建了新的资源</span><br><span class="line">	202  Accepted 	服务器已接受请求，但尚未处理</span><br><span class="line">	301  Moved Permanently  请求的网页已永久移动到新位置。</span><br><span class="line">	302 Found  		临时性重定向。</span><br><span class="line">	303 See Other  	临时性重定向，且总是使用 GET 请求新的 URI。</span><br><span class="line">	304  Not Modified 自从上次请求后，请求的网页未修改过。</span><br><span class="line"></span><br><span class="line">	400 Bad Request  服务器无法理解请求的格式，客户端不应当尝试再次使用相同的内容发起请求。</span><br><span class="line">	401 Unauthorized 请求未授权。</span><br><span class="line">	403 Forbidden  	禁止访问。</span><br><span class="line">	404 Not Found  	找不到如何与 URI 相匹配的资源。</span><br><span class="line"></span><br><span class="line">	500 Internal Server Error  最常见的服务器端错误。</span><br><span class="line">	503 Service Unavailable 服务器端暂时无法处理请求（可能是过载或维护）。</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"> 完整版</span><br><span class="line"> 1**(信息类)：表示接收到请求并且继续处理</span><br><span class="line">100——客户必须继续发出请求</span><br><span class="line">101——客户要求服务器根据请求转换HTTP协议版本</span><br><span class="line"></span><br><span class="line"> 2**(响应成功)：表示动作被成功接收、理解和接受</span><br><span class="line">200——表明该请求被成功地完成，所请求的资源发送回客户端</span><br><span class="line">201——提示知道新文件的URL</span><br><span class="line">202——接受和处理、但处理未完成</span><br><span class="line">203——返回信息不确定或不完整</span><br><span class="line">204——请求收到，但返回信息为空</span><br><span class="line">205——服务器完成了请求，用户代理必须复位当前已经浏览过的文件</span><br><span class="line">206——服务器已经完成了部分用户的GET请求</span><br><span class="line"></span><br><span class="line"> 3**(重定向类)：为了完成指定的动作，必须接受进一步处理</span><br><span class="line">300——请求的资源可在多处得到</span><br><span class="line">301——本网页被永久性转移到另一个URL</span><br><span class="line">302——请求的网页被转移到一个新的地址，但客户访问仍继续通过原始URL地址，重定向，新的URL会在response中的Location中返回，浏览器将会使用新的URL发出新的Request。</span><br><span class="line">303——建议客户访问其他URL或访问方式</span><br><span class="line">304——自从上次请求后，请求的网页未修改过，服务器返回此响应时，不会返回网页内容，代表上次的文档已经被缓存了，还可以继续使用</span><br><span class="line">305——请求的资源必须从服务器指定的地址得到</span><br><span class="line">306——前一版本HTTP中使用的代码，现行版本中不再使用</span><br><span class="line">307——申明请求的资源临时性删除</span><br><span class="line"></span><br><span class="line"> 4**(客户端错误类)：请求包含错误语法或不能正确执行</span><br><span class="line">400——客户端请求有语法错误，不能被服务器所理解</span><br><span class="line">401——请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用</span><br><span class="line">HTTP 401.1 - 未授权：登录失败</span><br><span class="line">　　HTTP 401.2 - 未授权：服务器配置问题导致登录失败</span><br><span class="line">　　HTTP 401.3 - ACL 禁止访问资源</span><br><span class="line">　　HTTP 401.4 - 未授权：授权被筛选器拒绝</span><br><span class="line">HTTP 401.5 - 未授权：ISAPI 或 CGI 授权失败</span><br><span class="line">402——保留有效ChargeTo头响应</span><br><span class="line">403——禁止访问，服务器收到请求，但是拒绝提供服务</span><br><span class="line">HTTP 403.1 禁止访问：禁止可执行访问</span><br><span class="line">　　HTTP 403.2 - 禁止访问：禁止读访问</span><br><span class="line">　　HTTP 403.3 - 禁止访问：禁止写访问</span><br><span class="line">　　HTTP 403.4 - 禁止访问：要求 SSL</span><br><span class="line">　　HTTP 403.5 - 禁止访问：要求 SSL 128</span><br><span class="line">　　HTTP 403.6 - 禁止访问：IP 地址被拒绝</span><br><span class="line">　　HTTP 403.7 - 禁止访问：要求客户证书</span><br><span class="line">　　HTTP 403.8 - 禁止访问：禁止站点访问</span><br><span class="line">　　HTTP 403.9 - 禁止访问：连接的用户过多</span><br><span class="line">　　HTTP 403.10 - 禁止访问：配置无效</span><br><span class="line">　　HTTP 403.11 - 禁止访问：密码更改</span><br><span class="line">　　HTTP 403.12 - 禁止访问：映射器拒绝访问</span><br><span class="line">　　HTTP 403.13 - 禁止访问：客户证书已被吊销</span><br><span class="line">　　HTTP 403.15 - 禁止访问：客户访问许可过多</span><br><span class="line">　　HTTP 403.16 - 禁止访问：客户证书不可信或者无效</span><br><span class="line">HTTP 403.17 - 禁止访问：客户证书已经到期或者尚未生效</span><br><span class="line">404——一个404错误表明可连接服务器，但服务器无法取得所请求的网页，请求资源不存在。eg：输入了错误的URL</span><br><span class="line">405——用户在Request-Line字段定义的方法不允许</span><br><span class="line">406——根据用户发送的Accept拖，请求资源不可访问</span><br><span class="line">407——类似401，用户必须首先在代理服务器上得到授权</span><br><span class="line">408——客户端没有在用户指定的饿时间内完成请求</span><br><span class="line">409——对当前资源状态，请求不能完成</span><br><span class="line">410——服务器上不再有此资源且无进一步的参考地址</span><br><span class="line">411——服务器拒绝用户定义的Content-Length属性请求</span><br><span class="line">412——一个或多个请求头字段在当前请求中错误</span><br><span class="line">413——请求的资源大于服务器允许的大小</span><br><span class="line">414——请求的资源URL长于服务器允许的长度</span><br><span class="line">415——请求资源不支持请求项目格式</span><br><span class="line">416——请求中包含Range请求头字段，在当前请求资源范围内没有range指示值，请求也不包含If-Range请求头字段</span><br><span class="line">417——服务器不满足请求Expect头字段指定的期望值，如果是代理服务器，可能是下一级服务器不能满足请求长。</span><br><span class="line"></span><br><span class="line"> 5**(服务端错误类)：服务器不能正确执行一个正确的请求</span><br><span class="line">HTTP 500 - 服务器遇到错误，无法完成请求</span><br><span class="line">　　HTTP 500.100 - 内部服务器错误 - ASP 错误</span><br><span class="line">　　HTTP 500-11 服务器关闭</span><br><span class="line">　　HTTP 500-12 应用程序重新启动</span><br><span class="line">　　HTTP 500-13 - 服务器太忙</span><br><span class="line">　　HTTP 500-14 - 应用程序无效</span><br><span class="line">　　HTTP 500-15 - 不允许请求 global.asa</span><br><span class="line">　　Error 501 - 未实现</span><br><span class="line"> HTTP 502 - 网关错误</span><br><span class="line"> HTTP 503：由于超载或停机维护，服务器目前无法使用，一段时间后可能恢复正常</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>If you like, please donate to me</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="faith WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/interview/" rel="tag"># interview</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/17/IELTS-writing-part-1/" rel="next" title="IELTS writing part 1">
+                <i class="fa fa-chevron-left"></i> IELTS writing part 1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/26/Day-1-P1-study-and-efficency/" rel="prev" title="Day 1[P1/P2]study and efficency/visitor">
+                Day 1[P1/P2]study and efficency/visitor <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="faith" />
+            
+              <p class="site-author-name" itemprop="name">faith</p>
+              <p class="site-description motion-element" itemprop="description">Talk is cheap. Show me the code.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/iamfaith" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xianzixiang@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JAVA"><span class="nav-number">1.</span> <span class="nav-text">JAVA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础题"><span class="nav-number">1.1.</span> <span class="nav-text">基础题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Unclosed-Streams-or-Unclosed-Connections-资源未关闭（数据库连接／文件）"><span class="nav-number">1.1.1.</span> <span class="nav-text">Unclosed Streams or Unclosed Connections 资源未关闭（数据库连接／文件）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#auto-close-feature-introduced-in-Java-8"><span class="nav-number">1.1.2.</span> <span class="nav-text">auto-close feature introduced in Java 8</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Adding-Objects-with-no-hashCode-and-equals-into-a-HashSet"><span class="nav-number">1.1.3.</span> <span class="nav-text">Adding Objects with no hashCode() and equals() into a HashSet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hashCode-and-equals-implementations"><span class="nav-number">1.1.4.</span> <span class="nav-text">hashCode() and equals() implementations</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Static-Field-Holding-On-to-the-Object-Reference-单例对象"><span class="nav-number">1.1.5.</span> <span class="nav-text">Static Field Holding On to the Object Reference 单例对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Calling-String-intern-on-Long-String"><span class="nav-number">1.1.6.</span> <span class="nav-text">Calling String.intern() on Long String</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#XX-MaxPermSize"><span class="nav-number">1.1.7.</span> <span class="nav-text">-XX:MaxPermSize=</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#interned-String-objects-are-stored-in-PermGen-space"><span class="nav-number">1.1.8.</span> <span class="nav-text">interned String objects are stored in PermGen space</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#use-Java-8-–-where-the-PermGen-space-is-replaced-by-the-Metaspace-–-which-won’t-lead-to-any-OutOfMemoryError-when-using-internon-Strings"><span class="nav-number">1.1.9.</span> <span class="nav-text">use Java 8 – where the PermGen space is replaced by the Metaspace – which won’t lead to any OutOfMemoryError when using internon Strings</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Do-Profiling-Visual-VM"><span class="nav-number">1.1.10.</span> <span class="nav-text">Do Profiling: Visual VM</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程"><span class="nav-number">1.2.</span> <span class="nav-text">多线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM"><span class="nav-number">1.3.</span> <span class="nav-text">JVM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存模型"><span class="nav-number">1.4.</span> <span class="nav-text">内存模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分代回收算法（复制算法和标记整理算法）"><span class="nav-number">1.5.</span> <span class="nav-text">分代回收算法（复制算法和标记整理算法）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么不是一块Survivor空间而是两块？"><span class="nav-number">1.5.1.</span> <span class="nav-text">为什么不是一块Survivor空间而是两块？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么Eden空间这么大而Survivor空间要分的少一点？"><span class="nav-number">1.5.2.</span> <span class="nav-text">为什么Eden空间这么大而Survivor空间要分的少一点？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Eden空间和两块Survivor空间的工作流程"><span class="nav-number">1.5.3.</span> <span class="nav-text">Eden空间和两块Survivor空间的工作流程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#触发GC的类型"><span class="nav-number">1.6.</span> <span class="nav-text">触发GC的类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Algorithm"><span class="nav-number">2.</span> <span class="nav-text">Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Https"><span class="nav-number">3.</span> <span class="nav-text">Https</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-中的设计模式"><span class="nav-number">4.</span> <span class="nav-text">Android 中的设计模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端"><span class="nav-number">5.</span> <span class="nav-text">前端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#跨域问题"><span class="nav-number">5.1.</span> <span class="nav-text">跨域问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、同源策略"><span class="nav-number">5.1.0.1.</span> <span class="nav-text">1、同源策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、主域相同的跨域"><span class="nav-number">5.1.0.2.</span> <span class="nav-text">2、主域相同的跨域</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、完全不同源的跨域（两个页面之间的通信）"><span class="nav-number">5.1.0.3.</span> <span class="nav-text">3、完全不同源的跨域（两个页面之间的通信）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1、通过location-hash跨域"><span class="nav-number">5.1.0.3.1.</span> <span class="nav-text">3.1、通过location.hash跨域</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-2、通过window-name跨域"><span class="nav-number">5.1.0.3.2.</span> <span class="nav-text">3.2、通过window.name跨域</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-3、通过window-postMessage跨域"><span class="nav-number">5.1.0.3.3.</span> <span class="nav-text">3.3、通过window.postMessage跨域</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4、AJAX请求不同源的跨域"><span class="nav-number">5.1.0.4.</span> <span class="nav-text">4、AJAX请求不同源的跨域</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#4-1、通过JSONP跨域"><span class="nav-number">5.1.0.4.1.</span> <span class="nav-text">4.1、通过JSONP跨域</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-2、通过WebSocket跨域"><span class="nav-number">5.1.0.4.2.</span> <span class="nav-text">4.2、通过WebSocket跨域</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-3、通过CORS跨域"><span class="nav-number">5.1.0.4.3.</span> <span class="nav-text">4.3、通过CORS跨域</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见的浏览器内核有哪些？"><span class="nav-number">5.2.</span> <span class="nav-text">常见的浏览器内核有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webSocket如何兼容低浏览器？-阿里"><span class="nav-number">5.3.</span> <span class="nav-text">webSocket如何兼容低浏览器？(阿里)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#居中对齐"><span class="nav-number">5.4.</span> <span class="nav-text">居中对齐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要初始化CSS样式。"><span class="nav-number">5.5.</span> <span class="nav-text">为什么要初始化CSS样式。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ajax-解决浏览器缓存问题？"><span class="nav-number">5.6.</span> <span class="nav-text">Ajax 解决浏览器缓存问题？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#你有用过哪些前端性能优化的方法？"><span class="nav-number">5.7.</span> <span class="nav-text">你有用过哪些前端性能优化的方法？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http状态码有那些？分别代表是什么意思？"><span class="nav-number">5.8.</span> <span class="nav-text">http状态码有那些？分别代表是什么意思？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Faith</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v6.6.6</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/velocity/1.5.0/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/velocity/1.5.0/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.6.6"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.6.6"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.6"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.6"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.6.6"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
