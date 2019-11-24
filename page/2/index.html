@@ -304,6 +304,207 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2018/09/13/interview-for-SDE-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="faith">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Faith' s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/13/interview-for-SDE-4/" itemprop="url">interview for SDE 4</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-13T14:06:29-04:00">
+                2018-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Reverse-a-Doubly-Linked-List"><a href="#Reverse-a-Doubly-Linked-List" class="headerlink" title="Reverse a Doubly Linked List"></a>Reverse a Doubly Linked List</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Node: </span><br><span class="line">      </span><br><span class="line">    # Constructor to create a new node </span><br><span class="line">    def __init__(self, data): </span><br><span class="line">        self.data = data  </span><br><span class="line">        self.next = None</span><br><span class="line">        self.prev = None</span><br><span class="line">  </span><br><span class="line">class DoublyLinkedList: </span><br><span class="line">     # Constructor for empty Doubly Linked List </span><br><span class="line">    def __init__(self): </span><br><span class="line">        self.head = None</span><br><span class="line">   </span><br><span class="line">    # Function reverse a Doubly Linked List </span><br><span class="line">    def reverse(self): </span><br><span class="line">        temp = None</span><br><span class="line">        current = self.head </span><br><span class="line">          </span><br><span class="line">        # Swap next and prev for all nodes of  </span><br><span class="line">        # doubly linked list </span><br><span class="line">        while current is not None: </span><br><span class="line">            temp = current.prev  </span><br><span class="line">            current.prev = current.next</span><br><span class="line">            current.next = temp </span><br><span class="line">            current = current.prev </span><br><span class="line">  </span><br><span class="line">        # Before changing head, check for the cases like  </span><br><span class="line">        # empty list and list with only one node </span><br><span class="line">        if temp is not None: </span><br><span class="line">            self.head = temp.prev </span><br><span class="line">          </span><br><span class="line">    # Given a reference to the head of a list and an </span><br><span class="line">    # integer,inserts a new node on the front of list </span><br><span class="line">    def push(self, new_data): </span><br><span class="line">   </span><br><span class="line">        # 1. Allocates node </span><br><span class="line">        # 2. Put the data in it </span><br><span class="line">        new_node = Node(new_data) </span><br><span class="line">   </span><br><span class="line">        # 3. Make next of new node as head and </span><br><span class="line">        # previous as None (already None) </span><br><span class="line">        new_node.next = self.head </span><br><span class="line">   </span><br><span class="line">        # 4. change prev of head node to new_node </span><br><span class="line">        if self.head is not None: </span><br><span class="line">            self.head.prev = new_node </span><br><span class="line">   </span><br><span class="line">        # 5. move the head to point to the new node </span><br><span class="line">        self.head = new_node </span><br><span class="line">  </span><br><span class="line">    def printList(self, node): </span><br><span class="line">        while(node is not None): </span><br><span class="line">            print node.data, </span><br><span class="line">            node = node.next</span><br><span class="line">  </span><br><span class="line"># Driver program to test the above functions </span><br><span class="line">dll = DoublyLinkedList() </span><br><span class="line">dll.push(2); </span><br><span class="line">dll.push(4); </span><br><span class="line">dll.push(8); </span><br><span class="line">dll.push(10); </span><br><span class="line">  </span><br><span class="line">print &quot;\nOriginal Linked List&quot;</span><br><span class="line">dll.printList(dll.head) </span><br><span class="line">  </span><br><span class="line"># Reverse doubly linked list </span><br><span class="line">dll.reverse() </span><br><span class="line">  </span><br><span class="line">print &quot;\n Reversed Linked List&quot;</span><br><span class="line">dll.printList(dll.head)</span><br></pre></td></tr></table></figure>
+<h2 id="Reverse-a-linked-list"><a href="#Reverse-a-linked-list" class="headerlink" title="Reverse a linked list"></a>Reverse a linked list</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Node: </span><br><span class="line">  </span><br><span class="line">    # Constructor to initialize the node object </span><br><span class="line">    def __init__(self, data): </span><br><span class="line">        self.data = data </span><br><span class="line">        self.next = None</span><br><span class="line">  </span><br><span class="line">class LinkedList: </span><br><span class="line">  </span><br><span class="line">    # Function to initialize head </span><br><span class="line">    def __init__(self): </span><br><span class="line">        self.head = None</span><br><span class="line">  </span><br><span class="line">    # Function to reverse the linked list </span><br><span class="line">    def reverse(self): </span><br><span class="line">        prev = None</span><br><span class="line">        current = self.head </span><br><span class="line">        while(current is not None): </span><br><span class="line">            next = current.next</span><br><span class="line">            current.next = prev </span><br><span class="line">            prev = current </span><br><span class="line">            current = next</span><br><span class="line">        self.head = prev </span><br><span class="line">          </span><br><span class="line">    # Function to insert a new node at the beginning </span><br><span class="line">    def push(self, new_data): </span><br><span class="line">        new_node = Node(new_data) </span><br><span class="line">        new_node.next = self.head </span><br><span class="line">        self.head = new_node </span><br><span class="line">  </span><br><span class="line">    # Utility function to print the linked LinkedList </span><br><span class="line">    def printList(self): </span><br><span class="line">        temp = self.head </span><br><span class="line">        while(temp): </span><br><span class="line">            print temp.data, </span><br><span class="line">            temp = temp.next</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"># Driver program to test above functions </span><br><span class="line">llist = LinkedList() </span><br><span class="line">llist.push(20) </span><br><span class="line">llist.push(4) </span><br><span class="line">llist.push(15) </span><br><span class="line">llist.push(85) </span><br><span class="line">  </span><br><span class="line">print &quot;Given Linked List&quot;</span><br><span class="line">llist.printList() </span><br><span class="line">llist.reverse() </span><br><span class="line">print &quot;\nReversed Linked List&quot;</span><br><span class="line">llist.printList()</span><br></pre></td></tr></table></figure>
+<h2 id="Insert-value-in-sorted-way-in-a-sorted-doubly-linked-list"><a href="#Insert-value-in-sorted-way-in-a-sorted-doubly-linked-list" class="headerlink" title="Insert value in sorted way in a sorted doubly linked list"></a>Insert value in sorted way in a sorted doubly linked list</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sortedInsert(head_ref, newNode)</span><br><span class="line">      if (head_ref == NULL)</span><br><span class="line">      head_ref = newNode</span><br><span class="line">        </span><br><span class="line">      else if head_ref-&gt;data &gt;= newNode-&gt;data</span><br><span class="line">          newNode-&gt;next = head_ref</span><br><span class="line">          newNode-&gt;next-&gt;prev = newNode</span><br><span class="line">          head_ref = newNode    </span><br><span class="line">        </span><br><span class="line">      else</span><br><span class="line">      Initialize current = head_ref</span><br><span class="line">      while (current-&gt;next != NULL and</span><br><span class="line">               current-&gt;next-&gt;data data)</span><br><span class="line">        current = current-&gt;next</span><br><span class="line">        </span><br><span class="line">      # insert first </span><br><span class="line">      newNode-&gt;next = current-&gt;next</span><br><span class="line">      if current-&gt;next != NULL</span><br><span class="line">        newNode-&gt;next-&gt;prev = newNode</span><br><span class="line">            </span><br><span class="line">      # deal with current node</span><br><span class="line">      current-&gt;next = newNode</span><br><span class="line">      newNode-&gt;prev = current</span><br></pre></td></tr></table></figure>
+<h2 id="Construct-Tree-from-given-Inorder-and-Preorder-traversals"><a href="#Construct-Tree-from-given-Inorder-and-Preorder-traversals" class="headerlink" title="Construct Tree from given Inorder and Preorder traversals"></a>Construct Tree from given Inorder and Preorder traversals</h2><p>Algorithm: buildTree()<br>1) Pick an element from Preorder. Increment a Preorder Index Variable (preIndex in below code) to pick next element in next recursive call.<br>2) Create a new tree node tNode with the data as picked element.<br>3) Find the picked element’s index in Inorder. Let the index be inIndex.<br>4) Call buildTree for elements before inIndex and make the built tree as left subtree of tNode.<br>5) Call buildTree for elements after inIndex and make the built tree as right subtree of tNode.<br>6) return tNode.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># A binary tree node  </span><br><span class="line">class Node: </span><br><span class="line">      </span><br><span class="line">    # Constructor to create a new node </span><br><span class="line">    def __init__(self, data): </span><br><span class="line">        self.data = data </span><br><span class="line">        self.left = None</span><br><span class="line">        self.right = None</span><br><span class="line">  </span><br><span class="line">&quot;&quot;&quot;Recursive function to construct binary of size len from </span><br><span class="line">   Inorder traversal in[] and Preorder traversal pre[].  Initial values </span><br><span class="line">   of inStrt and inEnd should be 0 and len -1.  The function doesn&apos;t </span><br><span class="line">   do any error checking for cases where inorder and preorder </span><br><span class="line">   do not form a tree &quot;&quot;&quot;</span><br><span class="line">def buildTree(inOrder, preOrder, inStrt, inEnd): </span><br><span class="line">      </span><br><span class="line">    if (inStrt &gt; inEnd): </span><br><span class="line">        return None</span><br><span class="line">  </span><br><span class="line">    # Pich current node from Preorder traversal using </span><br><span class="line">    # preIndex and increment preIndex </span><br><span class="line">    tNode = Node(preOrder[buildTree.preIndex]) </span><br><span class="line">    buildTree.preIndex += 1</span><br><span class="line">  </span><br><span class="line">    # If this node has no children then return </span><br><span class="line">    if inStrt == inEnd : </span><br><span class="line">        return tNode </span><br><span class="line">  </span><br><span class="line">    # Else find the index of this node in Inorder traversal </span><br><span class="line">    inIndex = search(inOrder, inStrt, inEnd, tNode.data) </span><br><span class="line">      </span><br><span class="line">    # Using index in Inorder Traversal, construct left  </span><br><span class="line">    # and right subtrees </span><br><span class="line">    tNode.left = buildTree(inOrder, preOrder, inStrt, inIndex-1) </span><br><span class="line">    tNode.right = buildTree(inOrder, preOrder, inIndex+1, inEnd) </span><br><span class="line">  </span><br><span class="line">    return tNode </span><br><span class="line">  </span><br><span class="line"># UTILITY FUNCTIONS </span><br><span class="line"># Function to find index of vaue in arr[start...end] </span><br><span class="line"># The function assumes that value is rpesent in inOrder[] </span><br><span class="line">  </span><br><span class="line">def search(arr, start, end, value): </span><br><span class="line">    for i in range(start, end+1): </span><br><span class="line">        if arr[i] == value: </span><br><span class="line">            return i </span><br><span class="line">  </span><br><span class="line">def printInorder(node): </span><br><span class="line">    if node is None: </span><br><span class="line">        return </span><br><span class="line">      </span><br><span class="line">    # first recur on left child </span><br><span class="line">    printInorder(node.left) </span><br><span class="line">      </span><br><span class="line">    #then print the data of node </span><br><span class="line">    print node.data, </span><br><span class="line">  </span><br><span class="line">    # now recur on right child </span><br><span class="line">    printInorder(node.right) </span><br><span class="line">      </span><br><span class="line"># Driver program to test above function </span><br><span class="line">inOrder = [&apos;D&apos;, &apos;B&apos; ,&apos;E&apos;, &apos;A&apos;, &apos;F&apos;, &apos;C&apos;] </span><br><span class="line">preOrder = [&apos;A&apos;, &apos;B&apos;, &apos;D&apos;, &apos;E&apos;, &apos;C&apos;, &apos;F&apos;] </span><br><span class="line"># Static variable preIndex </span><br><span class="line">buildTree.preIndex = 0</span><br><span class="line">root = buildTree(inOrder, preOrder, 0, len(inOrder)-1) </span><br><span class="line">  </span><br><span class="line"># Let us test the build tree by priting Inorder traversal </span><br><span class="line">print &quot;Inorder traversal of the constructed tree is&quot;</span><br><span class="line">printInorder(root)</span><br></pre></td></tr></table></figure>
+<h2 id="the-difference-between-an-exclusive-lock-and-a-shared-lock"><a href="#the-difference-between-an-exclusive-lock-and-a-shared-lock" class="headerlink" title="the difference between an exclusive lock and a shared lock"></a>the difference between an exclusive lock and a shared lock</h2><p>I wrote this answer down because I thought this would be a fun (and fitting) analogy:</p>
+<p>Think of a lockable object as a blackboard (lockable) in a class room containing a teacher (writer) and many students (readers).</p>
+<p>While a teacher is writing something (exclusive lock) on the board:</p>
+<p>Nobody can read it, because it’s still being written, and she’s blocking your view =&gt; If an object is exclusively locked, shared locks cannot be obtained.</p>
+<p>Other teachers won’t come up and start writing either, or the board becomes unreadable, and confuses students =&gt; If an object is exclusively locked, other exclusive locks cannot be obtained.</p>
+<p>When the students are reading (shared locks) what is on the board:</p>
+<p>They all can read what is on it, together =&gt; Multiple shared locks can co-exist.</p>
+<p>The teacher waits for them to finish reading before she clears the board to write more =&gt; If one or more shared locks already exist, exclusive locks cannot be obtained.</p>
+<ul>
+<li><p>Exclusive lock (X) – This lock type, when imposed, will ensure that a page or row will be reserved exclusively for the transaction that imposed the exclusive lock, as long as the transaction holds the lock.<br>The exclusive lock will be imposed by the transaction when it wants to modify the page or row data, which is in the case of DML statements DELETE, INSERT and UPDATE. An exclusive lock can be imposed to a page or row only if there is no other shared or exclusive lock imposed already on the target. This practically means that only one exclusive lock can be imposed to a page or row, and once imposed no other lock can be imposed on locked resources</p>
+</li>
+<li><p>Shared lock (S) – this lock type, when imposed, will reserve a page or row to be available only for reading, which means that any other transaction will be prevented to modify the locked record as long as the lock is active. However, a shared lock can be imposed by several transactions at the same time over the same page or row and in that way several transactions can share the ability for data reading since the reading process itself will not affect anyhow the actual page or row data. In addition, a shared lock will allow write operations, but no DDL changes will be allowed</p>
+</li>
+</ul>
+<h2 id="Describe-the-ways-to-defend-DDos"><a href="#Describe-the-ways-to-defend-DDos" class="headerlink" title="Describe the ways to defend DDos"></a>Describe the ways to defend DDos</h2><ol>
+<li>Set Traffic Thresholds<br>You probably track how many users visit your site per day, per hour, and per minute. Thus, you understand your average traffic levels and, hopefully, you’ve recorded how special events (sales, big news releases, etc.) affect visits.</li>
+</ol>
+<p>Based on these numbers, set thresholds that automatically flag abnormal traffic for your security team. If you expect 1,000 visitors per 10 minutes, an influx of 5,000 visitors over one minute should trigger your alert.</p>
+<ol start="2">
+<li><p>Blacklist and Whitelist<br>Control who can access your network and APIs with whitelists and blacklists. However, do not automatically blacklist IP addresses that trigger alerts. You will see false positives, and overreacting is a sure way to infuriate good customers. Temporarily block traffic and see how it responds. Legitimate users usually try again after a few minutes. Illegitimate traffic tends to switch IP addresses.</p>
+</li>
+<li><p>CDNs<br>The best defense against DDoS attacks is a content delivery network (CDN) like Prolexic (acquired by Akamai), Incapsula, Arbor Networks, or CloudFlare. They can identify illegitimate traffic and divert it to their cloud infrastructure.</p>
+</li>
+</ol>
+<p>The problem is that CDNs are not cheap. A typical plan costs five figures per month. Or, if you pay per incident, you might get a six-figure bill for one attack. If you run a bank, a massive ecommerce company, or a social platform that makes thousands of dollars per second, that’s a small price to pay.</p>
+<p>Most companies either can’t afford a CDN or don’t have a platform that warrants such high security. If, for instance, your company has an informational website where no one makes transactions or uses services, you don’t need a CDN. You’re not a prime target. An application or network firewall might be enough to prevent abnormal traffic. If a DDoS attack takes you down, it won’t harm customers or your reputation.</p>
+<p>The cheapest way to defend against DDoS attacks is to deploy more servers when you detect suspicious activity. That is the least reliable method but still better than nothing.</p>
+<p>Remember, there is no end to the amount of money you can throw at security. Depending on your budget and risk tolerance, choose the right option for your service desk.</p>
+<ol start="4">
+<li>Automate Communication with Customers<br>When a DDoS attack succeeds, you don’t want your service desk buried in emails, phone calls, social media posts, and instant messages. Create a status page that automatically displays whether your service is up or down. Also, create DDoS communications templates that you can auto-send to end users who contact you.</li>
+</ol>
+<p>These templates should cover any interruption to service, not just DDoS attacks. Keep it vague with something like: “Thank you for contacting [your company name]. Our platform is currently down. We are working as quickly as possible to restore service. We will post updates on our status page [hyperlinked] as soon as we have more information”.</p>
+<ol start="5">
+<li>Incident Report and Root Cause Analysis<br>After you suffer an attack, you need to reestablish credibility. Draft an incident report explaining what happened, why, and how you responded. Then, discuss how you will prevent future attacks. If you contracted a CDN, for instance, discuss how it works and how it will deter future attacks. Open the report with simple, non-technical language. You can add a technical section for CIOs, CTOs, and others who would appreciate the details.</li>
+</ol>
+<p>Practice for Attacks<br>Simulate DDoS attacks to gauge how your action plan works. You could give DevOps and the service desk warning or take them by surprise to make the simulation realistic.</p>
+<p>Companies often run simulations in a planned maintenance window to spare end users further inconvenience. If you have a CDN, you can warn the provider, or not. Obviously if you pay per incident, coordinate tests with the CDN provider.</p>
+<ol start="6">
+<li>Internet Service Provider (ISP). Some enterprises use their ISP to provide DDoS mitigation.  These ISP’s have more bandwidth than an enterprise would, which can help with the large volumetric attacks, but there are three key problems with these services as well</li>
+</ol>
+<h3 id="网络层DDos攻击"><a href="#网络层DDos攻击" class="headerlink" title="网络层DDos攻击"></a>网络层DDos攻击</h3><p>网络层DDos攻击包括SYN flood、UDP flood、ICMP flood等。</p>
+<h3 id="SYN-flood攻击"><a href="#SYN-flood攻击" class="headerlink" title="SYN flood攻击"></a>SYN flood攻击</h3><p>　　SYN flood攻击主要利用了TCP三次握手过程中的bug，我们知道TCP三次握手过程是要建立连接的双方发送SYN，SYN+ACK，ACK数据包，而当攻击方随意构造源ip去发送SYN包时，服务器返回的SYN+ACK就不能得到应答（因为ip是随意构造的），此时服务器就会尝试重新发送，并且会有至少30s的等待时间，导致资源饱和服务不可用，此攻击属于慢型dos攻击。</p>
+<h3 id="UDP-flood攻击"><a href="#UDP-flood攻击" class="headerlink" title="UDP flood攻击"></a>UDP flood攻击</h3><p>　　由于udp是一种无连接的协议，因此攻击者可以伪造大量的源IP地址去发送udp包，此种攻击属于大流量攻击。正常应用情况下，UDP包双向流量会基本相等，因此在消耗对方资源的时候也在消耗自己的资源。</p>
+<h3 id="ICMP-flood攻击"><a href="#ICMP-flood攻击" class="headerlink" title="ICMP flood攻击"></a>ICMP flood攻击</h3><p>　　此攻击属于大流量攻击，其原理就是不断发送不正常的ICMP包（所谓不正常就是ICMP包内容很大），导致目标带宽被占用，但其本身资源也会被消耗。并且目前很多服务器都是禁ping的（在防火墙在可以屏蔽icmp包），因此这种方式已经落伍。</p>
+<ul>
+<li>网络层DDos防御</li>
+<li>网络架构上做好优化，采用负载均衡分流。</li>
+<li>添加抗DDos设备，流量清洗。</li>
+<li>限制单ip请求频率。</li>
+<li>防火墙等防护设置禁止icmp包等</li>
+<li>网络层的DDos攻击究其本质其实是无法防御的，我们能做得就是不断优化自身的网络架构，以及提升网络带宽。</li>
+</ul>
+<h3 id="应用层DDos攻击"><a href="#应用层DDos攻击" class="headerlink" title="应用层DDos攻击"></a>应用层DDos攻击</h3><ul>
+<li>判断User-Agent字段（不可靠，因为可以随意构造）</li>
+<li>网页中镶嵌js代码（不可靠，因为爬虫也可携带浏览器引擎，或者执行js代码）</li>
+<li>针对ip+cookie，限制访问频率（由于cookie可以更改，ip可以使用代理，或者肉鸡，也不可靠)</li>
+<li>关闭apache最大连接数等，合理配置中间件，缓解ddos攻击。</li>
+<li>页面中添加验证码，比如搜索数据库时。</li>
+<li>编写代码时，尽量实现优化，并合理使用缓存技术，减少数据库的读取操作。</li>
+</ul>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><h3 id="Synchronizer-token-pattern-STP"><a href="#Synchronizer-token-pattern-STP" class="headerlink" title="Synchronizer token pattern(STP)"></a>Synchronizer token pattern(STP)</h3><p>对于每个request，在服务器端生成一个新的csrf_token，并将其返回在页面的表单中。在服务器端每次接收到请求时，都会验证表单中是否包含正确的csrf_token。由于第三方网站无法得知正确的csrf_token，所以无法进行csrf攻击。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> get_token = get_random_token()</span><br><span class="line"> return &#123;</span><br><span class="line">   &lt;form&gt;</span><br><span class="line">     &lt;input name=field1&gt;&lt;/input&gt;</span><br><span class="line">     &lt;input type=&quot;hidden&quot; name=&quot;csrfmiddlewaretoken&quot; value=#&#123;get_token()&#125; /&gt;</span><br><span class="line">   &lt;/form&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个方法的好处是客户端不需要支持javascript，因此通用于所有的网站。坏处是由于服务器端对于每个请求都会更换csrf_token，因此他需要保证用户提交的表单是用户最近一次请求的表单。如果用户通过多个tab同时浏览该网站，那么往往会导致用户提交的表单不是最新的那一个。</p>
+<h3 id="Cookie-to-header-token"><a href="#Cookie-to-header-token" class="headerlink" title="Cookie-to-header token"></a>Cookie-to-header token</h3><p>第二个方法是为每个session生成一个csrf_token，随后将csrf_token保存到cookie中，之后通过javascript在每次请求时将csrf_token设置到http header中的X-Csrf-Token属性中。再在服务器端比较Cookie的csrf_token与header中的token是否一致。</p>
+<p>//当用户登录时设置Cookie<br>Set-Cookie: Csrf-token=i8XNjC4b8KVok4uw5RftR38Wgp2BFwql; expires=Thu, 23-Jul-2015 10:25:33 GMT; Max-Age=31449600; Path=/</p>
+<p>//当用户发送请求时设置Http Header中的X-Csrf-Token<br>X-Csrf-Token: i8XNjC4b8KVok4uw5RftR38Wgp2BFwql<br>有些读者可能会问如果设置在Cookie中，那么Malicious.com岂不是可以利用Cookie中的值来设置X-Csrf-Token的值么？</p>
+<p>其实尽管可以从Malicious.com发送给Trusted.com带有含有csrf_token的Cookie，但是根据同源策略，Javascript无法从Malicious.com读取或者写入Trusted.com的Cookie。所以Malicious.com无法知道正确的csrf_token是什么，也不能够正确的修改Http-Header的X-Csrf-Token属性。</p>
+<h2 id="explain-routing-mechanism-in-SPA"><a href="#explain-routing-mechanism-in-SPA" class="headerlink" title="explain routing mechanism in SPA"></a>explain routing mechanism in SPA</h2><h3 id="hash-的历史"><a href="#hash-的历史" class="headerlink" title="hash 的历史"></a>hash 的历史</h3><p>最开始的网页是多页面的，后来出现了 Ajax 之后，才慢慢有了 SPA。然而，那时候的 SPA 有两个弊端：</p>
+<p>用户在使用的过程中，url 不会发生任何改变。当用户操作了几步之后，一不小心刷新了页面，又会回到最开始的状态。<br>由于缺乏 url，不方便搜索引擎进行收录。<br>怎么办呢？ → 使用 hash<br>url 上的 hash 本意是用来作锚点的，方便用户在一个很长的文档里进行上下的导航，用来做 SPA 的路由控制并非它的本意。然而，hash 满足这么一种特性：改变 url 的同时，不刷新页面，再加上浏览器也提供 onhashchange 这样的事件监听，因此，hash 能用来做路由控制。（这部分红宝书 P394 也有相关的说明）后来，这种模式大行其道，onhashchange 也就被写进了 HTML5 规范当中去了。</p>
+<h3 id="history-的演进"><a href="#history-的演进" class="headerlink" title="history 的演进"></a>history 的演进</h3><p>很早以前，浏览器便实现了 history。然而，早期的 history 只能用于多页面进行跳转，比如：</p>
+<p>// 这部分可参考红宝书 P215<br>history.go(-1);       // 后退一页<br>history.go(2);        // 前进两页<br>history.forward();     // 前进一页<br>history.back();      // 后退一页<br>在 HTML5 规范中，history 新增了以下几个 API</p>
+<p>history.pushState();         // 添加新的状态到历史状态栈<br>history.replaceState();     // 用新的状态代替当前状态<br>history.state             // 返回当前状态对象<br>通过history.pushState或者history.replaceState，也能做到：改变 url 的同时，不会刷新页面。所以 history 也具备实现路由控制的潜力。然而，还缺一点：hash 的改变会触发 onhashchange 事件，history 的改变会触发什么事件呢？ → 很遗憾，没有。<br>怎么办呢？→ 虽然我们无法监听到 history 的改变事件，然而，如果我们能罗列出所有可能改变 history 的途径，然后在这些途径一一进行拦截，不也一样相当于监听了 history 的改变吗？<br>对于一个应用而言，url 的改变只能由以下 3 种途径引起：</p>
+<p>点击浏览器的前进或者后退按钮；<br>点击 a 标签；<br>在 JS 代码中直接修改路由<br>第 2 和第 3 种途径可以看成是一种，因为 a 标签的默认事件可以被禁止，进而调用 JS 方法。关键是第 1 种，HTML5 规范中新增了一个 onpopstate 事件，通过它便可以监听到前进或者后退按钮的点击。<br>要特别注意的是：调用history.pushState和history.replaceState并不会触发 onpopstate 事件。</p>
+<h2 id="what-is-the-difference-cookie-and-session"><a href="#what-is-the-difference-cookie-and-session" class="headerlink" title="what is the difference: cookie and session"></a>what is the difference: cookie and session</h2><p>A cookie is a bit of data stored by the browser and sent to the server with every request.</p>
+<p>A session is a collection of data stored on the server and associated with a given user (usually via a cookie containing an id code)</p>
+<h2 id="层次遍历"><a href="#层次遍历" class="headerlink" title="层次遍历"></a>层次遍历</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Definition of TreeNode:</span></span><br><span class="line"><span class="string">class TreeNode:</span></span><br><span class="line"><span class="string">    def __init__(self, val):</span></span><br><span class="line"><span class="string">        self.val = val</span></span><br><span class="line"><span class="string">        self.left, self.right = None, None</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    @param root: The root of binary tree.</span></span><br><span class="line"><span class="string">    @return: Level order in a list of lists of integers</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">levelOrder</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="comment"># write your code here</span></span><br><span class="line">        res = []</span><br><span class="line">        <span class="comment"># 如果根节点为空，则返回空列表</span></span><br><span class="line">        <span class="keyword">if</span> root <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line">        <span class="comment"># 模拟一个队列储存节点</span></span><br><span class="line">        q = []</span><br><span class="line">        <span class="comment"># 首先将根节点入队</span></span><br><span class="line">        q.append(root)</span><br><span class="line">        <span class="comment"># 列表为空时，循环终止</span></span><br><span class="line">        <span class="keyword">while</span> len(q) != <span class="number">0</span>:</span><br><span class="line">            <span class="comment"># 使用列表存储同层节点</span></span><br><span class="line">            tmp = []</span><br><span class="line">            <span class="comment"># 记录同层节点的个数</span></span><br><span class="line">            length = len(q)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(length):</span><br><span class="line">                <span class="comment"># 将同层节点依次出队</span></span><br><span class="line">                r = q.pop(<span class="number">0</span>)</span><br><span class="line">                <span class="keyword">if</span> r.left <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">                    <span class="comment"># 非空左孩子入队</span></span><br><span class="line">                    q.append(r.left)</span><br><span class="line">                <span class="keyword">if</span> r.right <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">                    <span class="comment"># 非空右孩子入队</span></span><br><span class="line">                    q.append(r.right)</span><br><span class="line">                tmp.append(r.val)</span><br><span class="line">            res.append(tmp)</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<h3 id="Level-Order-Tree-Traversal"><a href="#Level-Order-Tree-Traversal" class="headerlink" title="Level Order Tree Traversal"></a>Level Order Tree Traversal</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># A node structure </span><br><span class="line">class Node: </span><br><span class="line">  </span><br><span class="line">    # A utility function to create a new node </span><br><span class="line">    def __init__(self, key): </span><br><span class="line">        self.data = key  </span><br><span class="line">        self.left = None</span><br><span class="line">        self.right = None</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"># Function to  print level order traversal of tree </span><br><span class="line">def printLevelOrder(root): </span><br><span class="line">    h = height(root) </span><br><span class="line">    for i in range(1, h+1): </span><br><span class="line">        printGivenLevel(root, i) </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"># Print nodes at a given level </span><br><span class="line">def printGivenLevel(root , level): </span><br><span class="line">    if root is None: </span><br><span class="line">        return</span><br><span class="line">    if level == 1: </span><br><span class="line">        print &quot;%d&quot; %(root.data), </span><br><span class="line">    elif level &gt; 1 : </span><br><span class="line">        printGivenLevel(root.left , level-1) </span><br><span class="line">        printGivenLevel(root.right , level-1) </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">&quot;&quot;&quot; Compute the height of a tree--the number of nodes </span><br><span class="line">    along the longest path from the root node down to </span><br><span class="line">    the farthest leaf node </span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">def height(node): </span><br><span class="line">    if node is None: </span><br><span class="line">        return 0 </span><br><span class="line">    else : </span><br><span class="line">        # Compute the height of each subtree  </span><br><span class="line">        lheight = height(node.left) </span><br><span class="line">        rheight = height(node.right) </span><br><span class="line">  </span><br><span class="line">        #Use the larger one </span><br><span class="line">        if lheight &gt; rheight : </span><br><span class="line">            return lheight+1</span><br><span class="line">        else: </span><br><span class="line">            return rheight+1</span><br><span class="line">  </span><br><span class="line"># Driver program to test above function </span><br><span class="line">root = Node(1) </span><br><span class="line">root.left = Node(2) </span><br><span class="line">root.right = Node(3) </span><br><span class="line">root.left.left = Node(4) </span><br><span class="line">root.left.right = Node(5) </span><br><span class="line">  </span><br><span class="line">print &quot;Level order traversal of binary tree is -&quot;</span><br><span class="line">printLevelOrder(root)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># A node structure </span><br><span class="line">class Node: </span><br><span class="line">    # A utility function to create a new node </span><br><span class="line">    def __init__(self ,key): </span><br><span class="line">        self.data = key </span><br><span class="line">        self.left = None</span><br><span class="line">        self.right = None</span><br><span class="line">  </span><br><span class="line"># Iterative Method to print the height of binary tree </span><br><span class="line">def printLevelOrder(root): </span><br><span class="line">    # Base Case </span><br><span class="line">    if root is None: </span><br><span class="line">        return</span><br><span class="line">      </span><br><span class="line">    # Create an empty queue for level order traversal </span><br><span class="line">    queue = [] </span><br><span class="line">  </span><br><span class="line">    # Enqueue Root and initialize height </span><br><span class="line">    queue.append(root) </span><br><span class="line">  </span><br><span class="line">    while(len(queue) &gt; 0): </span><br><span class="line">        # Print front of queue and remove it from queue </span><br><span class="line">        print queue[0].data, </span><br><span class="line">        node = queue.pop(0) </span><br><span class="line">  </span><br><span class="line">        #Enqueue left child </span><br><span class="line">        if node.left is not None: </span><br><span class="line">            queue.append(node.left) </span><br><span class="line">  </span><br><span class="line">        # Enqueue right child </span><br><span class="line">        if node.right is not None: </span><br><span class="line">            queue.append(node.right) </span><br><span class="line">  </span><br><span class="line">#Driver Program to test above function </span><br><span class="line">root = Node(1) </span><br><span class="line">root.left = Node(2) </span><br><span class="line">root.right = Node(3) </span><br><span class="line">root.left.left = Node(4) </span><br><span class="line">root.left.right = Node(5) </span><br><span class="line">  </span><br><span class="line">print &quot;Level Order Traversal of binary tree is -&quot;</span><br><span class="line">printLevelOrder(root)</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://faithio.tk/2018/09/13/interview-for-SDE-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1812,274 +2013,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2018/08/11/Day-17-Speaking/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="faith">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Faith' s Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/11/Day-17-Speaking/" itemprop="url">Day 17 Speaking</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-11T17:04:18-04:00">
-                2018-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="【P1】爱好类：运动"><a href="#【P1】爱好类：运动" class="headerlink" title="【P1】爱好类：运动"></a>【P1】爱好类：运动</h2><p>运动是这个题季非常钟爱的话题，出现在好几个P1大题中。我将这些题目一并归于这一道中。命题角度从个人喜好到常见运动、受欢迎运动及运动员等，不一而足。</p>
-<audio id="p1" controls preload="none"><br> <source id="mp3" src="./sports.mp3"><br></audio>
-
-<p><input type="button" onclick="(function(){var audio=document.getElementById('p1');var len = audio.duration;audio.currentTime += 5;if (audio.currentTime > len) audio.currentTime = 0;audio.play();})()" value="forward 5s"></p>
-<input type="button" onclick="(function(){var audio=document.getElementById('p1');audio.currentTime -= 5;if (audio.currentTime < 0) audio.currentTime = 0;audio.play();})()" value="backword 5s">
-
-<h4 id="What-kinds-of-exercise-do-you-do"><a href="#What-kinds-of-exercise-do-you-do" class="headerlink" title="What kinds of exercise do you do?"></a><strong>What kinds of exercise do you do?</strong></h4><p>Sports <strong>are my thing</strong>, and I do all sorts of them, <strong>ranging</strong> <strong>from</strong> individual and <strong>fundamental</strong> ones like jogging and swimming, <strong>to</strong> <strong>collective</strong> and competitive ones like basketball and soccer.</p>
-<h4 id="What-was-your-favorite-sport-when-you-were-young"><a href="#What-was-your-favorite-sport-when-you-were-young" class="headerlink" title="What was your favorite sport when you were young?"></a><strong>What was your favorite sport when you were young?</strong></h4><p>I used to <strong>be crazy about</strong> soccer <strong>in</strong> <strong>my younger days</strong> and I was the best <strong>striker</strong> my elementary school team <strong>has to offer</strong>.</p>
-<h4 id="Do-you-like-extreme-sports"><a href="#Do-you-like-extreme-sports" class="headerlink" title="Do you like extreme sports?"></a><strong>Do you like extreme sports?</strong></h4><p><strong>Nah,</strong> not really. Do I look like someone who’s into crazy stuff? <strong>When it comes to</strong> sports, it’s always <strong>better safe than sorry</strong>, isn’t it?</p>
-<h4 id="What-kinds-of-exercise-are-popular-in-your-country"><a href="#What-kinds-of-exercise-are-popular-in-your-country" class="headerlink" title="What kinds of exercise are popular in your country?"></a><strong>What kinds of exercise are popular in your country?</strong></h4><p>Some sports are <strong>universally</strong> popular, like basketball and soccer, and you do see young fans everywhere. <strong>It’s worth mentioning that</strong> table tennis, as the so-called national ball, is well-liked among all groups.</p>
-<h4 id="Do-you-think-children-should-play-sports-regularly"><a href="#Do-you-think-children-should-play-sports-regularly" class="headerlink" title="Do you think children should play sports regularly?"></a><strong>Do you think children should play sports regularly?</strong></h4><p>I surely do since children need to <strong>build up their physiques</strong> and exercise absolutely helps with that. <strong>Apart from</strong> that, <strong>team spirit</strong> and a sense of competition should also be <strong>cultivated</strong>.</p>
-<h4 id="What-kinds-of-sports-would-you-like-to-try-in-the-future"><a href="#What-kinds-of-sports-would-you-like-to-try-in-the-future" class="headerlink" title="What kinds of sports would you like to try in the future?"></a><strong>What kinds of sports would you like to try in the future?</strong></h4><p>I really wanna try diving. It seems <strong>thrilling</strong> to jump from a 10-meter platform, turn some <strong>somersaults</strong> and <strong>plunge</strong> <strong>into</strong> water. Besides, divers look fit, man, with 6 packs and things. I want that too.</p>
-<p>landlubber／sink like a rock</p>
-<h4 id="Do-you-have-a-favorite-sports-star"><a href="#Do-you-have-a-favorite-sports-star" class="headerlink" title="Do you have a favorite sports star?"></a><strong>Do you have a favorite sports star?</strong></h4><p>I like <strong>a bunch of</strong> athletes like NBA stars Lebron James, Kobe Bryant and rising soccer star Kylian Mbappe. But I can’t say any of them is my favorite.</p>
-<h4 id="Do-you-like-to-watch-sports-on-TV"><a href="#Do-you-like-to-watch-sports-on-TV" class="headerlink" title="Do you like to watch sports on TV?"></a><strong>Do you like to watch sports on TV?</strong></h4><p>Not really. I don’t even own a tv set in my apartment. But I do watch some <strong>reruns</strong> of soccer or Olympic events on the Internet.</p>
-<h2 id="【P1】天气类：雨天"><a href="#【P1】天气类：雨天" class="headerlink" title="【P1】天气类：雨天"></a>【P1】天气类：雨天</h2><p> 这次天气类考的是雨天。我给咱们国家下雨规律和趋势做了一个小结，利用季风的原理可以回答绝大部分题目。但各位练习的时候要结合自己家乡的实际情况，选取里面的话来答哦。每道单题都要练习。</p>
-<audio id="p2" controls preload="none"><br> <source id="mp3" src="./rain.mp3"><br></audio>
-
-<p><input type="button" onclick="(function(){var audio=document.getElementById('p2');var len = audio.duration;audio.currentTime += 5;if (audio.currentTime > len) audio.currentTime = 0;audio.play();})()" value="forward 5s"></p>
-<input type="button" onclick="(function(){var audio=document.getElementById('p2');audio.currentTime -= 5;if (audio.currentTime < 0) audio.currentTime = 0;audio.play();})()" value="backword 5s">
-
-<h4 id="Does-it-rain-much-in-China-Where-and-when"><a href="#Does-it-rain-much-in-China-Where-and-when" class="headerlink" title="Does it rain much in China? (Where and when?)"></a><strong>Does it rain much in China? (Where and when?)</strong></h4><h4 id="Is-there-any-part-of-China-where-it-doesn’t-rain-much"><a href="#Is-there-any-part-of-China-where-it-doesn’t-rain-much" class="headerlink" title="Is there any part of China where it doesn’t rain much?"></a><strong>Is there any part of China where it doesn’t rain much?</strong></h4><h4 id="When-does-it-rain-most-in-your-hometown"><a href="#When-does-it-rain-most-in-your-hometown" class="headerlink" title="When does it rain most in your hometown?"></a><strong>When does it rain most in your hometown?</strong></h4><h4 id="In-which-season-does-it-rain-most-in-other-parts-of-China"><a href="#In-which-season-does-it-rain-most-in-other-parts-of-China" class="headerlink" title="In which season does it rain most in other parts of China?"></a><strong>In which season does it rain most in other parts of China?</strong></h4><h4 id="Where-does-it-rain-most-in-China"><a href="#Where-does-it-rain-most-in-China" class="headerlink" title="Where does it rain most in China?"></a><strong>Where does it rain most in China?</strong></h4><p>The annual <strong>precipitation</strong> every year <strong>maintains</strong> a <strong>medium-level</strong>. But it rains much more in the South and East than in the North and West. The mainland China is largely affected by <strong>monsoons</strong> which in summer come from the Pacific and the Indian Ocean <strong>carrying</strong> water. That’s why the South and East enjoy constant rains in summer. But since monsoons are blocked by plateaus and mountains, it scarcely rains throughout a year in those <strong>landlocked</strong> provinces in the North and West. Monsoons come in <strong>reverse</strong> directions in winter, making it rain less across the country then.</p>
-<h4 id="Do-you-remember-any-time-when-it-rained-particularly-heavily-in-your-hometown"><a href="#Do-you-remember-any-time-when-it-rained-particularly-heavily-in-your-hometown" class="headerlink" title="Do you remember any time when it rained particularly heavily in your hometown?"></a><strong>Do you remember any time when it rained particularly heavily in your hometown?</strong></h4><p>It was like 15 years ago when 7 days of <strong>torrential</strong> rains caused flooding that killed dozens of people in village. Schools were closed and work <strong>suspended</strong>. <strong>Bittersweet</strong>.</p>
-<h2 id="【P2】物件类：最爱的季节"><a href="#【P2】物件类：最爱的季节" class="headerlink" title="【P2】物件类：最爱的季节"></a>【P2】物件类：最爱的季节</h2><h4 id="Describe-your-favorite-season-of-a-year"><a href="#Describe-your-favorite-season-of-a-year" class="headerlink" title="Describe your favorite season of a year"></a>Describe your favorite season of a year</h4><ul>
-<li>What it is</li>
-<li>When it is</li>
-<li>How the weather is like</li>
-<li>Why you like this season</li>
-<li>What activities you usually do during it</li>
-<li>Why you like it</li>
-<li>How different kinds of weather would affect people</li>
-</ul>
-<ol>
-<li>本题的A是a season，描述一个季节；B是your favorite, 限制这个季节的属性。</li>
-<li>提纲建议：<ul>
-<li>简述该季节的时间和最大的特征</li>
-<li>详述该季节吸引人的地方</li>
-<li>总结感受，适当升华</li>
-</ul>
-</li>
-<li>时态建议：介绍季节本身的时间、特征用现在时，如果讲自己在该季节的经历，用过去时</li>
-<li>其他：这是最经典的雅思P2之一，具有早期P2的特征——限制少，自由度高。选取某个季节的旅行计划、景物描述的素材，就可以匹配串题。但别忘了本题题目毕竟要求描述这个季节本身，因此第一段肯定要用一些语言叙述genera的东西。</li>
-</ol>
-<audio id="p3" controls preload="none"><br> <source id="mp3" src="./season.mp3"><br></audio>
-
-<p><input type="button" onclick="(function(){var audio=document.getElementById('p3');var len = audio.duration;audio.currentTime += 5;if (audio.currentTime > len) audio.currentTime = 0;audio.play();})()" value="forward 5s"></p>
-<input type="button" onclick="(function(){var audio=document.getElementById('p3');audio.currentTime -= 5;if (audio.currentTime < 0) audio.currentTime = 0;audio.play();})()" value="backword 5s">
-
-<p>Fall is my favorite season, <strong>by far</strong>, for <strong>aesthetic</strong> and personal reasons. it’s the third season in a year and it usually begins in September and ends in November. Well, at least here in Beijing. All the leaves from the trees and plants change into multi-colored works of art and fall away. It creates bare, and vulnerable branches, <strong>revealing</strong> the true scenery <strong>underneath</strong>. It also represents a beautiful cycle of loss, <strong>regeneration</strong> and <strong>regrowth</strong> once the spring season <strong>comes around</strong>. The dead leaves and branches on the ground <strong>disintegrate</strong> and <strong>turn into</strong> part of the soil, which are used as seeds and fertilizer later once the cold welcomes the warmer weather.</p>
-<p>The fall is always full of magnificent colors. red and gold maples, brown and grey Chinese parasols, let alone colorful fruits and vegies, all <strong>interlocking</strong> pieces of the puzzle of nature. This season is perfect for taking beautiful <strong>scenic</strong> <strong>photos</strong> and spending time outdoors. Nothing can relax and <strong>rejuvenate</strong> more than enjoying nature and the surrounding scenery.</p>
-<p>With cooler temperatures <strong>rolling in</strong>, saying goodbye to summer and hello to fall is not a hard thing to do. It’s a great time to <strong>break out</strong> the jackets, coats, boots, scarves and hats in preparation for the change in season. It’s also the perfect time to start making hot cocoa and lighting a fire in the fireplace. This season creates a sense of comfort, warmth and reflection. It’s a great time to go camping, fishing, go on a road trip or anything else where you can spend <strong>quality time</strong> with family and eat good food.</p>
-<p>By the way, I was born in autumn <strong>equinox</strong> and I’m a <strong>Virgo</strong>. It’s said that people born around vernal and equinoxes are brighter and more <strong>sensible</strong>. I think it’s true, isn’t it?</p>
-<h2 id="【P2】物件类：童年玩具"><a href="#【P2】物件类：童年玩具" class="headerlink" title="【P2】物件类：童年玩具"></a>【P2】物件类：童年玩具</h2><h4 id="Describe-a-toy-you-had-that-you-received-when-you-were-a-child"><a href="#Describe-a-toy-you-had-that-you-received-when-you-were-a-child" class="headerlink" title="Describe a toy you had (that you received) when you were a child."></a>Describe a toy you had (that you received) when you were a child.</h4><ul>
-<li>What the toy was</li>
-<li>When you had it</li>
-<li>Who gave it to you</li>
-<li>What it was like</li>
-<li>How you used this</li>
-<li>And explain how you felt about it.</li>
-</ul>
-<ol>
-<li>本题的A是a toy，描述一个玩具；B是you had (that you received) when you were a child, 限制这个玩具的来历。</li>
-<li>提纲建议：<ul>
-<li>简述这个玩具的基本信息、特征、来历</li>
-<li>详述这个玩具的玩法和特别之处</li>
-<li>总结玩具和童年</li>
-</ul>
-</li>
-<li>时态建议：介绍玩具本身的信息和特征可以用现在时，如果玩具已经不在了也可以用过去时。讲述与玩具的互动，用过去时。述及对现在的影响，可以用现在完成时。</li>
-<li>其他：这也是一个比较老的P2题目了，典型的状物类题目，一定要描述清楚这个玩具的基本信息和特征。另外，可以走温情路线，把童年啊亲人啊放进去。</li>
-</ol>
-<audio id="p4" controls preload="none"><br> <source id="mp3" src="./toy.mp3"><br></audio>
-
-<p><input type="button" onclick="(function(){var audio=document.getElementById('p4');var len = audio.duration;audio.currentTime += 5;if (audio.currentTime > len) audio.currentTime = 0;audio.play();})()" value="forward 5s"></p>
-<input type="button" onclick="(function(){var audio=document.getElementById('p4');audio.currentTime -= 5;if (audio.currentTime < 0) audio.currentTime = 0;audio.play();})()" value="backword 5s">
-
-<p>I’d like to describe my only toy back in childhood. That’s right, the only <strong>plaything</strong> I’ve ever had. It was a jack in the box. From the outside, it’s one of the typical kinds. It <strong>outwardly</strong> consists of a box with a crank. When the crank is turned, a music box <strong>mechanism</strong> in the toy plays a melody. After the crank has been turned at some random times, the lid pops open and a clown pops out of the box. But the clown on the coiled spring is no regular Jack, it’s a clown that doesn’t have white-face make-up or wear pointed hats and <strong>ruffled</strong> collars, but only has a sorrowful look. <strong>To make it</strong> even <strong>more</strong> pathetic, it wasn’t from anyone. I found it at 10 in a <strong>clearing</strong> within one suburb of my hometown, <strong>dilapidated</strong> and dirty. Then I picked it up and brought it back home.</p>
-<p>Wait, I forgot to tell you that it must have been produced here in China, cause the music it plays when you crank is <strong>nothing but</strong> the Chinese folk song, Jasmine. As I recall, I used to play with it after school, cranked out my Jack, greeted him with different questions like “How you doing today?” or “Are you feeling better?”, totally random questions. Then I would tell him what happened at school and things. Truth is I was an <strong>outsider</strong> back then and bullied sometimes, and I really enjoyed talking with the sad clown cause I knew that he <strong>wouldn’t</strong> <strong>judge</strong>, and he obviously was a great listener.</p>
-<p>Not until my family moved to a new place recently did I realize that I had left him under my bed for so long I couldn’t remember how I had stopped talking to him. And I don’t know whether it’s that I had been a grown-up and viewed things differently or… I was <strong>taken aback</strong> when I cranked my Jack out after nearly 10 years. It was the <strong>creepiest</strong> thing I’d ever seen!</p>
-<h2 id="【P2】物件类：好照片"><a href="#【P2】物件类：好照片" class="headerlink" title="【P2】物件类：好照片"></a>【P2】物件类：好照片</h2><h4 id="Describe-a-good-photo-you-have-taken-of-you-taken-by-someone"><a href="#Describe-a-good-photo-you-have-taken-of-you-taken-by-someone" class="headerlink" title="Describe a (good) photo you have taken (/of you taken by someone)"></a>Describe a (good) photo you have taken (/of you taken by someone)</h4><ul>
-<li>Where you took it</li>
-<li>When you took the photo</li>
-<li>What/who is in the photo</li>
-<li>And explain how you felt about the photo</li>
-<li>where it was taken</li>
-<li>When it was taken</li>
-<li>Who took it for you</li>
-<li>And why it was unforgettable for you)</li>
-</ul>
-<ol>
-<li>本题的A是a photo，描述一张照片；B是 (good), you have taken (/of you taken by someone), 限制这张照片的来历（和属性）</li>
-<li><p>提纲建议：</p>
-<ul>
-<li>简述这张照片的来历、基本信息</li>
-<li>详述这张照片上的人和物、背后的故事</li>
-<li>总结自己的感受，适当升华</li>
-</ul>
-</li>
-<li><p>时态建议：描述照片上的画面用一般现在时，讲述照片拍摄时的状况及画面承载的故事用过去时。</p>
-</li>
-<li>其他：关于照片的P2题目非常多，这次出现了两个版本（括号内为低频版本），差别在于你是拍摄者还是照片中的主人公。为了应对这两个版本，可以更换照片主人公与拍摄者，也可以直接讲成一张自拍，搞定。</li>
-</ol>
-<audio id="p5" controls preload="none"><br> <source id="mp3" src="./photo.mp3"><br></audio>
-
-<p><input type="button" onclick="(function(){var audio=document.getElementById('p5');var len = audio.duration;audio.currentTime += 5;if (audio.currentTime > len) audio.currentTime = 0;audio.play();})()" value="forward 5s"></p>
-<input type="button" onclick="(function(){var audio=document.getElementById('p5');audio.currentTime -= 5;if (audio.currentTime < 0) audio.currentTime = 0;audio.play();})()" value="backword 5s"> 
-
-<p>A good photo has always been a major <strong>throwback</strong>. You find yourself <strong>reminiscing</strong> about what happened back then and having <strong>vicarious</strong> happiness or sorrows. I’m not a photographer. Actually I even have never owned a camera. But I take some photos <strong>every now and then</strong> with my phone, some of which I feel proud of.</p>
-<p>Like this one I took on an <strong>undisturbed</strong> narrow lane of a schoolboy in the <strong>shaggy</strong> blue uniform <strong>crouching</strong> and touching a puppy. And he is <strong>shedding</strong> <strong>tears</strong>. I captured this moment as I passed by, surprised by how <strong>agreeable</strong> this scene seemed. Then I completely forgot this <strong>snapshot</strong> until I <strong>flickered</strong> <strong>through</strong> my album <strong>the other day</strong> getting ready to release my storage.</p>
-<p>And I <strong>bumped</strong> <strong>into</strong> this one once again before I <strong>zoomed</strong> it <strong>in</strong> and wondered why the kid was crying. I observed it quite <strong>meticulously</strong> and didn’t wanna miss anything. Then I thought, um, the puppy was a little weird. Something was missing. Then I zoomed in to its biggest, and I <strong>gulped</strong>.</p>
-<p>The poor little thing has only three legs. <strong>Turned out</strong> the caring kid wasn’t <strong>crying over</strong> nothing. For the first time ever, I took it closer and had a <strong>thorough</strong> look of the picture. The puppy has an innocent face with a <strong>playful</strong> look, sadness rarely detected. He is staring at our schoolboy with his <strong>bulgy</strong> jade-green eyes. Standing beside the kid, he seems enjoying the <strong>fondling</strong>. But the kid’s <strong>face</strong> <strong>crumples</strong>, as if he lost his beloved toy.</p>
-<p>I have no idea <strong>what became of</strong> the kid and the puppy, but the photo, I will keep it.</p>
-<h2 id="【每日表达】句型、习语、小幽默"><a href="#【每日表达】句型、习语、小幽默" class="headerlink" title="【每日表达】句型、习语、小幽默"></a>【每日表达】句型、习语、小幽默</h2><h4 id="a-blessing-in-disguise"><a href="#a-blessing-in-disguise" class="headerlink" title="a blessing in disguise"></a><strong>a blessing in disguise</strong></h4><ul>
-<li>我国古代有塞翁失马的故事，焉知非福。祸从天降，不一定就是祸，咬咬牙，坚持坚持，说不定福就在里面藏着呢。福兮祸所依，祸兮福所伏。这个习语讲的就是这件事，字面上看指伪装起来的祝福，指的就是乍看像是坏事或厄运，但实际上是好事和福气。</li>
-<li>Losing my job was a blessing in disguise — I never would have found this one if it hadn’t happened.</li>
-</ul>
-<h4 id="Murphy’s-law"><a href="#Murphy’s-law" class="headerlink" title="Murphy’s law"></a><strong>Murphy’s law</strong></h4><ul>
-<li>墨菲定律想必大家都比较熟悉了，大致指的是自己认为可能会出错的事，最终真的就会出错。如果把它当一个习语用在句子中做一个名词性成分，那么就是一种幽默的表达，很有意思。</li>
-<li>Sounds like Murphy’s Law is working overtime! （妈的刚还在想会不会加班，你看吧！）</li>
-</ul>
-<h2 id="【综合技巧】5“W”1“H”拓展法"><a href="#【综合技巧】5“W”1“H”拓展法" class="headerlink" title="【综合技巧】5“W”1“H”拓展法"></a>【综合技巧】5“W”1“H”拓展法</h2><h5 id="Would-you-like-to-ride-a-bike-to-work-in-the-future"><a href="#Would-you-like-to-ride-a-bike-to-work-in-the-future" class="headerlink" title="Would you like to ride a bike to work in the future?"></a>Would you like to ride a bike to work in the future?</h5><h5 id="I-would-like-to-ride-my-bike-to-work-in-the-near-future"><a href="#I-would-like-to-ride-my-bike-to-work-in-the-near-future" class="headerlink" title="I would like to ride my bike to work in the near future."></a>I would like to ride my bike to work in the near future.</h5><ul>
-<li>(what) </li>
-<li>Since sharing economy is lit, many commuters turn to those shared bikes, scanning a QR code and here they go. Which I find convenient and eco-friendly. I wanna try that too.</li>
-<li>(Why) </li>
-<li>Because cycling for me will not only for transportation, but for fitness too. As so you know, I major in computer science, ant I bet my work after graduation will be so tiring I wouldn’t have time to work out. Besides, it’s eco-friendly, right?</li>
-<li>(When) </li>
-<li>…But only when the weather’s good. I mean, here in Hainan, probably means, never.</li>
-<li>(Where) </li>
-<li>…But only if my workplace is not far from home, like within 10 kilometers or so. Or otherwise I would be sweaty and stinky all day long.</li>
-<li>(Who) </li>
-<li>Since I will be sharing my apartment with another 2 or three roommates and I may not have an office of my own, riding to work can be the only time to be alone. </li>
-<li>(How) </li>
-<li>Since I’m terrific at cycling, riding to work will be my preference. I will be able to scuttle through the concrete jungle with ease.</li>
-</ul>
-<h5 id="今日任务：开脑洞，回答下列每一道题，分别在5W1H的6个拓展方向中任选3个组合成答案。"><a href="#今日任务：开脑洞，回答下列每一道题，分别在5W1H的6个拓展方向中任选3个组合成答案。" class="headerlink" title="今日任务：开脑洞，回答下列每一道题，分别在5W1H的6个拓展方向中任选3个组合成答案。"></a><strong>今日任务</strong>：开脑洞，回答下列每一道题，分别在5W1H的6个拓展方向中任选3个组合成答案。</h5><ol>
-<li>Do people still wear watches in your country?</li>
-<li>What kinds of foreign food are popular in your country?</li>
-<li>When you were young, what would you do if you felt bored?</li>
-<li>Do you think parents should keep an eye on the websites their children visit? (P3)</li>
-<li>What kinds of people often lose things? (P3) </li>
-</ol>
-<h2 id="【纠音跟读】并列与选择，语调扬起来"><a href="#【纠音跟读】并列与选择，语调扬起来" class="headerlink" title="【纠音跟读】并列与选择，语调扬起来"></a>【纠音跟读】并列与选择，语调扬起来</h2><p>I’d like a bottle of coke↑, two bottles of apple juice↑, a hamburger↑ and two cake please↓.</p>
-<p>I look around me↑ and the room has changed imperceptibly↑ and overtly. There are elephants on thin legs lining the walls↑, the people around me↑ have become giant insects, my watch melts↑ and slowly drips from my wrist. A Dalinian dream?↑ A Kafkaesque nightmare?↑ The breeze of surrealism blows through my hair; an existential whirlwind captures my imagination.</p>
-<p><strong>隐私</strong></p>
- <audio id="p6" controls preload="none"><br> <source id="mp3" src="./privacy.mp3"><br></audio>
-
-<p><input type="button" onclick="(function(){var audio=document.getElementById('p6');var len = audio.duration;audio.currentTime += 5;if (audio.currentTime > len) audio.currentTime = 0;audio.play();})()" value="forward 5s"></p>
-<input type="button" onclick="(function(){var audio=document.getElementById('p6');audio.currentTime -= 5;if (audio.currentTime < 0) audio.currentTime = 0;audio.play();})()" value="backword 5s">
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2136,7 +2069,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2158,7 +2091,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

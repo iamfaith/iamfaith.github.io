@@ -304,6 +304,140 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2019/11/22/A-gentle-introduction-to-XGboost/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="faith">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Faith' s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/22/A-gentle-introduction-to-XGboost/" itemprop="url">A gentle introduction to XGboost</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-22T11:05:11-05:00">
+                2019-11-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>conda install -c anaconda py-xgboost</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97axj0vdoj30yw0iigrg.jpg" alt="image-20191122115245063"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97axbbc8nj30zb0jfn87.jpg" alt="image-20191122115225979"></p>
+<p>Bagging is the random forest algorithm.</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97ckdx94rj30yi0eetds.jpg" alt="image-20191122124917970"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97cnrc5qfj30tm0h7qby.jpg" alt="image-20191122125227489"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97cv31yn8j30jt0h0q7g.jpg" alt="image-20191122125934871"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97cyxqabdj30k80datce.jpg" alt="image-20191122130316958"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97czuiyhbj310e0gggs3.jpg" alt="image-20191122130405323"></p>
+<h2 id="AdBoost"><a href="#AdBoost" class="headerlink" title="AdBoost"></a>AdBoost</h2><p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97d49whujj30pu0fcacb.jpg" alt="image-20191122130822403"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97d4hs16xj30o00eun05.jpg" alt="image-20191122130838868"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97d6t0q8bj311s0ivtfl.jpg" alt="image-20191122131050282"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97i0pcy0tj31120fc0y1.jpg" alt="image-20191122155755562"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97i3xrwvjj30kh087tc6.jpg" alt="image-20191122160104566"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">dataset=pd.read_csv(<span class="string">""</span>)</span><br><span class="line">X=dataset.iloc[:,<span class="number">3</span>:<span class="number">13</span>].values</span><br><span class="line">y=dataset.iloc[:,<span class="number">13</span>].values</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#Encode categorical data</span></span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder, OneHotEncoder</span><br><span class="line"></span><br><span class="line">labelencoder_X_1=LabelEncoder()</span><br><span class="line"> X[:,<span class="number">1</span>]=labelencoder_X_1.fit_transform(X[:,<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"> labelencoder_X_2=LabelEncoder()</span><br><span class="line"> X[:,<span class="number">2</span>]=labelencoder_X_2.fit_transform(X[:,<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">onehotencoder=OneHotEncoder(categorical_features=[<span class="number">1</span>])</span><br><span class="line">X=onehotencoder.fit_transform(X).toarray()</span><br><span class="line">X=X[:,<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line"><span class="comment"># splitting</span></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line">X_train, X_test, y_train, y_test=train_test_split(X, y, test_size=<span class="number">0.2</span>, random_state=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># fitting XGboost to the training set</span></span><br><span class="line"><span class="keyword">from</span> xgboost <span class="keyword">import</span> XGBClassifier</span><br><span class="line">classifier=XGBClassifier()</span><br><span class="line">classifier.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line"><span class="comment"># predict the test set results</span></span><br><span class="line"></span><br><span class="line">y_pred=classifier.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="comment"># make the confusion matrix</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix</span><br><span class="line">cm=confusion_matrix(y_test, y_pred)</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://faithio.tk/2019/11/19/The-new-life-in-Montreal/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1332,207 +1466,6 @@ root /web/abc.com/;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2018/09/13/interview-for-SDE-4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="faith">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Faith' s Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/13/interview-for-SDE-4/" itemprop="url">interview for SDE 4</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-13T14:06:29-04:00">
-                2018-09-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Reverse-a-Doubly-Linked-List"><a href="#Reverse-a-Doubly-Linked-List" class="headerlink" title="Reverse a Doubly Linked List"></a>Reverse a Doubly Linked List</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Node: </span><br><span class="line">      </span><br><span class="line">    # Constructor to create a new node </span><br><span class="line">    def __init__(self, data): </span><br><span class="line">        self.data = data  </span><br><span class="line">        self.next = None</span><br><span class="line">        self.prev = None</span><br><span class="line">  </span><br><span class="line">class DoublyLinkedList: </span><br><span class="line">     # Constructor for empty Doubly Linked List </span><br><span class="line">    def __init__(self): </span><br><span class="line">        self.head = None</span><br><span class="line">   </span><br><span class="line">    # Function reverse a Doubly Linked List </span><br><span class="line">    def reverse(self): </span><br><span class="line">        temp = None</span><br><span class="line">        current = self.head </span><br><span class="line">          </span><br><span class="line">        # Swap next and prev for all nodes of  </span><br><span class="line">        # doubly linked list </span><br><span class="line">        while current is not None: </span><br><span class="line">            temp = current.prev  </span><br><span class="line">            current.prev = current.next</span><br><span class="line">            current.next = temp </span><br><span class="line">            current = current.prev </span><br><span class="line">  </span><br><span class="line">        # Before changing head, check for the cases like  </span><br><span class="line">        # empty list and list with only one node </span><br><span class="line">        if temp is not None: </span><br><span class="line">            self.head = temp.prev </span><br><span class="line">          </span><br><span class="line">    # Given a reference to the head of a list and an </span><br><span class="line">    # integer,inserts a new node on the front of list </span><br><span class="line">    def push(self, new_data): </span><br><span class="line">   </span><br><span class="line">        # 1. Allocates node </span><br><span class="line">        # 2. Put the data in it </span><br><span class="line">        new_node = Node(new_data) </span><br><span class="line">   </span><br><span class="line">        # 3. Make next of new node as head and </span><br><span class="line">        # previous as None (already None) </span><br><span class="line">        new_node.next = self.head </span><br><span class="line">   </span><br><span class="line">        # 4. change prev of head node to new_node </span><br><span class="line">        if self.head is not None: </span><br><span class="line">            self.head.prev = new_node </span><br><span class="line">   </span><br><span class="line">        # 5. move the head to point to the new node </span><br><span class="line">        self.head = new_node </span><br><span class="line">  </span><br><span class="line">    def printList(self, node): </span><br><span class="line">        while(node is not None): </span><br><span class="line">            print node.data, </span><br><span class="line">            node = node.next</span><br><span class="line">  </span><br><span class="line"># Driver program to test the above functions </span><br><span class="line">dll = DoublyLinkedList() </span><br><span class="line">dll.push(2); </span><br><span class="line">dll.push(4); </span><br><span class="line">dll.push(8); </span><br><span class="line">dll.push(10); </span><br><span class="line">  </span><br><span class="line">print &quot;\nOriginal Linked List&quot;</span><br><span class="line">dll.printList(dll.head) </span><br><span class="line">  </span><br><span class="line"># Reverse doubly linked list </span><br><span class="line">dll.reverse() </span><br><span class="line">  </span><br><span class="line">print &quot;\n Reversed Linked List&quot;</span><br><span class="line">dll.printList(dll.head)</span><br></pre></td></tr></table></figure>
-<h2 id="Reverse-a-linked-list"><a href="#Reverse-a-linked-list" class="headerlink" title="Reverse a linked list"></a>Reverse a linked list</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Node: </span><br><span class="line">  </span><br><span class="line">    # Constructor to initialize the node object </span><br><span class="line">    def __init__(self, data): </span><br><span class="line">        self.data = data </span><br><span class="line">        self.next = None</span><br><span class="line">  </span><br><span class="line">class LinkedList: </span><br><span class="line">  </span><br><span class="line">    # Function to initialize head </span><br><span class="line">    def __init__(self): </span><br><span class="line">        self.head = None</span><br><span class="line">  </span><br><span class="line">    # Function to reverse the linked list </span><br><span class="line">    def reverse(self): </span><br><span class="line">        prev = None</span><br><span class="line">        current = self.head </span><br><span class="line">        while(current is not None): </span><br><span class="line">            next = current.next</span><br><span class="line">            current.next = prev </span><br><span class="line">            prev = current </span><br><span class="line">            current = next</span><br><span class="line">        self.head = prev </span><br><span class="line">          </span><br><span class="line">    # Function to insert a new node at the beginning </span><br><span class="line">    def push(self, new_data): </span><br><span class="line">        new_node = Node(new_data) </span><br><span class="line">        new_node.next = self.head </span><br><span class="line">        self.head = new_node </span><br><span class="line">  </span><br><span class="line">    # Utility function to print the linked LinkedList </span><br><span class="line">    def printList(self): </span><br><span class="line">        temp = self.head </span><br><span class="line">        while(temp): </span><br><span class="line">            print temp.data, </span><br><span class="line">            temp = temp.next</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"># Driver program to test above functions </span><br><span class="line">llist = LinkedList() </span><br><span class="line">llist.push(20) </span><br><span class="line">llist.push(4) </span><br><span class="line">llist.push(15) </span><br><span class="line">llist.push(85) </span><br><span class="line">  </span><br><span class="line">print &quot;Given Linked List&quot;</span><br><span class="line">llist.printList() </span><br><span class="line">llist.reverse() </span><br><span class="line">print &quot;\nReversed Linked List&quot;</span><br><span class="line">llist.printList()</span><br></pre></td></tr></table></figure>
-<h2 id="Insert-value-in-sorted-way-in-a-sorted-doubly-linked-list"><a href="#Insert-value-in-sorted-way-in-a-sorted-doubly-linked-list" class="headerlink" title="Insert value in sorted way in a sorted doubly linked list"></a>Insert value in sorted way in a sorted doubly linked list</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sortedInsert(head_ref, newNode)</span><br><span class="line">      if (head_ref == NULL)</span><br><span class="line">      head_ref = newNode</span><br><span class="line">        </span><br><span class="line">      else if head_ref-&gt;data &gt;= newNode-&gt;data</span><br><span class="line">          newNode-&gt;next = head_ref</span><br><span class="line">          newNode-&gt;next-&gt;prev = newNode</span><br><span class="line">          head_ref = newNode    </span><br><span class="line">        </span><br><span class="line">      else</span><br><span class="line">      Initialize current = head_ref</span><br><span class="line">      while (current-&gt;next != NULL and</span><br><span class="line">               current-&gt;next-&gt;data data)</span><br><span class="line">        current = current-&gt;next</span><br><span class="line">        </span><br><span class="line">      # insert first </span><br><span class="line">      newNode-&gt;next = current-&gt;next</span><br><span class="line">      if current-&gt;next != NULL</span><br><span class="line">        newNode-&gt;next-&gt;prev = newNode</span><br><span class="line">            </span><br><span class="line">      # deal with current node</span><br><span class="line">      current-&gt;next = newNode</span><br><span class="line">      newNode-&gt;prev = current</span><br></pre></td></tr></table></figure>
-<h2 id="Construct-Tree-from-given-Inorder-and-Preorder-traversals"><a href="#Construct-Tree-from-given-Inorder-and-Preorder-traversals" class="headerlink" title="Construct Tree from given Inorder and Preorder traversals"></a>Construct Tree from given Inorder and Preorder traversals</h2><p>Algorithm: buildTree()<br>1) Pick an element from Preorder. Increment a Preorder Index Variable (preIndex in below code) to pick next element in next recursive call.<br>2) Create a new tree node tNode with the data as picked element.<br>3) Find the picked element’s index in Inorder. Let the index be inIndex.<br>4) Call buildTree for elements before inIndex and make the built tree as left subtree of tNode.<br>5) Call buildTree for elements after inIndex and make the built tree as right subtree of tNode.<br>6) return tNode.</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># A binary tree node  </span><br><span class="line">class Node: </span><br><span class="line">      </span><br><span class="line">    # Constructor to create a new node </span><br><span class="line">    def __init__(self, data): </span><br><span class="line">        self.data = data </span><br><span class="line">        self.left = None</span><br><span class="line">        self.right = None</span><br><span class="line">  </span><br><span class="line">&quot;&quot;&quot;Recursive function to construct binary of size len from </span><br><span class="line">   Inorder traversal in[] and Preorder traversal pre[].  Initial values </span><br><span class="line">   of inStrt and inEnd should be 0 and len -1.  The function doesn&apos;t </span><br><span class="line">   do any error checking for cases where inorder and preorder </span><br><span class="line">   do not form a tree &quot;&quot;&quot;</span><br><span class="line">def buildTree(inOrder, preOrder, inStrt, inEnd): </span><br><span class="line">      </span><br><span class="line">    if (inStrt &gt; inEnd): </span><br><span class="line">        return None</span><br><span class="line">  </span><br><span class="line">    # Pich current node from Preorder traversal using </span><br><span class="line">    # preIndex and increment preIndex </span><br><span class="line">    tNode = Node(preOrder[buildTree.preIndex]) </span><br><span class="line">    buildTree.preIndex += 1</span><br><span class="line">  </span><br><span class="line">    # If this node has no children then return </span><br><span class="line">    if inStrt == inEnd : </span><br><span class="line">        return tNode </span><br><span class="line">  </span><br><span class="line">    # Else find the index of this node in Inorder traversal </span><br><span class="line">    inIndex = search(inOrder, inStrt, inEnd, tNode.data) </span><br><span class="line">      </span><br><span class="line">    # Using index in Inorder Traversal, construct left  </span><br><span class="line">    # and right subtrees </span><br><span class="line">    tNode.left = buildTree(inOrder, preOrder, inStrt, inIndex-1) </span><br><span class="line">    tNode.right = buildTree(inOrder, preOrder, inIndex+1, inEnd) </span><br><span class="line">  </span><br><span class="line">    return tNode </span><br><span class="line">  </span><br><span class="line"># UTILITY FUNCTIONS </span><br><span class="line"># Function to find index of vaue in arr[start...end] </span><br><span class="line"># The function assumes that value is rpesent in inOrder[] </span><br><span class="line">  </span><br><span class="line">def search(arr, start, end, value): </span><br><span class="line">    for i in range(start, end+1): </span><br><span class="line">        if arr[i] == value: </span><br><span class="line">            return i </span><br><span class="line">  </span><br><span class="line">def printInorder(node): </span><br><span class="line">    if node is None: </span><br><span class="line">        return </span><br><span class="line">      </span><br><span class="line">    # first recur on left child </span><br><span class="line">    printInorder(node.left) </span><br><span class="line">      </span><br><span class="line">    #then print the data of node </span><br><span class="line">    print node.data, </span><br><span class="line">  </span><br><span class="line">    # now recur on right child </span><br><span class="line">    printInorder(node.right) </span><br><span class="line">      </span><br><span class="line"># Driver program to test above function </span><br><span class="line">inOrder = [&apos;D&apos;, &apos;B&apos; ,&apos;E&apos;, &apos;A&apos;, &apos;F&apos;, &apos;C&apos;] </span><br><span class="line">preOrder = [&apos;A&apos;, &apos;B&apos;, &apos;D&apos;, &apos;E&apos;, &apos;C&apos;, &apos;F&apos;] </span><br><span class="line"># Static variable preIndex </span><br><span class="line">buildTree.preIndex = 0</span><br><span class="line">root = buildTree(inOrder, preOrder, 0, len(inOrder)-1) </span><br><span class="line">  </span><br><span class="line"># Let us test the build tree by priting Inorder traversal </span><br><span class="line">print &quot;Inorder traversal of the constructed tree is&quot;</span><br><span class="line">printInorder(root)</span><br></pre></td></tr></table></figure>
-<h2 id="the-difference-between-an-exclusive-lock-and-a-shared-lock"><a href="#the-difference-between-an-exclusive-lock-and-a-shared-lock" class="headerlink" title="the difference between an exclusive lock and a shared lock"></a>the difference between an exclusive lock and a shared lock</h2><p>I wrote this answer down because I thought this would be a fun (and fitting) analogy:</p>
-<p>Think of a lockable object as a blackboard (lockable) in a class room containing a teacher (writer) and many students (readers).</p>
-<p>While a teacher is writing something (exclusive lock) on the board:</p>
-<p>Nobody can read it, because it’s still being written, and she’s blocking your view =&gt; If an object is exclusively locked, shared locks cannot be obtained.</p>
-<p>Other teachers won’t come up and start writing either, or the board becomes unreadable, and confuses students =&gt; If an object is exclusively locked, other exclusive locks cannot be obtained.</p>
-<p>When the students are reading (shared locks) what is on the board:</p>
-<p>They all can read what is on it, together =&gt; Multiple shared locks can co-exist.</p>
-<p>The teacher waits for them to finish reading before she clears the board to write more =&gt; If one or more shared locks already exist, exclusive locks cannot be obtained.</p>
-<ul>
-<li><p>Exclusive lock (X) – This lock type, when imposed, will ensure that a page or row will be reserved exclusively for the transaction that imposed the exclusive lock, as long as the transaction holds the lock.<br>The exclusive lock will be imposed by the transaction when it wants to modify the page or row data, which is in the case of DML statements DELETE, INSERT and UPDATE. An exclusive lock can be imposed to a page or row only if there is no other shared or exclusive lock imposed already on the target. This practically means that only one exclusive lock can be imposed to a page or row, and once imposed no other lock can be imposed on locked resources</p>
-</li>
-<li><p>Shared lock (S) – this lock type, when imposed, will reserve a page or row to be available only for reading, which means that any other transaction will be prevented to modify the locked record as long as the lock is active. However, a shared lock can be imposed by several transactions at the same time over the same page or row and in that way several transactions can share the ability for data reading since the reading process itself will not affect anyhow the actual page or row data. In addition, a shared lock will allow write operations, but no DDL changes will be allowed</p>
-</li>
-</ul>
-<h2 id="Describe-the-ways-to-defend-DDos"><a href="#Describe-the-ways-to-defend-DDos" class="headerlink" title="Describe the ways to defend DDos"></a>Describe the ways to defend DDos</h2><ol>
-<li>Set Traffic Thresholds<br>You probably track how many users visit your site per day, per hour, and per minute. Thus, you understand your average traffic levels and, hopefully, you’ve recorded how special events (sales, big news releases, etc.) affect visits.</li>
-</ol>
-<p>Based on these numbers, set thresholds that automatically flag abnormal traffic for your security team. If you expect 1,000 visitors per 10 minutes, an influx of 5,000 visitors over one minute should trigger your alert.</p>
-<ol start="2">
-<li><p>Blacklist and Whitelist<br>Control who can access your network and APIs with whitelists and blacklists. However, do not automatically blacklist IP addresses that trigger alerts. You will see false positives, and overreacting is a sure way to infuriate good customers. Temporarily block traffic and see how it responds. Legitimate users usually try again after a few minutes. Illegitimate traffic tends to switch IP addresses.</p>
-</li>
-<li><p>CDNs<br>The best defense against DDoS attacks is a content delivery network (CDN) like Prolexic (acquired by Akamai), Incapsula, Arbor Networks, or CloudFlare. They can identify illegitimate traffic and divert it to their cloud infrastructure.</p>
-</li>
-</ol>
-<p>The problem is that CDNs are not cheap. A typical plan costs five figures per month. Or, if you pay per incident, you might get a six-figure bill for one attack. If you run a bank, a massive ecommerce company, or a social platform that makes thousands of dollars per second, that’s a small price to pay.</p>
-<p>Most companies either can’t afford a CDN or don’t have a platform that warrants such high security. If, for instance, your company has an informational website where no one makes transactions or uses services, you don’t need a CDN. You’re not a prime target. An application or network firewall might be enough to prevent abnormal traffic. If a DDoS attack takes you down, it won’t harm customers or your reputation.</p>
-<p>The cheapest way to defend against DDoS attacks is to deploy more servers when you detect suspicious activity. That is the least reliable method but still better than nothing.</p>
-<p>Remember, there is no end to the amount of money you can throw at security. Depending on your budget and risk tolerance, choose the right option for your service desk.</p>
-<ol start="4">
-<li>Automate Communication with Customers<br>When a DDoS attack succeeds, you don’t want your service desk buried in emails, phone calls, social media posts, and instant messages. Create a status page that automatically displays whether your service is up or down. Also, create DDoS communications templates that you can auto-send to end users who contact you.</li>
-</ol>
-<p>These templates should cover any interruption to service, not just DDoS attacks. Keep it vague with something like: “Thank you for contacting [your company name]. Our platform is currently down. We are working as quickly as possible to restore service. We will post updates on our status page [hyperlinked] as soon as we have more information”.</p>
-<ol start="5">
-<li>Incident Report and Root Cause Analysis<br>After you suffer an attack, you need to reestablish credibility. Draft an incident report explaining what happened, why, and how you responded. Then, discuss how you will prevent future attacks. If you contracted a CDN, for instance, discuss how it works and how it will deter future attacks. Open the report with simple, non-technical language. You can add a technical section for CIOs, CTOs, and others who would appreciate the details.</li>
-</ol>
-<p>Practice for Attacks<br>Simulate DDoS attacks to gauge how your action plan works. You could give DevOps and the service desk warning or take them by surprise to make the simulation realistic.</p>
-<p>Companies often run simulations in a planned maintenance window to spare end users further inconvenience. If you have a CDN, you can warn the provider, or not. Obviously if you pay per incident, coordinate tests with the CDN provider.</p>
-<ol start="6">
-<li>Internet Service Provider (ISP). Some enterprises use their ISP to provide DDoS mitigation.  These ISP’s have more bandwidth than an enterprise would, which can help with the large volumetric attacks, but there are three key problems with these services as well</li>
-</ol>
-<h3 id="网络层DDos攻击"><a href="#网络层DDos攻击" class="headerlink" title="网络层DDos攻击"></a>网络层DDos攻击</h3><p>网络层DDos攻击包括SYN flood、UDP flood、ICMP flood等。</p>
-<h3 id="SYN-flood攻击"><a href="#SYN-flood攻击" class="headerlink" title="SYN flood攻击"></a>SYN flood攻击</h3><p>　　SYN flood攻击主要利用了TCP三次握手过程中的bug，我们知道TCP三次握手过程是要建立连接的双方发送SYN，SYN+ACK，ACK数据包，而当攻击方随意构造源ip去发送SYN包时，服务器返回的SYN+ACK就不能得到应答（因为ip是随意构造的），此时服务器就会尝试重新发送，并且会有至少30s的等待时间，导致资源饱和服务不可用，此攻击属于慢型dos攻击。</p>
-<h3 id="UDP-flood攻击"><a href="#UDP-flood攻击" class="headerlink" title="UDP flood攻击"></a>UDP flood攻击</h3><p>　　由于udp是一种无连接的协议，因此攻击者可以伪造大量的源IP地址去发送udp包，此种攻击属于大流量攻击。正常应用情况下，UDP包双向流量会基本相等，因此在消耗对方资源的时候也在消耗自己的资源。</p>
-<h3 id="ICMP-flood攻击"><a href="#ICMP-flood攻击" class="headerlink" title="ICMP flood攻击"></a>ICMP flood攻击</h3><p>　　此攻击属于大流量攻击，其原理就是不断发送不正常的ICMP包（所谓不正常就是ICMP包内容很大），导致目标带宽被占用，但其本身资源也会被消耗。并且目前很多服务器都是禁ping的（在防火墙在可以屏蔽icmp包），因此这种方式已经落伍。</p>
-<ul>
-<li>网络层DDos防御</li>
-<li>网络架构上做好优化，采用负载均衡分流。</li>
-<li>添加抗DDos设备，流量清洗。</li>
-<li>限制单ip请求频率。</li>
-<li>防火墙等防护设置禁止icmp包等</li>
-<li>网络层的DDos攻击究其本质其实是无法防御的，我们能做得就是不断优化自身的网络架构，以及提升网络带宽。</li>
-</ul>
-<h3 id="应用层DDos攻击"><a href="#应用层DDos攻击" class="headerlink" title="应用层DDos攻击"></a>应用层DDos攻击</h3><ul>
-<li>判断User-Agent字段（不可靠，因为可以随意构造）</li>
-<li>网页中镶嵌js代码（不可靠，因为爬虫也可携带浏览器引擎，或者执行js代码）</li>
-<li>针对ip+cookie，限制访问频率（由于cookie可以更改，ip可以使用代理，或者肉鸡，也不可靠)</li>
-<li>关闭apache最大连接数等，合理配置中间件，缓解ddos攻击。</li>
-<li>页面中添加验证码，比如搜索数据库时。</li>
-<li>编写代码时，尽量实现优化，并合理使用缓存技术，减少数据库的读取操作。</li>
-</ul>
-<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><h3 id="Synchronizer-token-pattern-STP"><a href="#Synchronizer-token-pattern-STP" class="headerlink" title="Synchronizer token pattern(STP)"></a>Synchronizer token pattern(STP)</h3><p>对于每个request，在服务器端生成一个新的csrf_token，并将其返回在页面的表单中。在服务器端每次接收到请求时，都会验证表单中是否包含正确的csrf_token。由于第三方网站无法得知正确的csrf_token，所以无法进行csrf攻击。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> get_token = get_random_token()</span><br><span class="line"> return &#123;</span><br><span class="line">   &lt;form&gt;</span><br><span class="line">     &lt;input name=field1&gt;&lt;/input&gt;</span><br><span class="line">     &lt;input type=&quot;hidden&quot; name=&quot;csrfmiddlewaretoken&quot; value=#&#123;get_token()&#125; /&gt;</span><br><span class="line">   &lt;/form&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这个方法的好处是客户端不需要支持javascript，因此通用于所有的网站。坏处是由于服务器端对于每个请求都会更换csrf_token，因此他需要保证用户提交的表单是用户最近一次请求的表单。如果用户通过多个tab同时浏览该网站，那么往往会导致用户提交的表单不是最新的那一个。</p>
-<h3 id="Cookie-to-header-token"><a href="#Cookie-to-header-token" class="headerlink" title="Cookie-to-header token"></a>Cookie-to-header token</h3><p>第二个方法是为每个session生成一个csrf_token，随后将csrf_token保存到cookie中，之后通过javascript在每次请求时将csrf_token设置到http header中的X-Csrf-Token属性中。再在服务器端比较Cookie的csrf_token与header中的token是否一致。</p>
-<p>//当用户登录时设置Cookie<br>Set-Cookie: Csrf-token=i8XNjC4b8KVok4uw5RftR38Wgp2BFwql; expires=Thu, 23-Jul-2015 10:25:33 GMT; Max-Age=31449600; Path=/</p>
-<p>//当用户发送请求时设置Http Header中的X-Csrf-Token<br>X-Csrf-Token: i8XNjC4b8KVok4uw5RftR38Wgp2BFwql<br>有些读者可能会问如果设置在Cookie中，那么Malicious.com岂不是可以利用Cookie中的值来设置X-Csrf-Token的值么？</p>
-<p>其实尽管可以从Malicious.com发送给Trusted.com带有含有csrf_token的Cookie，但是根据同源策略，Javascript无法从Malicious.com读取或者写入Trusted.com的Cookie。所以Malicious.com无法知道正确的csrf_token是什么，也不能够正确的修改Http-Header的X-Csrf-Token属性。</p>
-<h2 id="explain-routing-mechanism-in-SPA"><a href="#explain-routing-mechanism-in-SPA" class="headerlink" title="explain routing mechanism in SPA"></a>explain routing mechanism in SPA</h2><h3 id="hash-的历史"><a href="#hash-的历史" class="headerlink" title="hash 的历史"></a>hash 的历史</h3><p>最开始的网页是多页面的，后来出现了 Ajax 之后，才慢慢有了 SPA。然而，那时候的 SPA 有两个弊端：</p>
-<p>用户在使用的过程中，url 不会发生任何改变。当用户操作了几步之后，一不小心刷新了页面，又会回到最开始的状态。<br>由于缺乏 url，不方便搜索引擎进行收录。<br>怎么办呢？ → 使用 hash<br>url 上的 hash 本意是用来作锚点的，方便用户在一个很长的文档里进行上下的导航，用来做 SPA 的路由控制并非它的本意。然而，hash 满足这么一种特性：改变 url 的同时，不刷新页面，再加上浏览器也提供 onhashchange 这样的事件监听，因此，hash 能用来做路由控制。（这部分红宝书 P394 也有相关的说明）后来，这种模式大行其道，onhashchange 也就被写进了 HTML5 规范当中去了。</p>
-<h3 id="history-的演进"><a href="#history-的演进" class="headerlink" title="history 的演进"></a>history 的演进</h3><p>很早以前，浏览器便实现了 history。然而，早期的 history 只能用于多页面进行跳转，比如：</p>
-<p>// 这部分可参考红宝书 P215<br>history.go(-1);       // 后退一页<br>history.go(2);        // 前进两页<br>history.forward();     // 前进一页<br>history.back();      // 后退一页<br>在 HTML5 规范中，history 新增了以下几个 API</p>
-<p>history.pushState();         // 添加新的状态到历史状态栈<br>history.replaceState();     // 用新的状态代替当前状态<br>history.state             // 返回当前状态对象<br>通过history.pushState或者history.replaceState，也能做到：改变 url 的同时，不会刷新页面。所以 history 也具备实现路由控制的潜力。然而，还缺一点：hash 的改变会触发 onhashchange 事件，history 的改变会触发什么事件呢？ → 很遗憾，没有。<br>怎么办呢？→ 虽然我们无法监听到 history 的改变事件，然而，如果我们能罗列出所有可能改变 history 的途径，然后在这些途径一一进行拦截，不也一样相当于监听了 history 的改变吗？<br>对于一个应用而言，url 的改变只能由以下 3 种途径引起：</p>
-<p>点击浏览器的前进或者后退按钮；<br>点击 a 标签；<br>在 JS 代码中直接修改路由<br>第 2 和第 3 种途径可以看成是一种，因为 a 标签的默认事件可以被禁止，进而调用 JS 方法。关键是第 1 种，HTML5 规范中新增了一个 onpopstate 事件，通过它便可以监听到前进或者后退按钮的点击。<br>要特别注意的是：调用history.pushState和history.replaceState并不会触发 onpopstate 事件。</p>
-<h2 id="what-is-the-difference-cookie-and-session"><a href="#what-is-the-difference-cookie-and-session" class="headerlink" title="what is the difference: cookie and session"></a>what is the difference: cookie and session</h2><p>A cookie is a bit of data stored by the browser and sent to the server with every request.</p>
-<p>A session is a collection of data stored on the server and associated with a given user (usually via a cookie containing an id code)</p>
-<h2 id="层次遍历"><a href="#层次遍历" class="headerlink" title="层次遍历"></a>层次遍历</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Definition of TreeNode:</span></span><br><span class="line"><span class="string">class TreeNode:</span></span><br><span class="line"><span class="string">    def __init__(self, val):</span></span><br><span class="line"><span class="string">        self.val = val</span></span><br><span class="line"><span class="string">        self.left, self.right = None, None</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    @param root: The root of binary tree.</span></span><br><span class="line"><span class="string">    @return: Level order in a list of lists of integers</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">levelOrder</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="comment"># write your code here</span></span><br><span class="line">        res = []</span><br><span class="line">        <span class="comment"># 如果根节点为空，则返回空列表</span></span><br><span class="line">        <span class="keyword">if</span> root <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line">        <span class="comment"># 模拟一个队列储存节点</span></span><br><span class="line">        q = []</span><br><span class="line">        <span class="comment"># 首先将根节点入队</span></span><br><span class="line">        q.append(root)</span><br><span class="line">        <span class="comment"># 列表为空时，循环终止</span></span><br><span class="line">        <span class="keyword">while</span> len(q) != <span class="number">0</span>:</span><br><span class="line">            <span class="comment"># 使用列表存储同层节点</span></span><br><span class="line">            tmp = []</span><br><span class="line">            <span class="comment"># 记录同层节点的个数</span></span><br><span class="line">            length = len(q)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(length):</span><br><span class="line">                <span class="comment"># 将同层节点依次出队</span></span><br><span class="line">                r = q.pop(<span class="number">0</span>)</span><br><span class="line">                <span class="keyword">if</span> r.left <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">                    <span class="comment"># 非空左孩子入队</span></span><br><span class="line">                    q.append(r.left)</span><br><span class="line">                <span class="keyword">if</span> r.right <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">                    <span class="comment"># 非空右孩子入队</span></span><br><span class="line">                    q.append(r.right)</span><br><span class="line">                tmp.append(r.val)</span><br><span class="line">            res.append(tmp)</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-<h3 id="Level-Order-Tree-Traversal"><a href="#Level-Order-Tree-Traversal" class="headerlink" title="Level Order Tree Traversal"></a>Level Order Tree Traversal</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># A node structure </span><br><span class="line">class Node: </span><br><span class="line">  </span><br><span class="line">    # A utility function to create a new node </span><br><span class="line">    def __init__(self, key): </span><br><span class="line">        self.data = key  </span><br><span class="line">        self.left = None</span><br><span class="line">        self.right = None</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"># Function to  print level order traversal of tree </span><br><span class="line">def printLevelOrder(root): </span><br><span class="line">    h = height(root) </span><br><span class="line">    for i in range(1, h+1): </span><br><span class="line">        printGivenLevel(root, i) </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"># Print nodes at a given level </span><br><span class="line">def printGivenLevel(root , level): </span><br><span class="line">    if root is None: </span><br><span class="line">        return</span><br><span class="line">    if level == 1: </span><br><span class="line">        print &quot;%d&quot; %(root.data), </span><br><span class="line">    elif level &gt; 1 : </span><br><span class="line">        printGivenLevel(root.left , level-1) </span><br><span class="line">        printGivenLevel(root.right , level-1) </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">&quot;&quot;&quot; Compute the height of a tree--the number of nodes </span><br><span class="line">    along the longest path from the root node down to </span><br><span class="line">    the farthest leaf node </span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">def height(node): </span><br><span class="line">    if node is None: </span><br><span class="line">        return 0 </span><br><span class="line">    else : </span><br><span class="line">        # Compute the height of each subtree  </span><br><span class="line">        lheight = height(node.left) </span><br><span class="line">        rheight = height(node.right) </span><br><span class="line">  </span><br><span class="line">        #Use the larger one </span><br><span class="line">        if lheight &gt; rheight : </span><br><span class="line">            return lheight+1</span><br><span class="line">        else: </span><br><span class="line">            return rheight+1</span><br><span class="line">  </span><br><span class="line"># Driver program to test above function </span><br><span class="line">root = Node(1) </span><br><span class="line">root.left = Node(2) </span><br><span class="line">root.right = Node(3) </span><br><span class="line">root.left.left = Node(4) </span><br><span class="line">root.left.right = Node(5) </span><br><span class="line">  </span><br><span class="line">print &quot;Level order traversal of binary tree is -&quot;</span><br><span class="line">printLevelOrder(root)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># A node structure </span><br><span class="line">class Node: </span><br><span class="line">    # A utility function to create a new node </span><br><span class="line">    def __init__(self ,key): </span><br><span class="line">        self.data = key </span><br><span class="line">        self.left = None</span><br><span class="line">        self.right = None</span><br><span class="line">  </span><br><span class="line"># Iterative Method to print the height of binary tree </span><br><span class="line">def printLevelOrder(root): </span><br><span class="line">    # Base Case </span><br><span class="line">    if root is None: </span><br><span class="line">        return</span><br><span class="line">      </span><br><span class="line">    # Create an empty queue for level order traversal </span><br><span class="line">    queue = [] </span><br><span class="line">  </span><br><span class="line">    # Enqueue Root and initialize height </span><br><span class="line">    queue.append(root) </span><br><span class="line">  </span><br><span class="line">    while(len(queue) &gt; 0): </span><br><span class="line">        # Print front of queue and remove it from queue </span><br><span class="line">        print queue[0].data, </span><br><span class="line">        node = queue.pop(0) </span><br><span class="line">  </span><br><span class="line">        #Enqueue left child </span><br><span class="line">        if node.left is not None: </span><br><span class="line">            queue.append(node.left) </span><br><span class="line">  </span><br><span class="line">        # Enqueue right child </span><br><span class="line">        if node.right is not None: </span><br><span class="line">            queue.append(node.right) </span><br><span class="line">  </span><br><span class="line">#Driver Program to test above function </span><br><span class="line">root = Node(1) </span><br><span class="line">root.left = Node(2) </span><br><span class="line">root.right = Node(3) </span><br><span class="line">root.left.left = Node(4) </span><br><span class="line">root.left.right = Node(5) </span><br><span class="line">  </span><br><span class="line">print &quot;Level Order Traversal of binary tree is -&quot;</span><br><span class="line">printLevelOrder(root)</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1589,7 +1522,7 @@ root /web/abc.com/;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1611,7 +1544,7 @@ root /web/abc.com/;
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

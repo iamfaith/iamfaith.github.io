@@ -8,8 +8,30 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Talk is cheap. Show me the code.</description>
-    <pubDate>Wed, 20 Nov 2019 01:57:13 GMT</pubDate>
+    <pubDate>Fri, 22 Nov 2019 21:01:08 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>A gentle introduction to XGboost</title>
+      <link>https://faithio.tk/2019/11/22/A-gentle-introduction-to-XGboost/</link>
+      <guid>https://faithio.tk/2019/11/22/A-gentle-introduction-to-XGboost/</guid>
+      <pubDate>Fri, 22 Nov 2019 16:05:11 GMT</pubDate>
+      <description>
+      
+        
+        
+          
+          
+            &lt;h2 id=&quot;Installation&quot;&gt;&lt;a href=&quot;#Installation&quot; class=&quot;headerlink&quot; title=&quot;Installation&quot;&gt;&lt;/a&gt;Installation&lt;/h2&gt;&lt;p&gt;conda install -c anaconda
+          
+        
+      
+      </description>
+      
+      <content:encoded><![CDATA[<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>conda install -c anaconda py-xgboost</p><p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97axj0vdoj30yw0iigrg.jpg" alt="image-20191122115245063"></p><p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97axbbc8nj30zb0jfn87.jpg" alt="image-20191122115225979"></p><p>Bagging is the random forest algorithm.</p><p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97ckdx94rj30yi0eetds.jpg" alt="image-20191122124917970"></p><p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97cnrc5qfj30tm0h7qby.jpg" alt="image-20191122125227489"></p><p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97cv31yn8j30jt0h0q7g.jpg" alt="image-20191122125934871"></p><p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97cyxqabdj30k80datce.jpg" alt="image-20191122130316958"></p><p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97czuiyhbj310e0gggs3.jpg" alt="image-20191122130405323"></p><h2 id="AdBoost"><a href="#AdBoost" class="headerlink" title="AdBoost"></a>AdBoost</h2><p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97d49whujj30pu0fcacb.jpg" alt="image-20191122130822403"></p><p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97d4hs16xj30o00eun05.jpg" alt="image-20191122130838868"></p><p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97d6t0q8bj311s0ivtfl.jpg" alt="image-20191122131050282"></p><p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97i0pcy0tj31120fc0y1.jpg" alt="image-20191122155755562"></p><p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g97i3xrwvjj30kh087tc6.jpg" alt="image-20191122160104566"></p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">dataset=pd.read_csv(<span class="string">""</span>)</span><br><span class="line">X=dataset.iloc[:,<span class="number">3</span>:<span class="number">13</span>].values</span><br><span class="line">y=dataset.iloc[:,<span class="number">13</span>].values</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#Encode categorical data</span></span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder, OneHotEncoder</span><br><span class="line"></span><br><span class="line">labelencoder_X_1=LabelEncoder()</span><br><span class="line"> X[:,<span class="number">1</span>]=labelencoder_X_1.fit_transform(X[:,<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"> labelencoder_X_2=LabelEncoder()</span><br><span class="line"> X[:,<span class="number">2</span>]=labelencoder_X_2.fit_transform(X[:,<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">onehotencoder=OneHotEncoder(categorical_features=[<span class="number">1</span>])</span><br><span class="line">X=onehotencoder.fit_transform(X).toarray()</span><br><span class="line">X=X[:,<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line"><span class="comment"># splitting</span></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line">X_train, X_test, y_train, y_test=train_test_split(X, y, test_size=<span class="number">0.2</span>, random_state=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># fitting XGboost to the training set</span></span><br><span class="line"><span class="keyword">from</span> xgboost <span class="keyword">import</span> XGBClassifier</span><br><span class="line">classifier=XGBClassifier()</span><br><span class="line">classifier.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line"><span class="comment"># predict the test set results</span></span><br><span class="line"></span><br><span class="line">y_pred=classifier.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="comment"># make the confusion matrix</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix</span><br><span class="line">cm=confusion_matrix(y_test, y_pred)</span><br></pre></td></tr></table></figure>]]></content:encoded>
+      
+      <comments>https://faithio.tk/2019/11/22/A-gentle-introduction-to-XGboost/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>The new life in Montreal</title>

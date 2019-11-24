@@ -11,7 +11,7 @@ output:
     df_print: paged
 fontfamily: mathptmx,times
 fontsize: 11pt
-geometry: a4paper,left=2.2cm,right=2.2cm,top=1.3cm,bottom=1.7cm #margin=1in
+geometry: a4paper,left=2.2cm,right=2.2cm,top=2.2cm,bottom=2.2cm # margin=1in
 #jobtitle: Senior Software Engineer
 keywords: R Markdown, academic CV, template
 linkcolor: blue
@@ -20,7 +20,7 @@ address: "Montreal, Quebec"
 updated: no
 urlcolor: blue
 github: iamfaith
-# web: faithio.cn
+web: faithio.cn
 phone: "438-408-3986"
 linestretch: 0.8
 ---
@@ -51,7 +51,7 @@ Senior Software engineer         \hfill                 September 2016-August 20
 
   - Reduced the page load time by block loading: the first page has displayed the instant it is converted, remaining pages are loaded asynchronously via ajax
 
-  - Used Rapha??l  and canvas in HTML to plot the complex vector graphics in Office documents, compatible with IE8 and above
+  - Used Raphael and canvas in HTML to plot the complex vector graphics in Office documents, compatible with IE8 and above
 
  *Web Office: Online Collaborative Editing (web.wps.cn)*
 
@@ -81,16 +81,15 @@ Software engineer          \hfill                     November 2014-August 2016
 
 - Achieved high availability by load balancing with Oracle RAC
 
-#Publication
+# Publication
 \hrule
 
 *Ultrasonic Detection System of Engineering Truck Loading Capacity Based on STC12C5A60S2 Microcontroller*, first author, __Modern Computer__, 11107(2013)
 
-#Research Experience
+# Research Experience
 \hrule
 
 **A truck loading detection system based on MCU**    \hfill     March-November 2013
-\setlength{\parskip}{2pt}
 
 
  \renewenvironment{itemize}{
@@ -103,27 +102,27 @@ Software engineer          \hfill                     November 2014-August 2016
 
 - Collected data from the ultrasonic sensor using the Round Robin algorithm, analyzed the Linear variation of distance data, lighted the LED when reaching the threshold
   
-\setlength{\parskip}{8pt}  
+
 
 **Http SerialNet module based on coolsand embedded platform** \hfill  August-September 2013
-\setlength{\parskip}{2pt}
+
 
 - Completed the C programming based on HTTP protocol stack, implemented functions include retransmission failure, automatic transfer, etc.
 
-\setlength{\parskip}{8pt}  
+
 
 **Development of Telephone Marketing System** \hfill   July 2013
-\setlength{\parskip}{2pt}
+
 
 - Implemented instant messaging with Delphi that encapsulates internal messaging protocol to define the message types (public or private) and then forwards to the client via the server
 
 
-#Skills
-
+# Skills
 \hrule
-\setlength{\parskip}{10pt}
+
 
 **Programming Language:** C/C++, Java, Javascript, golang, python
+
 
 **Programming Framework:** Android, Linux, Node.Js, SpringMVC, ReactJs
 
@@ -133,9 +132,10 @@ Software engineer          \hfill                     November 2014-August 2016
 
 **Others:** git, npm, Webpack, gulp, reverse engineering on Android APK, docker
 
-#Accomplishment
 
+# Accomplishment
 \hrule
+
 
 Best New Employee award at ICBCSDC(3%)             \hfill                            2016
 

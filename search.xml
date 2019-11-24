@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[A gentle introduction to XGboost]]></title>
+    <url>%2F2019%2F11%2F22%2FA-gentle-introduction-to-XGboost%2F</url>
+    <content type="text"><![CDATA[Installationconda install -c anaconda py-xgboost Bagging is the random forest algorithm. AdBoost import pandas as pdimport numpy as npimport matplotlib.pyplot as pltdataset=pd.read_csv("")X=dataset.iloc[:,3:13].valuesy=dataset.iloc[:,13].values#Encode categorical datafrom sklearn.preprocessing import LabelEncoder, OneHotEncoderlabelencoder_X_1=LabelEncoder() X[:,1]=labelencoder_X_1.fit_transform(X[:,1]) labelencoder_X_2=LabelEncoder() X[:,2]=labelencoder_X_2.fit_transform(X[:,2])onehotencoder=OneHotEncoder(categorical_features=[1])X=onehotencoder.fit_transform(X).toarray()X=X[:,1:]# splittingfrom sklearn.model_selection import train_test_splitX_train, X_test, y_train, y_test=train_test_split(X, y, test_size=0.2, random_state=0)# fitting XGboost to the training setfrom xgboost import XGBClassifierclassifier=XGBClassifier()classifier.fit(X_train, y_train)# predict the test set resultsy_pred=classifier.predict(X_test)# make the confusion matrixfrom sklearn.metrics import confusion_matrixcm=confusion_matrix(y_test, y_pred)]]></content>
+      <tags>
+        <tag>machine learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[The new life in Montreal]]></title>
     <url>%2F2019%2F11%2F19%2FThe-new-life-in-Montreal%2F</url>
     <content type="text"><![CDATA[On August 28, I left for Montreal to pursue a master’s degree at Concordia in Canada, where it is the farthest place I separate from my family. The motivation for me to study is their expectation of me and my endless missing of them. Because of missing them, I would put all my effort into studying to graduate quickly such that I could go back to them.]]></content>
