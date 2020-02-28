@@ -304,6 +304,346 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2016/12/29/shell命令速记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="faith">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Faith' s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/12/29/shell命令速记/" itemprop="url">shell 命令速记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-29T13:19:39-05:00">
+                2016-12-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="shell-创建用户"><a href="#shell-创建用户" class="headerlink" title="shell 创建用户"></a>shell 创建用户</h2><p>shell命令简单记录并测试自动发布：</p>
+<blockquote>
+<p><strong>Note:</strong></p>
+</blockquote>
+<blockquote>
+<ul>
+<li>useradd -d /home/xxx -m –create-home xxx</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>passwd xxx</li>
+<li>whereis sudoers</li>
+<li>/etc/sudoers  增加sudo权限，ubuntu默认关闭该权限</li>
+</ul>
+</blockquote>
+<h2 id="Ubuntu下crontab命令的用法"><a href="#Ubuntu下crontab命令的用法" class="headerlink" title="Ubuntu下crontab命令的用法"></a>Ubuntu下crontab命令的用法</h2><p>下面稍微解释下crontab中每行的含义。crontab中的每一行代表一个定期执行的任务，分为6个部分。前5个部分表示何时执行命令，最后一个部分表示执行的命令。每个部分以空格分隔，除了最后一个部分（命令）可以在内部使用空格之外，其他部分都不能使用空格。前5个部分分别代表：分钟，小时，天，月，星期，每个部分的取值范围如下：</p>
+<p>分钟          0 - 59</p>
+<p>小时          0 - 23</p>
+<p>天              1 - 31</p>
+<p>月              1 - 12</p>
+<p>星期          0 - 6   0表示星期天</p>
+<p>除了这些固定值外，还可以配合星号（*），逗号（,），和斜线（/）来表示一些其他的含义：</p>
+<p>星号          表示任意值，比如在小时部分填写 * 代表任意小时（每小时）</p>
+<p>逗号          可以允许在一个部分中填写多个值，比如在分钟部分填写 1,3 表示一分钟或三分钟</p>
+<p>斜线          一般配合 <em> 使用，代表每隔多长时间，比如在小时部分填写 </em>/2 代表每隔两分钟。所以 <em>/1 和 </em> 没有区别</p>
+<pre><code>*/2 可以看成是能被2整除的任意值。
+</code></pre><p>以下是一些例子（省略了命令部分）：</p>
+<pre><code>* * * * *  # 每隔一分钟执行一次任务  
+0 * * * *  # 每小时的0点执行一次任务，比如6:00，10:00  
+6,10 * 2 * *# 每个月2号，每小时的6分和10分执行一次任务  
+*/3,*/5 * * * *  # 每隔3分钟或5分钟执行一次任务，比如10:03，10:05，10:06  
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2016/12/29/自动deploy脚本/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="faith">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Faith' s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/12/29/自动deploy脚本/" itemprop="url">自动deploy脚本</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-29T13:19:39-05:00">
+                2016-12-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="shell-自动化"><a href="#shell-自动化" class="headerlink" title="shell 自动化"></a>shell 自动化</h2><p>crontab -e配置：</p>
+<pre><code>*/30 * * * * &gt; blog.log &amp;&amp; /home/faith/blog.sh&gt;/home/faith/blog.log 2&gt;blogError.log
+</code></pre><p>shell 配置：</p>
+<blockquote>
+<p>注意：环境变量的问题</p>
+</blockquote>
+<pre><code>#!/bin/sh
+. /etc/profile
+. /home/faith/.profile
+
+cd /home/faith/faithBlog/hexoblog
+
+eval `ssh-agent -s`
+ssh-add /home/faith/.ssh/githubAndCoding
+
+
+HOME=/home/faith git fetch origin master
+HOME=/home/faith git checkout master
+HOME=/home/faith git merge origin/master
+
+sleep 1
+
+cd ~/faithBlog/hexoblog/blog.io
+
+export PATH=&quot;/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games&quot;
+hexo g &amp;&amp; hexo d
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://faithio.tk/2016/12/29/mac-解决NPM慢的办法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -664,7 +1004,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -746,7 +1086,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

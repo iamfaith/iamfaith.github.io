@@ -2,7 +2,7 @@
 title: "CV"
 author: "Zixiang Xian"
 gender: "*(Mr.)*"
-email: xianzixiang@gmail.com
+email: 1044426753@qq.com
 output:
   pdf_document:
     latex_engine: pdflatex
@@ -32,7 +32,7 @@ Tianjin University of Finance and Economics, Tianjin, China    \hfill      Septe
 
 Bachelor of Engineering in Software Engineering (GPA:*88/100*; Rank: *top5%*)
 
-Concordia University, Montreal, Quebec    \hfill      September 2019
+Concordia University, Montreal, Quebec    \hfill      September 2019-Present
 
 MASc in System Information Security(thesis-based, focus on Machine Learning)
 
@@ -71,7 +71,7 @@ Senior Software engineer         \hfill                 September 2016-August 20
 
  **Software Development Center, Industrial and Commercial Bank of China, Zhuhai, China**
 
-Software engineer          \hfill                     November 2014-August 2016
+Software engineer          \hfill                     July 2014-August 2016
 
 *ICBC Peru Local Clearing System: cooperative clearing front-serve*
 

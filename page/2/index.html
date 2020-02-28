@@ -304,6 +304,261 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2018/09/30/reading-notes-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="faith">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Faith' s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/30/reading-notes-1/" itemprop="url">reading notes - 1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-30T08:35:45-04:00">
+                2018-09-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="words"><a href="#words" class="headerlink" title="words"></a>words</h2><p>curated </p>
+<p>wide the slate clean: 忘掉过去，浪子回头</p>
+<p>neck and neck：不分伯仲</p>
+<p>reign：统治（v）/王朝（n）</p>
+<p>outpace/streaming/bragging right/formidable/premium/acclaim/soprano/curate/slate/Zen/front runners竞赛中的领先者</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2018/09/27/ssh命令之ProxyCommand选项/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="faith">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Faith' s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/27/ssh命令之ProxyCommand选项/" itemprop="url">ssh命令之ProxyCommand选项</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-27T06:51:31-04:00">
+                2018-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>一、背景介绍<br>有一台机器A，欲与机器C建立SSH连接，但由于隔离限制（比如“存在防火墙”）该SSH连接不能直接建立。<br>ssh命令的“ProxyCommand”选项被设计用来解决以上问题。</p>
+<p>二、含义<br>通过“ProxyCommand”选项，机器A能够灵活使用任意代理机制与机器C上的SSH Server端口建立连接，接着机器A上的SSH Client再与该连接进行数据交互，从而机器A上的SSH Client与机器C上的SSH Server之间建立了与一般“直接SSH连接”不太一样的“间接SSH连接”。不过由于“间接SSH连接”的透明性，逻辑上可认为机器A上的SSH Client与机器C上的SSH Server建立了“直接SSH连接”。<br>“直接SSH连接”示意图如图1，“间接SSH连接”示意图如图2。</p>
+<p>图1</p>
+<p>图2</p>
+<p>常使用代理机制有两种，接下来进行介绍。</p>
+<p>三、常使用代理机制<br>3.1、常使用代理机制1<br>“ProxyCommand”选项值形式为“ssh -W C:CPort -l USER -i PRIVATE_KEY -p BPort B”，原理：ssh命令自提供的代理机制，在机器A上另外单独建立与B的SSH连接（使用“-l USER -i PRIVATE_KEY -p BPort B”这些参数），该SSH连接的B端侧与机器C上的SSH Server端口（即“C:CPort”）建立连接，该SSH连接的A端侧与机器A上的SSH Client（即“最终欲建立‘间接SSH连接’在机器A上的SSH Client”）建立连接。<br>假定A上ssh_config配置文件内容如下：</p>
+<p>Host B<br>    HostName %h<br>    User dsl<br>    Port 1046<br>    IdentityFile ~/.ssh/id_dsa</p>
+<p>Host C<br>    HostName %h<br>    User dsl<br>    Port 1046<br>    IdentityFile ~/.ssh/id_rsa<br>    ProxyCommand ssh -W %h:%p B<br>在A上执行ssh C命令，发现A与C成功建立SSH连接。根据以上所述，此时在A上应该有两个SSH进程，一个对应于“A与B的SSH连接”，另外一个对应于“A与C的SSH连接”。在A上执行ps -ef | grep ‘ssh’命令，得到如下结果，得证。</p>
+<p>7851  7689 15:55 S pts/10   ssh C<br>7852  7851 15:55 S pts/10   ssh -W C:1046 B<br>3.2、常使用代理机制2<br>“ProxyCommand”选项值形式为“nc -X 5 -x B:BPort C CPort”，原理：利用“nc”命令，在机器A上使用“nc”命令与代理服务器（即“-x B:BPort”，通过“-X 5”参数来指定与代理服务器的通信协议为“SOCKS4/SOCKS5/HTTPS”）建立代理连接，该代理连接的B端侧与机器C上的SSH Server端口（即“C CPort”）建立连接，该代理连接的A端侧与机器A上的SSH Client（即“最终欲建立‘间接SSH连接’在机器A上的SSH Client”）建立连接。<br>假定A上ssh_config配置文件内容如下：</p>
+<p>Host C<br>    HostName %h<br>    User dsl<br>    Port 1046<br>    IdentityFile ~/.ssh/id_rsa<br>    ProxyCommand nc -X 5 -x B:8989 %h %p<br>在A上执行ssh C命令，发现A与C成功建立SSH连接。根据以上所述，此时在A上应该有一个NC进程和一个SSH进程，前者对应于“A与B的代理连接”，后者对应于“A与C的SSH连接”。在A上执行ps -ef | grep -e ‘ssh’ -e ‘nc’命令，得到如下结果，得证。</p>
+<p>8816  8089 16:08 S pts/10   ssh C<br>8817  8816 16:08 S pts/10   nc -X 5 -x B:8989 C 1046<br>四、ssh命令“端口转发”和“ProxyCommand”选项之间的关系<br>端口转发包括：本地转发，远端转发和动态转发。其中“本地转发”和“远端转发”属于“静态转发”（因为转发目标端口是固定的）。<br>“ProxyCommand”选项能够使用基于“动态转发”的代理机制（在外面封装“nc”命令层），而不能使用基于“静态转发”的代理机制。</p>
+<p>参考文献：<br>[1]man ssh_config<br>[2]man ssh<br>[3]<a href="https://serverfault.com/questions/337120/ssh-via-3rd-machine" target="_blank" rel="noopener">https://serverfault.com/questions/337120/ssh-via-3rd-machine</a><br>[4]<a href="https://www.lainme.com/doku.php/blog/2011/01/%E9%80%8F%E8%BF%87%E4%BB%A3%E7%90%86%E8%BF%9E%E6%8E%A5ssh" target="_blank" rel="noopener">https://www.lainme.com/doku.php/blog/2011/01/%E9%80%8F%E8%BF%87%E4%BB%A3%E7%90%86%E8%BF%9E%E6%8E%A5ssh</a><br>[5]<a href="http://stackoverflow.com/questions/22635613/what-is-the-difference-between-ssh-proxycommand-w-nc-exec-nc" target="_blank" rel="noopener">http://stackoverflow.com/questions/22635613/what-is-the-difference-between-ssh-proxycommand-w-nc-exec-nc</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://faithio.tk/2018/09/13/interview-for-SDE-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1441,578 +1696,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2018/08/13/Day-19-Speaking/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="faith">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Faith' s Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/13/Day-19-Speaking/" itemprop="url">Day 19 Speaking</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-13T11:26:05-04:00">
-                2018-08-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="【P1】媒体类：新闻报刊"><a href="#【P1】媒体类：新闻报刊" class="headerlink" title="【P1】媒体类：新闻报刊"></a>【P1】媒体类：新闻报刊</h2><p> 这个经典题目在题库里已经呆了很长时间了，然而因为报纸基本已经不流行了，因此本题的重点可以转移到新闻、杂志以及报纸的客观性题目上。</p>
-<audio id="p1" controls preload="none"><br> <source id="mp3" src="./news.mp3"><br></audio>
-
-<p><input type="button" onclick="(function(){var audio=document.getElementById('p1');var len = audio.duration;audio.currentTime += 5;if (audio.currentTime > len) audio.currentTime = 0;audio.play();})()" value="forward 5s"></p>
-<input type="button" onclick="(function(){var audio=document.getElementById('p1');audio.currentTime -= 5;if (audio.currentTime < 0) audio.currentTime = 0;audio.play();})()" value="backword 5s">
-
-<h4 id="Do-you-care-about-the-news-Are-you-very-interested-in-the-news-How-important-is-it-to-you-to-get-the-news-every-day"><a href="#Do-you-care-about-the-news-Are-you-very-interested-in-the-news-How-important-is-it-to-you-to-get-the-news-every-day" class="headerlink" title="Do you care about the news? (Are you very interested in the news? How important is it to you to get the news every day?)"></a><strong>Do you care about the news? (Are you very interested in the news? How important is it to you to get the news every day?)</strong></h4><p>Yes, I do. <strong>Keeping abreast of</strong> the news is my priority whenever I turn on my computer. I’m always curious about what’s happening around.</p>
-<h4 id="What-sort-of-news-are-you-most-interested-in"><a href="#What-sort-of-news-are-you-most-interested-in" class="headerlink" title="What sort of news are you most interested in?"></a><strong>What sort of news are you most interested in?</strong></h4><p>My favorite has always been international political news, for I always wonder how the <strong>geopolitics</strong> of the Pacific and western democracy goes.</p>
-<h4 id="Do-you-often-read-newspapers"><a href="#Do-you-often-read-newspapers" class="headerlink" title="Do you often read newspapers?"></a><strong>Do you often read newspapers?</strong></h4><p>Well, interestingly, I don’t. <strong>come on</strong>, it’s 21st century now, we <strong>snatch</strong> the news in different fields <strong>at the push of a button</strong>, literally. But we call it a click more often.</p>
-<h4 id="How-old-were-you-when-you-first-started-to-read-newspapers"><a href="#How-old-were-you-when-you-first-started-to-read-newspapers" class="headerlink" title="How old were you when you first started to read newspapers?"></a><strong>How old were you when you first started to read newspapers?</strong></h4><p>Sorry, man, I’ve never read a newspaper. But I began to check the news on my phone at really a young age. Ten, I guess?</p>
-<h4 id="Do-you-think-it’s-important-to-read-newspapers"><a href="#Do-you-think-it’s-important-to-read-newspapers" class="headerlink" title="Do you think it’s important to read newspapers?"></a><strong>Do you think it’s important to read newspapers?</strong></h4><p>Well, it used to be important, I mean, when newspapers remain the major, <strong>if not only</strong>,<strong>source</strong> <strong>of</strong> <strong>current</strong> <strong>affairs</strong>. But let me tell you, it isn’t any more.</p>
-<h4 id="What-different-types-of-newspapers-are-there-in-China"><a href="#What-different-types-of-newspapers-are-there-in-China" class="headerlink" title="What different types of newspapers are there in China?"></a><strong>What different types of newspapers are there in China?</strong></h4><p>There are all kinds even though I don’t read any of them. They publish most newspapers<strong>on a daily basis</strong>, but we do see some monthly ones too. Different newspapers cover different news and stories like political ones, economic ones, entertainment ones, etc.</p>
-<h4 id="Which-do-you-prefer-reading-magazines-or-newspapers"><a href="#Which-do-you-prefer-reading-magazines-or-newspapers" class="headerlink" title="Which do you prefer reading, magazines or newspapers?"></a><strong>Which do you prefer reading, magazines or newspapers?</strong></h4><p>Definitely magazines, with more vivid <strong>illustrations</strong> and <strong>in-depth</strong> reports. I mean, digital versions have never been this convenient too.</p>
-<h2 id="【P1】日常类：动物"><a href="#【P1】日常类：动物" class="headerlink" title="【P1】日常类：动物"></a>【P1】日常类：动物</h2><p>本题在雅思题库中的演变已经从喜欢什么动物进化到探讨人们养宠物的动机、对动物园的看法。</p>
-<audio id="p2" controls preload="none"><br> <source id="mp3" src="./animals.mp3"><br></audio>
-
-<p><input type="button" onclick="(function(){var audio=document.getElementById('p2');var len = audio.duration;audio.currentTime += 5;if (audio.currentTime > len) audio.currentTime = 0;audio.play();})()" value="forward 5s"></p>
-<input type="button" onclick="(function(){var audio=document.getElementById('p2');audio.currentTime -= 5;if (audio.currentTime < 0) audio.currentTime = 0;audio.play();})()" value="backword 5s">
-
-<h4 id="Why-do-some-people-keep-pets-at-home"><a href="#Why-do-some-people-keep-pets-at-home" class="headerlink" title="Why do some people keep pets at home?"></a><strong>Why do some people keep pets at home?</strong></h4><p>Some raise pets to <strong>relieve</strong> their <strong>loneliness</strong>, which kills. They need a <strong>companion</strong> to talk to, to hang out with. Others keep pets out of their love for animals.</p>
-<p>DINK families</p>
-<h4 id="What-kinds-of-animals-do-you-like"><a href="#What-kinds-of-animals-do-you-like" class="headerlink" title="What kinds of animals do you like?"></a><strong>What kinds of animals do you like?</strong></h4><p>I personally love intelligent animals like dolphins and owls and, well, dogs. I can’t <strong>resist</strong> an adorable Labrador, I can’t. they just understand people. Isn’t it amazing?</p>
-<h4 id="Have-you-ever-had-a-pet-before"><a href="#Have-you-ever-had-a-pet-before" class="headerlink" title="Have you ever had a pet before?"></a><strong>Have you ever had a pet before?</strong></h4><p>Well, I have never raised a pet before, sadly. My mom <strong>claimed</strong> <strong>to</strong> <strong>be</strong> <strong>allergic</strong> <strong>to</strong> dogs and cats’ hair. Although I’m not sure whether she’s <strong>messing</strong> <strong>with</strong> me or not.</p>
-<h4 id="Do-you-like-to-see-animals-in-the-zoo"><a href="#Do-you-like-to-see-animals-in-the-zoo" class="headerlink" title="Do you like to see animals in the zoo?"></a><strong>Do you like to see animals in the zoo?</strong></h4><p>You mean seeing animals suffer in cages? <strong>Nah</strong>, I never enjoyed it. Well, except for those <strong>dual-purpose</strong> zoos which also serve as <strong>sanctuaries</strong> for those endangered species or something.</p>
-<h4 id="What-is-the-most-popular-animal-in-China"><a href="#What-is-the-most-popular-animal-in-China" class="headerlink" title="What is the most popular animal in China?"></a><strong>What is the most popular animal in China?</strong></h4><p>Well, if you meant pets, I will say dogs and cats, universal choices. You see pictures of walking a dog or fondling a cat on social media, right? But when you go to any regular zoo in China, you will find it’s always the pandas’ houses that attract the most visitors.</p>
-<h2 id="【P2】物件类：省钱买东西"><a href="#【P2】物件类：省钱买东西" class="headerlink" title="【P2】物件类：省钱买东西"></a>【P2】物件类：省钱买东西</h2><h4 id="Describe-something-special-that-you-saved-money-to-buy-a-time-that-you-saved-money-for-something"><a href="#Describe-something-special-that-you-saved-money-to-buy-a-time-that-you-saved-money-for-something" class="headerlink" title="Describe something special that you saved money to buy (a time that you saved money for something)"></a>Describe something special that you saved money to buy (a time that you saved money for something)</h4><ul>
-<li>What this thing was                                                                               </li>
-<li>Why it was special to you</li>
-<li>How much it cost you</li>
-<li>And explain how you felt after you bought it</li>
-</ul>
-<ol>
-<li>本题的A是something，描述一个东西；B是special, you saved money to buy, 限制这个东西的属性和来历。</li>
-<li>提纲建议：<ul>
-<li>简述这个东西的基本信息，来源，价格等</li>
-<li>详述省钱买这个东西的经历及东西特别的原因</li>
-<li>发表评价和感受</li>
-</ul>
-</li>
-<li>时态建议：介绍这个东西用现在时，描述省钱攒钱经历用过去时。</li>
-<li>其他：这道题是典型的物件+经历类，也就是说明文记叙文各占一半，描述物品和讲省钱经历缺一不可。</li>
-</ol>
-<audio id="p3" controls preload="none"><br> <source id="mp3" src="./save.mp3"><br></audio>
-
-<p><input type="button" onclick="(function(){var audio=document.getElementById('p3');var len = audio.duration;audio.currentTime += 5;if (audio.currentTime > len) audio.currentTime = 0;audio.play();})()" value="forward 5s"></p>
-<input type="button" onclick="(function(){var audio=document.getElementById('p3');audio.currentTime -= 5;if (audio.currentTime < 0) audio.currentTime = 0;audio.play();})()" value="backword 5s">
-
-<p>Ok, so I’ll start by telling you how I <strong>walked on my air</strong> when I finally got it in a mall and how I took it back home <strong>stealthily</strong>, put it under my pillow and used it alone at night when my parents were all asleep. <strong>Don’t get me wrong</strong>, it’s a portable Walkman cassette tape player. It’s a <strong>metallic</strong> blue <strong>clunky</strong> boxy <strong>contraption</strong> with bright big buttons. The present generation may regard the Walkman as something <strong>unearthed</strong> in an <strong>archaeological</strong> dig, but Sony sold hundreds of millions of them in the 1980s and 1990s before Steve Jobs made everyone toss them in the back of the closet.</p>
-<p>You know what? I happened to <strong>rummage</strong> through my closet and found it last month. Feeding batteries, I surprisingly found that it still worked! The <strong>gadget</strong> <strong>brought</strong> back so many memories, of how I picked up the guitar, how I had a favorite tape of Oscar songs and it stayed <strong>wedged</strong> <strong>in</strong> <strong>there</strong> for weeks, if not months. Cause there was no “<strong>shuffle</strong>” option. But more importantly, of how I saved for half a year to buy it.</p>
-<p>I first saw my cousin using it, slipping the <strong>fuzzy</strong> headphone on and dancing to whatever there was pouring in his ears. I tried it then and couldn’t get enough of it. The bass and the <strong>superb</strong> sound effects beat everything I’d heard before. But he told me his mom had spent 1000 yuan for it. I <strong>gritted my teeth</strong> and promised that I would get one.</p>
-<p>Then I started my life of a <strong>penny-pincher</strong> for 6 months. I was 15, a middle school survivor and a part-time pub singer. I earned 40 yuan a week singing in that <strong>crabby</strong> pub. It was an OK job and I sang my heart out every time I was on that tiny stage. I didn’t want to get fired. I saved all the allowances in a bank, counting days. And my family surely didn’t know about the job thing, so I had to keep it a secret and that’s why I had to hide it. But the moment I bought it, I was like the happiest person in the world.</p>
-<p>Although I don’t use it anymore, I’ll keep it as the first gift I gave myself and I worked hard for it. </p>
-<p>To purchase a digital camera for my younger sister I had to save money for about 6 months. It was a Canon SLR camera that I knew she had a great desire to purchase. Since she is still in her college, it was really difficult for her to buy such a camera.  After I joined in a part time job, I planned to buy it for her. I wanted her to be happy with the camera and that’s the primary reasons I wanted to purchase it. I knew she has a talent in photography and that’s why I wanted her to have a good camera so that she gets inspired. After I went to some branded camera shops, I found that the camera would cost me a bit more that I would be able to effort. As I have joined a part time job at that time, it was not easy for me to instantly purchase the camera for my sister. Then I planned to save money for few months and then purchase it. I had to save money for 6-7 months and then I had been able to actually buy it.  Giving present or surprise gift to someone we care is more exciting and blissful than purchasing for ourselves. As her elder brother, I wanted to give her the camera so that she becomes happy. I also wanted her to continue her hobby of photography which was quite tough without a good quality camera. For these reasons, it was very important for me to purchase her the camera.</p>
-<h2 id="【P2】物件类：家具"><a href="#【P2】物件类：家具" class="headerlink" title="【P2】物件类：家具"></a>【P2】物件类：家具</h2><h4 id="Describe-a-piece-of-furniture-you-like"><a href="#Describe-a-piece-of-furniture-you-like" class="headerlink" title="Describe a piece of furniture (you like)"></a>Describe a piece of furniture (you like)</h4><ul>
-<li>What kind of furniture it is</li>
-<li>When you saw the furniture</li>
-<li>What it looks like</li>
-<li>Where you put this furniture</li>
-<li>And explain why you like (use) the furniture</li>
-</ul>
-<ol>
-<li><p>本题的A是a piece of furniture，描述一件家具；B是 (you like)，限制你对这件家具的情感倾向。</p>
-</li>
-<li><p>提纲建议：</p>
-<ul>
-<li>简述这件家具的种类、来历、外观等基本信息</li>
-<li>详述对这件家具的喜爱或互动</li>
-<li>这件家具对家人、对自己的意义</li>
-</ul>
-</li>
-<li><p>时态建议：介绍这件家具本身用现在时，介绍制造工艺、来历等可以用过去时。</p>
-</li>
-<li><p>其他：典型说明文，描述家具本身是最主要的任务。但一定不要忘了，与家人有关的题都可以走温情路线。家具摆在家里的某个位置，不轻易挪动，一定见证了许许多多或喜或悲的家庭故事。</p>
-</li>
-</ol>
-<audio id="p4" controls preload="none"><br> <source id="mp3" src="./furniture.mp3"><br></audio>
-
-<p><input type="button" onclick="(function(){var audio=document.getElementById('p4');var len = audio.duration;audio.currentTime += 5;if (audio.currentTime > len) audio.currentTime = 0;audio.play();})()" value="forward 5s"></p>
-<input type="button" onclick="(function(){var audio=document.getElementById('p4');audio.currentTime -= 5;if (audio.currentTime < 0) audio.currentTime = 0;audio.play();})()" value="backword 5s">
-
-<p>I’d like to describe an ancient family <strong>heirloom</strong>, a <strong>dilapidated</strong> and yet still solid rocking chair. It stands at the corner of our study all alone and <strong>creaked</strong> as it rocked. It was made of that <strong>unattractive</strong> <strong>mid-brown</strong> colored wood with <strong>knocks</strong> <strong>and</strong> <strong>scrapes</strong> from decades of abuse from children and grandchildren. </p>
-<p>I always find this chair <strong>soothing</strong> because of the gentle motion which helps in providing faster <strong>onset</strong> of sleep than remaining <strong>stationary</strong>, mimicking the process of a parent rocking a child to sleep. And I do <strong>doze</strong> <strong>off</strong> in it quite often.</p>
-<p>But to my grandmother it was the <strong>bastion</strong> of all her favorite memories. It was in that creaking wood that she had <strong>nursed</strong> her newborns, read story books to her <strong>toddlers</strong>, and sat knitting while her growing children did their homework at the kitchen table. Just to sit and rock would transport her to these memories as effectively as a time machine and she would tell us vivid stories of the olden days. Without it her recollections would feel distant, almost as if they were really borrowed from someone else, or perhaps she had read them in a book.</p>
-<p>Unfortunately, my grandma left us 2 years ago, and I could never see my loving granny sitting in that chair and gently rocking. For the last two years, we were not allowed to use it or even <strong>tinker</strong> <strong>with</strong> it, and my dad got it <strong>overhauled</strong> last month. </p>
-<p>The period piece had seen better days, and no amount of polishing could conceal the <strong>circular</strong> black burn on each arm, or the chips on the curved gliders, and the scratch marks on the seat.</p>
-<ul>
-<li>I’m going to talk about my favourite chair. It’s a big, leather armchair that sits in my living room at home, just under my living room window.</li>
-<li>I didn’t actually buy the armchair. One of my friends was moving house and was going to buy some new furniture. I had always liked his leather armchair, so he said I could have it if I managed to move it. The chair wouldn’t fit in my car, and it was tricky to get it out of my friend’s apartment. I had to hire a small van to take the armchair home.</li>
-<li>Obviously I use the armchair for sitting! It’s my favourite place in the house to relax, read a book, watch TV or even do some work; the chair’s arms are quite wide and flat, so my laptop fits nicely on either of them. Last night I fell asleep in my armchair while I was watching a film.</li>
-<li>The main reasons why I like this piece of furniture are that it’s comfortable and it’s in the perfect position in my living room. The only drawback might be that I enjoy sitting in the armchair too much, and sometimes I think it makes me lazy!</li>
-<li>My house is fully equipped with indoor and outdoor furniture. Today, I’m going to talk about my study table. This table is in my bedroom. It’s a brand new piece of furniture and is probably very expensive. It’s a large table with two shelves to keep books. It has a separate drawer for keeping a laptop and small electronic devices. It even incorporates an inbuilt LED bulb for late night reading. I don’t exactly know what material it is made of but I think it’s made of oak. I received it as a present from my parents on my last birthday. My mum is very selective. She must have visited many furniture showrooms before buying this modern, unique piece of furniture for my room. I love the design of this table. It’s just perfect. It has transformed the appearance of my room. In fact, this table has made me more organized. Everyone who visits me appreciates the table for its brilliant quality. They even ask about the place from where it was bought. At this point of time, I can say that I’ll keep this table for my life. Even if I move to a new place, I’ll get it transported carefully.</li>
-</ul>
-<h2 id="【P2】物件类：学校不教的技能"><a href="#【P2】物件类：学校不教的技能" class="headerlink" title="【P2】物件类：学校不教的技能"></a>【P2】物件类：学校不教的技能</h2><h5 id="Describe-an-important-skill-which-cannot-be-learned-at-school-something-important-that-you-learned-not-from-school-or-class"><a href="#Describe-an-important-skill-which-cannot-be-learned-at-school-something-important-that-you-learned-not-from-school-or-class" class="headerlink" title="Describe an important skill which cannot be learned at school (something important that you learned not from school or class)"></a>Describe an important skill which cannot be learned at school (something important that you learned not from school or class)</h5><ul>
-<li>What the skill is</li>
-<li>Why it cannot be learned at school</li>
-<li>Why it is important</li>
-<li>Whether it was difficult to learn</li>
-<li>How we learned it</li>
-</ul>
-<ol>
-<li>本题的A是a skill，描述一项技能；B是important, which cannot be learned at school，限制这项技能的属性，来源。</li>
-<li>提纲建议：<ul>
-<li>简述这项技能的基本信息，来源、难度等</li>
-<li>详述这项技能重要的原因及学习的过程</li>
-<li>总结这项技能的意义等</li>
-</ul>
-</li>
-<li>时态建议：介绍技能用现在时，讲述学习的过程用过去时</li>
-<li>其他：若抽到高频（括号外）题目则不必讲述自己学习的经历，只需要以客观的角度叙述的口吻讲这个技能就可以了。如果抽到低频（括号内）题目则需注意必须讲述学习的经历，变为说明+叙述类题。</li>
-</ol>
-<audio id="p5" controls preload="none"><br> <source id="mp3" src="./skill.mp3"><br></audio>
-
-<p><input type="button" onclick="(function(){var audio=document.getElementById('p5');var len = audio.duration;audio.currentTime += 5;if (audio.currentTime > len) audio.currentTime = 0;audio.play();})()" value="forward 5s"></p>
-<input type="button" onclick="(function(){var audio=document.getElementById('p5');audio.currentTime -= 5;if (audio.currentTime < 0) audio.currentTime = 0;audio.play();})()" value="backword 5s"> 
-
-<p>I sometimes <strong>think to myself</strong> that if only they had taught me all about dealing with relationship issues. Well apparently, they didn’t, don’t, and I don’t think they ever will.<strong>Puppy</strong> <strong>love</strong> has long been a <strong>taboo</strong> in school which often <strong>inflicts</strong> <strong>grievances</strong>,<strong>delinquencies</strong> and even mental issues like depression. Think about it, when you’re 15 and you have a crush on the cute girl in class but everyone keeps telling you how wrong it would be to date her. Then you enter college with zero experience in relationships and all of a sudden, everyone from your family and even the most distant aunt urges you to find someone and get married as soon as possible.</p>
-<p>Yeah, like it was really that simple and you could just have the perfect relationship <strong>standing on your head</strong>. That’s nonsense. I mean, they not only don’t teach how to handle relationships in school, they “clean up” any <strong>budding</strong> <strong>ones</strong>. An <strong>unrequited</strong> love letter, a <strong>tacky</strong> gift, even a <strong>conspiratorial</strong> wink, once detected by a teacher, would lead to a disaster.</p>
-<p>But problems can’t stop showing themselves when you really devote to a relationship, say, in college. You would be <strong>out of your wits</strong> when you spend all the time together, leaving no space for your own individual growth, when you constantly fight about the same issues, when you don’t like your partner’s parents, and most of all, when you feel insecure about your future together.</p>
-<p>I mean, you may learn all that the hard way, and <strong>be in for a rude awakening</strong> when you finally realize that you’ve already missed the love of your life, back in high school.</p>
-<h2 id="【每日表达】句型、习语、小幽默"><a href="#【每日表达】句型、习语、小幽默" class="headerlink" title="【每日表达】句型、习语、小幽默"></a>【每日表达】句型、习语、小幽默</h2><h4 id="cut-someone-some-slack"><a href="#cut-someone-some-slack" class="headerlink" title="cut someone some slack"></a><strong>cut someone some slack</strong></h4><ul>
-<li>是不是经常望题兴叹：求放过~然后咬咬牙还是一道道征服下去了。雅思考试考察的能力相当全面，如果认认真真准备，英语水平顺便能提升好几个档次。说远了，今天的重点是这个“求放过”，口语中有非常棒的习语表达这个意思：cut someone some slack. 放我一马吧，拜托！</li>
-<li>“Andrew’s late again.” “Cut him some slack - his wife’s just had a baby.”</li>
-</ul>
-<h4 id="the-great-best-thing-since-sliced-bread"><a href="#the-great-best-thing-since-sliced-bread" class="headerlink" title="the great/best thing since sliced bread"></a><strong>the great/best thing since sliced bread</strong></h4><ul>
-<li>是不是经常面临要描述一项科技产品、一项发明什么的？想要说它是最棒的但找不到好的表达法？the great/best thing since sliced bread就可以完美表达出这个意思，说这东西是自切片面包发明以来（自古以来）最棒的东西了。有的时候也可以幽默地用作反讽，讲一个东西名过其实。那么，问题来了，为什么是，切片面包？我也不知道，大概第一次讲这个的人太爱吐司了吧。</li>
-<li>Cell phones are marketed as the best thing since sliced bread, but to me they’re just another expensive gadget.</li>
-</ul>
-<h2 id="【综合技巧】副词感叹句最高级，给自己加加戏"><a href="#【综合技巧】副词感叹句最高级，给自己加加戏" class="headerlink" title="【综合技巧】副词感叹句最高级，给自己加加戏"></a>【综合技巧】副词感叹句最高级，给自己加加戏</h2><ul>
-<li>It’s so hot today. </li>
-<li>It’s amazing to ride your bike to commute and scuttle through vehicles stuck in traffic.</li>
-</ul>
-<h4 id="1-广泛使用副词"><a href="#1-广泛使用副词" class="headerlink" title="1. 广泛使用副词"></a><strong>1. 广泛使用副词</strong></h4><ul>
-<li>It’s insanely hot today.</li>
-<li>It feels absolutely amazing to ride your bike cheerfully to commute and swiftly scuttle through vehicles stuck immobile in traffic.</li>
-</ul>
-<h4 id="2-使用感叹句"><a href="#2-使用感叹句" class="headerlink" title="2. 使用感叹句"></a><strong>2. 使用感叹句</strong></h4><ul>
-<li>What a scorching day!</li>
-<li>… how amazing it is to ride your bike to commute scuttling through vehicles stuck in traffic.</li>
-</ul>
-<h4 id="3-使用最高级"><a href="#3-使用最高级" class="headerlink" title="3. 使用最高级"></a><strong>3. 使用最高级</strong></h4><ul>
-<li>It’s like the hottest summer EVER!</li>
-<li>To ride your bike to commute and scuttle through vehicles stuck in traffic is like the most wonderful thing in the world!</li>
-</ul>
-<h4 id="今日任务：回答下列问题，用上以上三招给自己加戏："><a href="#今日任务：回答下列问题，用上以上三招给自己加戏：" class="headerlink" title="今日任务：回答下列问题，用上以上三招给自己加戏："></a><strong>今日任务</strong>：回答下列问题，用上以上三招给自己加戏：</h4><ol>
-<li>Do you remember a time when it rained particularly heavily in your hometown?</li>
-<li>What’s your favorite kind of music?</li>
-<li>What do you like about your hometown?</li>
-<li>What are the advantages and disadvantages of the popularity of talent shows on TV? (P3)</li>
-<li>Do you think modern lifestyles give people enough leisure time? (P3)</li>
-</ol>
-<h2 id="【纠音跟读】英美口音面面观1"><a href="#【纠音跟读】英美口音面面观1" class="headerlink" title="【纠音跟读】英美口音面面观1"></a>【纠音跟读】英美口音面面观1</h2><ul>
-<li>idea famous nervous serious</li>
-<li>red run farm car beer</li>
-<li>here and there</li>
-<li>chapter cattle letter city party water better waiter winter</li>
-<li>pass last path staff chance castle half example answer</li>
-<li>pot box watch popular knock watch rocket</li>
-<li>hostile textile mobile missle fragile fertile smile file while pile mile tile bile</li>
-</ul>
-<p><strong>抱负</strong></p>
- <audio id="p6" controls preload="none"><br> <source id="mp3" src="./ambition.mp3"><br></audio>
-
-<p><input type="button" onclick="(function(){var audio=document.getElementById('p6');var len = audio.duration;audio.currentTime += 5;if (audio.currentTime > len) audio.currentTime = 0;audio.play();})()" value="forward 5s"></p>
-<input type="button" onclick="(function(){var audio=document.getElementById('p6');audio.currentTime -= 5;if (audio.currentTime < 0) audio.currentTime = 0;audio.play();})()" value="backword 5s">
-
-<p>We do not choose to be born. We do not choose our parents. We do not choose our historical epoch, the country of our birth, or the immediate circumstances of our upbringing. We do not, most of us, choose to die; nor do we choose the time or conditions of our death. But within all this realm of choicelessness, we do choose how we shall live: courageously or in cowardice, honorably or dishonorably, with purpose or in drift. We decide what is important and what is trivial in life. We decide that what makes us significant is either what we do or what we refuse to do. But no matter how indifferent the universe may be to our choices and decisions, these choices and decisions are ours to make. We decide. We choose. And as we decide and choose, so are our lives formed. In the end, forming our own destiny is what ambition is about.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2018/08/12/Day-18-Speaking/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="faith">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Faith' s Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/12/Day-18-Speaking/" itemprop="url">Day 18 Speaking</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-12T22:24:07-04:00">
-                2018-08-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="【P1】人物类：家人"><a href="#【P1】人物类：家人" class="headerlink" title="【P1】人物类：家人"></a>【P1】人物类：家人</h2><audio id="p1" controls preload="none"><br> <source id="mp3" src="./family.mp3"><br></audio>
-
-<p><input type="button" onclick="(function(){var audio=document.getElementById('p1');var len = audio.duration;audio.currentTime += 5;if (audio.currentTime > len) audio.currentTime = 0;audio.play();})()" value="forward 5s"></p>
-<input type="button" onclick="(function(){var audio=document.getElementById('p1');audio.currentTime -= 5;if (audio.currentTime < 0) audio.currentTime = 0;audio.play();})()" value="backword 5s">
-
-<h4 id="How-often-do-you-meet-your-family"><a href="#How-often-do-you-meet-your-family" class="headerlink" title="How often do you meet your family?"></a><strong>How often do you meet your family?</strong></h4><p>I only get to meet my family once a year, in Spring Festival when all Chinese people <strong>are supposed to</strong> go back home and <strong>have a family reunion</strong>.</p>
-<h4 id="Do-you-want-to-live-with-your-family-in-the-future"><a href="#Do-you-want-to-live-with-your-family-in-the-future" class="headerlink" title="Do you want to live with your family in the future?"></a><strong>Do you want to live with your family in the future?</strong></h4><p>Not really, since I have this independent <strong>streak</strong> in me fostered by my family. I would miss them and visit them quite often though.</p>
-<h4 id="Are-you-close-to-all-of-your-family-members"><a href="#Are-you-close-to-all-of-your-family-members" class="headerlink" title="Are you close to all of your family members?"></a><strong>Are you close to all of your family members?</strong></h4><p>I grow up in this <strong>nuclear</strong> <strong>family</strong> where we take care of each other all the time. So, I guess, yeah, I’m close to both of my parents.</p>
-<h4 id="How-has-your-family-influenced-you"><a href="#How-has-your-family-influenced-you" class="headerlink" title="How has your family influenced you?"></a><strong>How has your family influenced you?</strong></h4><p>I’ve got a <strong>wry</strong> sense of humor, and sometimes apparently inappropriate. Both my parents are hilarious, and you always know what’s <strong>in store for</strong> you during a meal – my dad’s <strong>remarkably</strong> funny jokes.</p>
-<h2 id="【P1】交通类：船"><a href="#【P1】交通类：船" class="headerlink" title="【P1】交通类：船"></a>【P1】交通类：船</h2><audio id="p2" controls preload="none"><br> <source id="mp3" src="./boat.mp3"><br></audio>
-
-<p><input type="button" onclick="(function(){var audio=document.getElementById('p2');var len = audio.duration;audio.currentTime += 5;if (audio.currentTime > len) audio.currentTime = 0;audio.play();})()" value="forward 5s"></p>
-<input type="button" onclick="(function(){var audio=document.getElementById('p2');audio.currentTime -= 5;if (audio.currentTime < 0) audio.currentTime = 0;audio.play();})()" value="backword 5s">
-
-<h4 id="Do-you-like-boats"><a href="#Do-you-like-boats" class="headerlink" title="Do you like boats?"></a><strong>Do you like boats?</strong></h4><p>Not really, my <strong>negligible</strong> experiences of being on a boat could be better. Basically, I suffered from <strong>seasickness</strong> big time.</p>
-<h4 id="Would-you-like-to-have-your-own-boat"><a href="#Would-you-like-to-have-your-own-boat" class="headerlink" title="Would you like to have your own boat?"></a><strong>Would you like to have your own boat?</strong></h4><p><strong>Nah</strong>, I think <strong>I’ll pass</strong>, even if I turned a millionaire tomorrow. Being on a boat is like<strong>purgatory</strong> for me.</p>
-<h4 id="Is-boat-trip-popular-in-your-country"><a href="#Is-boat-trip-popular-in-your-country" class="headerlink" title="Is boat trip popular in your country?"></a><strong>Is boat trip popular in your country?</strong></h4><p>I don’t think so. Boat trips are <strong>extravagant</strong> for most people, well, maybe not for the wealthy community. I’d rather rent a boat and have a good time with my friends on one of those artificial lakes in a nearby park.</p>
-<h2 id="【P1】基本信息：学习与工作"><a href="#【P1】基本信息：学习与工作" class="headerlink" title="【P1】基本信息：学习与工作"></a>【P1】基本信息：学习与工作</h2><audio id="p3" controls preload="none"><br> <source id="mp3" src="./study.mp3"><br></audio>
-
-<p><input type="button" onclick="(function(){var audio=document.getElementById('p3');var len = audio.duration;audio.currentTime += 5;if (audio.currentTime > len) audio.currentTime = 0;audio.play();})()" value="forward 5s"></p>
-<input type="button" onclick="(function(){var audio=document.getElementById('p3');audio.currentTime -= 5;if (audio.currentTime < 0) audio.currentTime = 0;audio.play();})()" value="backword 5s">
-
-<h4 id="Do-you-study-or-work"><a href="#Do-you-study-or-work" class="headerlink" title="Do you study or work?"></a><strong>Do you study or work?</strong></h4><p>Currently I’m a university student majoring in… and I’m in my junior year now.</p>
-<p>I work as an <strong>actuary</strong> in an insurance company and my job is to tell my company how much they should charge people for insurance based on risks, <strong>mortality</strong>, accident, sickness, disability, and retirement rates, etc.</p>
-<h4 id="Why-did-you-choose-to-do-that-type-of-work"><a href="#Why-did-you-choose-to-do-that-type-of-work" class="headerlink" title="Why did you choose to do that type of work?"></a><strong>Why did you choose to do that type of work?</strong></h4><p><strong>For your information</strong>, I majored in mathematics back in university but my advisors told me that <strong>theoretical</strong> things are not for me, and that was why I turned to <strong>actuarial</strong> industry after graduation, thinking that only a certain amount of math skills were needed.</p>
-<h4 id="Do-you-like-your-job"><a href="#Do-you-like-your-job" class="headerlink" title="Do you like your job?"></a><strong>Do you like your job?</strong></h4><p>Not really. <strong>Turned out</strong> this job is so much more tedious than I previously thought. I had to deal with tons of paperwork and stuff. I’m considering quitting but not ready for it.</p>
-<h4 id="Do-you-miss-being-a-student"><a href="#Do-you-miss-being-a-student" class="headerlink" title="Do you miss being a student?"></a><strong>Do you miss being a student?</strong></h4><p>I miss being a student, like, <strong>big time</strong>. Do you still remember the <strong>good old days</strong> in school where you spent <strong>carefree</strong> days studying and <strong>hanging</strong> with your mates? How I wish I could be back there.</p>
-<h4 id="What’s-your-major-What-subjects-are-you-studying"><a href="#What’s-your-major-What-subjects-are-you-studying" class="headerlink" title="What’s your major? What subjects are you studying?"></a><strong>What’s your major? What subjects are you studying?</strong></h4><p>I’m a law major and I need to learn how a <strong>legislature</strong>, an <strong>executive</strong> and a <strong>judiciary</strong> work separately and together, along with our <strong>constitution</strong>, civil law, criminal law and so forth.</p>
-<h4 id="Why-did-you-choose-to-study-that-subject"><a href="#Why-did-you-choose-to-study-that-subject" class="headerlink" title="Why did you choose to study that subject?"></a><strong>Why did you choose to study that subject?</strong></h4><p>I had been obsessed with Boston Legal, an American legal comedy-drama television series before I entered college. And I really long to be a lawyer for years to come.</p>
-<h4 id="Are-there-many-students-in-China-majoring-in-that"><a href="#Are-there-many-students-in-China-majoring-in-that" class="headerlink" title="Are there many students in China majoring in that?"></a><strong>Are there many students in China majoring in that?</strong></h4><p><strong>Let’s be modest</strong> here and I would say there are half of a million law majors, <strong>give or take</strong>. You can basically see a law school in every single university or college.</p>
-<h4 id="Are-you-looking-forward-to-working"><a href="#Are-you-looking-forward-to-working" class="headerlink" title="Are you looking forward to working?"></a><strong>Are you looking forward to working?</strong></h4><p>Absolutely. More than anything else. I want to earn some good money to support my family and fulfill my ambition.</p>
-<h2 id="【P2】物件类：重要水域"><a href="#【P2】物件类：重要水域" class="headerlink" title="【P2】物件类：重要水域"></a>【P2】物件类：重要水域</h2><h4 id="Describe-an-important-river-lake-area-of-water-in-your-country"><a href="#Describe-an-important-river-lake-area-of-water-in-your-country" class="headerlink" title="Describe an important river/lake (/area of water) in your country"></a>Describe an important river/lake (/area of water) in your country</h4><ul>
-<li>What this river is called</li>
-<li>Where it is</li>
-<li>How you knew about it</li>
-<li>How long/big it is</li>
-<li>And explain why it is important</li>
-</ul>
-<ol>
-<li>本题的A是a river/lake (water)，描述水域；B是important, in your country，限制属性和地点。</li>
-<li>提纲建议：<ul>
-<li>描述此水域的基本信息</li>
-<li>详述此水域重要的原因</li>
-<li>对此水域的感受，升华</li>
-</ul>
-</li>
-<li>时态建议：通篇一般现在时，讲自己第一次见到或知道的经历用过去时</li>
-<li>其他：雅思口语P2关于水域的问题可以说是自成体系了，出题者显然特别喜欢江河湖海，几乎每个题季都有一道以上跟水有关的题目。这是典型说明文，应当把某个水域的特征详细进行介绍，落脚点是“重要”。注意，重要，不是美丽。</li>
-</ol>
-<p>This is a <strong>no-brainer</strong> for me. I’d like to describe one of the most beautiful and fairly important lakes in China, Qinghai Lake, which is the excellent <strong>picturesque</strong> scene of blue lake, golden rape blossom, and mountains in the distance. It’s also the largest inland saltwater in China, a <strong>paradise</strong> for <strong>avid</strong> bird-watchers and <strong>of</strong> <strong>paramount</strong> <strong>importance</strong> in terms of <strong>biodiversity</strong>.</p>
-<p>Qinghai Lake is located in northeast Qinghai Tibet Plateau and northwest Xining City, Qinghai Province, surrounded by four high mountains. The best travel season falls on the autumn months when the vast prairie wear a golden coat of rape flowers, refreshing fragrance drifts with the wind, dotted herdsman tents look like stars in the sky, herds moves as clouds, charming sunrise and sunset consisting of a poetic painting. </p>
-<p>I call it important because of one tiny island called Bird Island, a bird <strong>refuge</strong> which plays a vital part in providing a transitory home to countless numbers of <strong>migratory</strong> <strong>birds</strong> which arrive there from Southern China and Southeast Asia. Such birds include the spotted head wild goose, brown head wild goose, fish gull, red sheldrake, cormorants, and black-neck crane. There are more than 100,000 birds that inhabit this small island to nest, lay eggs, hatch, and raise their young. For the avid bird-watcher, Bird Island is certainly a paradise, but even the inexperienced bird watcher cannot help being impressed with the<strong>sheer</strong> numbers of creatures that gather here. Their constant <strong>buzz</strong> of activity and the<strong>echo</strong> of their mating calls, <strong>bickering</strong> <strong>over</strong> territory, and shrill cries of their hungry offspring connect the listener with the wonders of the natural world.</p>
-<p>This very lake is the perfect epitome of biodiversity, for the local government spares no effort to preserve indigenous and exotic birds, antelopes and fishes. Various campaigns have been conducted to disseminate the idea. </p>
-<p>Unfortunately, the Bird Island has been closed <strong>indefinitely</strong> in order to better protect the fragile ecological system there.</p>
-<h2 id="第18天【P2】物件类：城市发展"><a href="#第18天【P2】物件类：城市发展" class="headerlink" title="第18天【P2】物件类：城市发展"></a>第18天【P2】物件类：城市发展</h2><h4 id="Describe-a-recent-development-such-as-new-roads-shopping-centers-in-your-city"><a href="#Describe-a-recent-development-such-as-new-roads-shopping-centers-in-your-city" class="headerlink" title="Describe a recent development (such as new roads, shopping centers) in your city"></a>Describe a recent development (such as new roads, shopping centers) in your city</h4><ul>
-<li>What this development is</li>
-<li>How it could help people</li>
-<li>What benefits it could bring</li>
-<li>Where you saw it</li>
-<li>And explain whether it changes your life or not</li>
-<li>and explain how you felt about it)</li>
-</ul>
-<ol>
-<li><p>本题的A是a development，描述城市一处发展成果；B是recent, in your city, 限制时间地点。</p>
-</li>
-<li><p>提纲建议：</p>
-<ul>
-<li>描述此发展成果的基本信息（时间地点、功能性等）</li>
-<li>详述此发展成果对你及当地人的好处</li>
-<li>对此发展成果的评价和感受</li>
-</ul>
-</li>
-<li><p>时态建议：介绍这个发展成果用一般现在时，描述建成过程或经历用过去时。</p>
-</li>
-<li><p>其他：development有一词多义，就题目括号中给的例子来看，指的是建筑和设施类的具体发展成果，那么在选材时要尽量避免比较虚的发展成果（比如空气变好了、人们生活水平提高了等）。</p>
-</li>
-</ol>
-<audio id="p4" controls preload="none"><br> <source id="mp3" src="./city.mp3"><br></audio>
-
-<p><input type="button" onclick="(function(){var audio=document.getElementById('p4');var len = audio.duration;audio.currentTime += 5;if (audio.currentTime > len) audio.currentTime = 0;audio.play();})()" value="forward 5s"></p>
-<input type="button" onclick="(function(){var audio=document.getElementById('p4');audio.currentTime -= 5;if (audio.currentTime < 0) audio.currentTime = 0;audio.play();})()" value="backword 5s">
-
-<p>My city is a rather tiny one, and it surely is a surprise that new development is occurring at a <strong>breakneck</strong> pace there, and while much of it is happening on the individual level, a<strong>not</strong>-<strong>inconsequential</strong> portion of it is also <strong>lumped</strong> <strong>into</strong> megaprojects rising all over the 4 districts. Fortunately, one of them has finished recently. The riverside center. Well, part of it.</p>
-<p>There are several parts to the West River District megaproject known as Riverside Center, an eight-acre development <strong>rising on</strong> an old <strong>industrial</strong> <strong>lot</strong> and exposed <strong>railyard</strong> between two main streets on the west part <strong>waterfront</strong>. The project, conceived by some unknown developers, has been <strong>pocked by</strong> uncertainty <strong>from the get-go</strong>, but one of the planned 3 buildings has completed – the biggest shopping mall in town, with the other two under construction which are supposed to be the new administrative center and a skyscraper office building. </p>
-<p>This 55-story shopping mall could be the tallest of its kind in the southwest of China. If it wasn’t for the top floor, this mall would be no different than any of its counterpart. </p>
-<p>Half area of the top floor was <strong>mapped</strong> <strong>out</strong> a municipal museum with the log of city development as well as antiques discovered in the city. Which hasn’t opened yet. And the other half, a perfect observation place where one gets to enjoy a <strong>panorama</strong> of the whole city.</p>
-<p>And yet the most exciting part is that residents can now enjoy <strong>strolling</strong> in the newly-built park that connects the three buildings. It feels kinda <strong>surreal</strong> to be in the center with three eerily tall buildings forming a triangle. But it’s also an amazing garden for thousand employees working in the three edifice to <strong>wind</strong> <strong>down</strong>. </p>
-<h2 id="【P2】物件类：科技产品"><a href="#【P2】物件类：科技产品" class="headerlink" title="【P2】物件类：科技产品"></a>【P2】物件类：科技产品</h2><h4 id="Describe-a-piece-of-technology-you-like-using-except-computers"><a href="#Describe-a-piece-of-technology-you-like-using-except-computers" class="headerlink" title="Describe a piece of technology you like using except computers"></a>Describe a piece of technology you like using except computers</h4><ul>
-<li>What this technology is</li>
-<li>When it was invented</li>
-<li>How you learned about it</li>
-<li>How often you use it</li>
-<li>And explain what difference it brings to your life</li>
-</ul>
-<ol>
-<li>本题的A是a technology，描述一项科技产品；B是you like using except computers, 限制你对这项产品的情感倾向。</li>
-<li>提纲建议：<ul>
-<li>简述此科技产品的基本信息、发明时间、基本使用方法等</li>
-<li>详述你使用此产品的方式、心得或故事</li>
-<li>发表评价和感受</li>
-</ul>
-</li>
-<li>时态建议：介绍这项产品用一般现在时，如果涉及到发明或你与其互动的故事，用过去时。</li>
-<li>其他：注意，这里的a piece of technology指的是一件带高科技的产品，注意，产品，不是某项高科技本身。为了让大家明确这一点，还专门贴心地附上了except computers。为了让串题不明显，尽量也避开手机。这道题看似是说明文，但题目后半句说到自己喜欢用，那么也可以用故事（记叙文）来展开。</li>
-</ol>
-<audio id="p5" controls preload="none"><br> <source id="mp3" src="./technology.mp3"><br></audio>
-
-<p><input type="button" onclick="(function(){var audio=document.getElementById('p5');var len = audio.duration;audio.currentTime += 5;if (audio.currentTime > len) audio.currentTime = 0;audio.play();})()" value="forward 5s"></p>
-<input type="button" onclick="(function(){var audio=document.getElementById('p5');audio.currentTime -= 5;if (audio.currentTime < 0) audio.currentTime = 0;audio.play();})()" value="backword 5s"> 
-
-<p>I’d like to describe a <strong>gizmo</strong> that helps me sleep, a sleep aid device thing I’ll call it. I put this little guy on my nightstand the size of a football, beside my bonsai which is also said to <strong>be</strong> <strong>conducive</strong> <strong>to</strong> my sleep. It produces the so-called white noise, a rather constant and steady sound that claims to make one fall asleep faster and their sleep deeper. </p>
-<p>Apparently, I’m super <strong>sound-sensitive</strong>, and even bothered by the slightest sound. The dog next door barking, someone nearby beeping their horn, my partner snoring like a chainsaw, and I’m often staring at the ceiling in frustration rather than sleeping soundly. </p>
-<p>As I mentioned, this handy device <strong>isn’t intended to</strong> play so loudly that they <strong>overwhelm</strong>outside disruptions. Instead, it produces white noise and works with my brain’s natural tendency to mostly notice new or variable sounds while tuning out steady, <strong>repetitious</strong>noise. That’s why people who live near freeways or in big cities tend to “get used to” steady traffic sounds, yet awaken when a taxi blares its horn, a helicopter flies overhead, or a dog suddenly barks.</p>
-<p>I love this gadget with its soft, steady, repeating <strong>loops</strong> of sound, helping mask sudden or unusual noise, thus <strong>lulling</strong> my brain <strong>into</strong> relaxation, and eventually, sweet sweet sleep. Of course, really loud or irregular noise, such as my baby’s crying, is still going to <strong>break through</strong>, but in general, I sleep far more soundly with white noise playing in the background than without.</p>
-<p>Well I have no idea who the inventor is, but whoever that is is a true hero. Thank god this little guy is right there with me. Sometimes I don’t turn it on, and just the thought that it is there <strong>soothes</strong> me.</p>
-<h2 id="【每日表达】句型、习语、小幽默"><a href="#【每日表达】句型、习语、小幽默" class="headerlink" title="【每日表达】句型、习语、小幽默"></a>【每日表达】句型、习语、小幽默</h2><h4 id="on-fire"><a href="#on-fire" class="headerlink" title="on fire"></a><strong>on fire</strong></h4><ul>
-<li>on a roll</li>
-<li>是不是有时候感觉自己是随性型选手，成绩好坏全看发挥。发挥好的时候所向披靡，发挥不好的时候萎靡不振。这种发挥好的时候的感觉，就可以用on fire或on a roll来形容，指最棒的状态，成功的状态。On a roll还可以形容因为状态好而变得话非常多，在兴头上；on fire还可以形容正处在情绪非常强烈的时刻。</li>
-<li>With a growing economy and a dropping crime rate, the city has been on a roll.</li>
-<li>He’s a funny guy, and last night he was really on a roll.</li>
-<li>The team has been on fire, winning 10 of its last 11 games.</li>
-<li>He was on fire with enthusiasm when his dad tried to teach him to hunt.</li>
-</ul>
-<h4 id="follow-steer-take-the-middle-course-way-path"><a href="#follow-steer-take-the-middle-course-way-path" class="headerlink" title="follow/steer/take the middle course/way/path"></a><strong>follow/steer/take the middle course/way/path</strong></h4><ul>
-<li>有些人常常走极端，不左就右。然而很多情况下，极端情形都是比较危险的，会给自己和他人带来伤害。更多的人愿意在做选择时尽量往中间靠，这样最不可能发生危险。这与我们古人中庸的做法有类似。取折中的做法、走中间道路避免危害的行为就叫follow/steer/take the middle course/way/path. 注意哦，排列组合起来可以有9种说法。</li>
-<li>Most parents steer a middle course between strict discipline and letting their kids run wild.</li>
-</ul>
-<h2 id="【P3技巧】比较类与利弊类"><a href="#【P3技巧】比较类与利弊类" class="headerlink" title="【P3技巧】比较类与利弊类"></a>【P3技巧】比较类与利弊类</h2><h4 id="比较类-Compare-similarities-and-differences"><a href="#比较类-Compare-similarities-and-differences" class="headerlink" title="比较类 Compare similarities and differences"></a><strong>比较类 Compare similarities and differences</strong></h4><ul>
-<li>可细分与不可细分</li>
-<li>横向与纵向</li>
-<li>What are the (similarities and) differences between A and B?</li>
-<li>Please compare A and B.</li>
-<li>How has … changed in… years?</li>
-<li>Do you prefer A or B, why?</li>
-<li>A and B, which is better?</li>
-<li>What are some differences between pop stars now and those in the past, like 30 years ago?</li>
-<li>Which do you think is better? Raising children by parents themselves or by their grandparents?</li>
-<li>Is there any difference between technology in cities and in small towns?</li>
-<li>What is the difference between the kind of joy that money can buy and the kind that money can’t?</li>
-<li>What is the difference between learning history from books and from the Internet?</li>
-</ul>
-<h4 id="利弊类-Illustrating-advantages-and-disadvantages"><a href="#利弊类-Illustrating-advantages-and-disadvantages" class="headerlink" title="利弊类  Illustrating advantages and disadvantages"></a><strong>利弊类  Illustrating advantages and disadvantages</strong></h4><ul>
-<li>用假想敌帮助思考，注意单复数</li>
-<li>Can you think of anyadvantages/disadvantages of…?                             </li>
-<li>What are the advantages and disadvantagesof…?</li>
-<li>What are the benefits of…?</li>
-<li>Are there any disadvantages of…?</li>
-<li>Would you prefer to …, and why?</li>
-<li>What are the advantages and disadvantages of the popularity of talent shows on TV?</li>
-<li>Are there any disadvantages of preserving old buildings in modern cities?</li>
-<li>What are the benefits of letting students choose the subjects that they learn?</li>
-<li>Would you prefer to go straight to your destination while traveling? Why?</li>
-<li>Can you think of any advantages and disadvantages of working in a foreign country?</li>
-</ul>
-<h4 id="今日任务：回答下列问题，每题不低于40秒："><a href="#今日任务：回答下列问题，每题不低于40秒：" class="headerlink" title="今日任务：回答下列问题，每题不低于40秒："></a><strong>今日任务</strong>：回答下列问题，每题不低于40秒：</h4><ol>
-<li>What are some differences between pop stars now and those in the past, like 30 years ago?</li>
-<li>What is the difference between the kind of joy that money can buy and the kind that money can’t?</li>
-<li>What are the advantages and disadvantages of the popularity of talent shows on TV?</li>
-<li>What are the benefits of letting students choose the subjects that they learn?</li>
-</ol>
-<h2 id="【纠音跟读】语调综合"><a href="#【纠音跟读】语调综合" class="headerlink" title="【纠音跟读】语调综合"></a>【纠音跟读】语调综合</h2><p>One way my personality has changed↑ since I was a child↑ is that I became honest. When I was a little kid↑, I always lied to my parents↑ because I didn’t want them to know that I stole money from them↑, didn’t do homework well↑ and played video games outside. Once I stole five Yuan from my mom↑ and used the money to play video games. Also↑, I was late for school. On that day↑, I lied to my teacher↑ and my parents. Even if I wasn’t caught by anyone↑, I still felt guilty of lying. I found that one lie makes many↑ and that once people realized that I had lied to them↑, they started not to believe me. I felt sad about myself at that time. Gradually↑, I started to hold the belief that honesty↑ is the best policy.</p>
-<p><strong>千年</strong></p>
- <audio id="p6" controls preload="none"><br> <source id="mp3" src="./thousand.mp3"><br></audio>
-
-<p><input type="button" onclick="(function(){var audio=document.getElementById('p6');var len = audio.duration;audio.currentTime += 5;if (audio.currentTime > len) audio.currentTime = 0;audio.play();})()" value="forward 5s"></p>
-<input type="button" onclick="(function(){var audio=document.getElementById('p6');audio.currentTime -= 5;if (audio.currentTime < 0) audio.currentTime = 0;audio.play();})()" value="backword 5s">
-
-<p>In an age when human beings have learnt the code of human life, and can transmit their knowledge in seconds from one continent to another, no mother in the world can understand why her child should be left to die of malnutrition or preventable disease. No one can understand why they should be driven from their home, or imprisoned or tortured for expressing their beliefs. No one can understand why the soil their parents tilled has turned to desert, or why their skills have become useless and their family is left hungry. People know that these challenges cannot be met by one country alone, or by one government alone. Change cannot be held back by frontiers. Human progress has always come from individual and local initiatives, freely devised and then freely adapted elsewhere.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2069,7 +1752,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2151,7 +1834,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

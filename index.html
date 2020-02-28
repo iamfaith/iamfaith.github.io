@@ -304,6 +304,300 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2020/02/28/什么是最大期望算法-EM-Algorithm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="faith">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Faith' s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/28/什么是最大期望算法-EM-Algorithm/" itemprop="url">什么是最大期望算法(EM Algorithm)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-28T17:33:38-05:00">
+                2020-02-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>什么是最大期望算法(EM Algorithm)</p>
+<p>本文是机器学习系列的第一篇文章，以最简单的方式讲解机器学习的传统算法，最大期望算法。在很多传统领域，医院，药厂等等无法产生海量的数据的情形，深度学习并不适合，这时才是传统机器学习算法发挥作用的时候，废话不多说，下面直接进入学习。</p>
+<blockquote>
+<p>最大期望算法出现在很多涉及概率模型的计算生物学的应用中，那么它有什好处，它的原理是什么？</p>
+</blockquote>
+<p>概率模型，例如隐马尔可夫模型或者贝叶斯网络会被用于建模生物学数据。它们因为高效以及高容错的参数学习因此很流行被广泛应用。但是，给概率模型训练的数据往往不是完整的，缺失数据经常会发生。譬如，在医学诊断，通常病人的患病历史只会有有限的医学测试。换句话说，在基因的聚类表达中，数据不完整是因为在这个概率模型中有意忽略了基因到聚类的分配产生。然而最大期望算法支持在概率模型用不完整的数据进行参数估计。</p>
+<h3 id="以投硬币实验为例"><a href="#以投硬币实验为例" class="headerlink" title="以投硬币实验为例"></a>以投硬币实验为例</h3><p>假设我们有一组硬币A和B，它们都是不均衡的硬币，假设θA 和 θB 分别是A和B正面朝上的概率。</p>
+<p>现在我们目标是估计θA 和 θB，通过<strong>随机</strong>挑选A或者B进行10次的投币实验，然后可以通过绘制下面表格很轻易的计算出它们的概率。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gb5sxzy4ujj30g806yq4b.jpg" alt="image-20200122112520254"></p>
+<p>现在我们把难度加大一点，假设我们不知道每次实验是挑选哪组硬币，换句话说，就是我们只有以下实验的结果，怎么估算出A和B的概率呢？</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gb5t12ar0yj304m03it92.jpg" alt="image-20200122112826852"></p>
+<p>这里我们引入z作为隐变量(hidden variables)或者潜在变量(latent factors)，z定义了每一组实验选用A还是B硬币作为实验。在这个情况下，z就是缺失的数据。这里我们就必须引入最大期望算法来进行计算。怎么做呢？</p>
+<p>首先我先初始化θA 和 θB，在这里我们分别初始化为0.6和0.5，然后我们假设数据是正确的，利用最大似然估计(MLE)分别算出A和B硬币的概率。在这里由于抛硬币是离散分布，并且符合二项分布(Binomial distribution)。所以以第二组为例，我们可以分别算出θA 和 θB。</p>
+<p>根据二项分布的公式： $$ p_i(k)=\left({10\atop k}\right) \theta_i^k (1-\theta_i)^{10-k}\;. $$</p>
+<p>$$ \theta_A^9 (1-\theta_A)^{10-9}\simeq0.004 $$</p>
+<p>$$ \theta_B^9 (1-\theta_B)^{10-9}\simeq0.001\;, $$</p>
+<p>最后可以算出A的新概率为： $$ \frac{0.004}{0.004+0.001}=0.8 $$</p>
+<p>B的新概率为: $$ \frac{0.001}{0.004+0.001}=0.2 $$</p>
+<p>其实上述公式是根据贝叶斯公式得到，</p>
+<p>由于 $$ 𝑃(𝐴)=0.5=𝑃(𝐵) $$</p>
+<p>$$ P(A|H_9T_1) = \frac{P(A) \cdot P(H_9T_1|A)}{P(H_9T_1)} = \frac{P(A) \cdot P(H_9T_1|A)}{P(A) \cdot P(H_9T_1|A) + P(B) \cdot P(H_9T_1|B)} = \frac{0.5 \cdot 0.004}{0.5 \cdot 0.004 + 0.5 \cdot 0.001} = 0.8$$</p>
+<blockquote>
+<p>上述步骤称作E-step，用于估计在出现H 9次 T 1次的情况下，分别是A或者B硬币的概率，至此我们可以计算出每组实验的A和B硬币的权重。</p>
+<p>其实从数学的角度来考虑就是，我们通过最大似然估计计算了 $$ g(\theta) = logP(x; \theta) $$ 这个函数的下界。然后后面会不断更新这个下界，直到这个函数收敛。EM算法的最大好处就是不会出现overfit。</p>
+</blockquote>
+<p>接下来就是M-step，就是利用带权重的数据进行计算，重新更新θA 和 θB，一直迭代到参数收敛。</p>
+<p>整个过程如下图：</p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1gb5uxybu99j30iz0cpwfz.jpg" alt="image-20200122121719055"></p>
+<blockquote>
+<p>在第十次迭代的过程，A的概率已经是首次实验的结果，而B也是趋向于0.45。但是在nonconcave functions, EM算法有可能会陷入局部最优解。同样的，梯度下降算法(gradient descent)或者牛顿法(Newton-Raphson)也可以用作数值优化拟合，但是EM算法因简单健壮并且易于实现而被广泛应用。</p>
+</blockquote>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>譬如在基因簇表达的情形下，我们需要通过观察的显性特征去分组相关的基因簇，就是分辨出哪些基因簇影响这个特征。这种情况下可以特征参数对应不同基因的多参数高斯分布，这个情况下x就是测量特征，z就是对应的基因簇，参数$ \theta$ 就包括多参数高斯分布的均值和协方差。然后EM算法的步骤就是E-step计算属于各个基因簇的概率，M-step去分别更新参数$ \theta$, 一直到收敛。  </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2019/12/09/Asymmetric-generalized-Gaussian-Mixture-Models/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="faith">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Faith' s Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/09/Asymmetric-generalized-Gaussian-Mixture-Models/" itemprop="url">Asymmetric generalized Gaussian Mixture Models</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-09T15:56:53-05:00">
+                2019-12-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>determining the number of consistent components ( <em>M</em> ) which best describes the data</p>
+<ul>
+<li>deterministic methods<ul>
+<li>the Akaike’s information criterion (AIC) </li>
+<li>the minimum description length (MDL) </li>
+<li>the Laplace empirical criterion (LEC)</li>
+</ul>
+</li>
+<li>stochastic methods<ul>
+<li>Markov chain Monte Carlo (MCMC)</li>
+</ul>
+</li>
+</ul>
+<h3 id="Asymmetric-Gaussian-Mixture-model-AGM"><a href="#Asymmetric-Gaussian-Mixture-model-AGM" class="headerlink" title="Asymmetric Gaussian Mixture model(AGM)"></a>Asymmetric Gaussian Mixture model(AGM)</h3><p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1g9vw5a9onhj30e2068q3c.jpg" alt="image-20191213182014597"></p>
+<h3 id="Asymmetric-Generalized-Gaussian-Mixture-model-AGGM"><a href="#Asymmetric-Generalized-Gaussian-Mixture-model-AGGM" class="headerlink" title="Asymmetric Generalized Gaussian Mixture model(AGGM)"></a>Asymmetric Generalized Gaussian Mixture model(AGGM)</h3><h4 id="univariate-AGGD"><a href="#univariate-AGGD" class="headerlink" title="univariate AGGD"></a>univariate AGGD</h4><p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1g9vw5ys6i9j30ew04a0t1.jpg" alt="image-20191213182100035"></p>
+<h4 id="multivariate-AGGD"><a href="#multivariate-AGGD" class="headerlink" title="multivariate AGGD"></a>multivariate AGGD</h4><p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1g9vw7mfbjwj30gw04kjrw.jpg" alt="image-20191213182234676"></p>
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1g9vwkv9mspj30hn06ymym.jpg" alt="image-20191213183517749"></p>
+<h3 id="Learning-model-parameters-and-determining-the-number-of-components"><a href="#Learning-model-parameters-and-determining-the-number-of-components" class="headerlink" title="Learning model parameters and determining the number of components"></a>Learning model parameters and determining the number of components</h3><ol>
+<li>K-means algorithm to initialize the asymmetric generalized Gaussian mixture parameters</li>
+<li>The number of mixture components is automatically determined by implementing MML criterion [20] into an EM algorithm based on maximum likelihood (ML) estimation.</li>
+</ol>
+<blockquote>
+<p>integrate simultaneously parameter estimation and model selection in a single algorithm</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://faithio.tk/2019/11/22/A-gentle-introduction-to-XGboost/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1211,261 +1505,6 @@ root /web/abc.com/;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2018/09/30/reading-notes-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="faith">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Faith' s Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/30/reading-notes-1/" itemprop="url">reading notes - 1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-30T08:35:45-04:00">
-                2018-09-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="words"><a href="#words" class="headerlink" title="words"></a>words</h2><p>curated </p>
-<p>wide the slate clean: 忘掉过去，浪子回头</p>
-<p>neck and neck：不分伯仲</p>
-<p>reign：统治（v）/王朝（n）</p>
-<p>outpace/streaming/bragging right/formidable/premium/acclaim/soprano/curate/slate/Zen/front runners竞赛中的领先者</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://faithio.tk/2018/09/27/ssh命令之ProxyCommand选项/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="faith">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Faith' s Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/27/ssh命令之ProxyCommand选项/" itemprop="url">ssh命令之ProxyCommand选项</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-27T06:51:31-04:00">
-                2018-09-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>一、背景介绍<br>有一台机器A，欲与机器C建立SSH连接，但由于隔离限制（比如“存在防火墙”）该SSH连接不能直接建立。<br>ssh命令的“ProxyCommand”选项被设计用来解决以上问题。</p>
-<p>二、含义<br>通过“ProxyCommand”选项，机器A能够灵活使用任意代理机制与机器C上的SSH Server端口建立连接，接着机器A上的SSH Client再与该连接进行数据交互，从而机器A上的SSH Client与机器C上的SSH Server之间建立了与一般“直接SSH连接”不太一样的“间接SSH连接”。不过由于“间接SSH连接”的透明性，逻辑上可认为机器A上的SSH Client与机器C上的SSH Server建立了“直接SSH连接”。<br>“直接SSH连接”示意图如图1，“间接SSH连接”示意图如图2。</p>
-<p>图1</p>
-<p>图2</p>
-<p>常使用代理机制有两种，接下来进行介绍。</p>
-<p>三、常使用代理机制<br>3.1、常使用代理机制1<br>“ProxyCommand”选项值形式为“ssh -W C:CPort -l USER -i PRIVATE_KEY -p BPort B”，原理：ssh命令自提供的代理机制，在机器A上另外单独建立与B的SSH连接（使用“-l USER -i PRIVATE_KEY -p BPort B”这些参数），该SSH连接的B端侧与机器C上的SSH Server端口（即“C:CPort”）建立连接，该SSH连接的A端侧与机器A上的SSH Client（即“最终欲建立‘间接SSH连接’在机器A上的SSH Client”）建立连接。<br>假定A上ssh_config配置文件内容如下：</p>
-<p>Host B<br>    HostName %h<br>    User dsl<br>    Port 1046<br>    IdentityFile ~/.ssh/id_dsa</p>
-<p>Host C<br>    HostName %h<br>    User dsl<br>    Port 1046<br>    IdentityFile ~/.ssh/id_rsa<br>    ProxyCommand ssh -W %h:%p B<br>在A上执行ssh C命令，发现A与C成功建立SSH连接。根据以上所述，此时在A上应该有两个SSH进程，一个对应于“A与B的SSH连接”，另外一个对应于“A与C的SSH连接”。在A上执行ps -ef | grep ‘ssh’命令，得到如下结果，得证。</p>
-<p>7851  7689 15:55 S pts/10   ssh C<br>7852  7851 15:55 S pts/10   ssh -W C:1046 B<br>3.2、常使用代理机制2<br>“ProxyCommand”选项值形式为“nc -X 5 -x B:BPort C CPort”，原理：利用“nc”命令，在机器A上使用“nc”命令与代理服务器（即“-x B:BPort”，通过“-X 5”参数来指定与代理服务器的通信协议为“SOCKS4/SOCKS5/HTTPS”）建立代理连接，该代理连接的B端侧与机器C上的SSH Server端口（即“C CPort”）建立连接，该代理连接的A端侧与机器A上的SSH Client（即“最终欲建立‘间接SSH连接’在机器A上的SSH Client”）建立连接。<br>假定A上ssh_config配置文件内容如下：</p>
-<p>Host C<br>    HostName %h<br>    User dsl<br>    Port 1046<br>    IdentityFile ~/.ssh/id_rsa<br>    ProxyCommand nc -X 5 -x B:8989 %h %p<br>在A上执行ssh C命令，发现A与C成功建立SSH连接。根据以上所述，此时在A上应该有一个NC进程和一个SSH进程，前者对应于“A与B的代理连接”，后者对应于“A与C的SSH连接”。在A上执行ps -ef | grep -e ‘ssh’ -e ‘nc’命令，得到如下结果，得证。</p>
-<p>8816  8089 16:08 S pts/10   ssh C<br>8817  8816 16:08 S pts/10   nc -X 5 -x B:8989 C 1046<br>四、ssh命令“端口转发”和“ProxyCommand”选项之间的关系<br>端口转发包括：本地转发，远端转发和动态转发。其中“本地转发”和“远端转发”属于“静态转发”（因为转发目标端口是固定的）。<br>“ProxyCommand”选项能够使用基于“动态转发”的代理机制（在外面封装“nc”命令层），而不能使用基于“静态转发”的代理机制。</p>
-<p>参考文献：<br>[1]man ssh_config<br>[2]man ssh<br>[3]<a href="https://serverfault.com/questions/337120/ssh-via-3rd-machine" target="_blank" rel="noopener">https://serverfault.com/questions/337120/ssh-via-3rd-machine</a><br>[4]<a href="https://www.lainme.com/doku.php/blog/2011/01/%E9%80%8F%E8%BF%87%E4%BB%A3%E7%90%86%E8%BF%9E%E6%8E%A5ssh" target="_blank" rel="noopener">https://www.lainme.com/doku.php/blog/2011/01/%E9%80%8F%E8%BF%87%E4%BB%A3%E7%90%86%E8%BF%9E%E6%8E%A5ssh</a><br>[5]<a href="http://stackoverflow.com/questions/22635613/what-is-the-difference-between-ssh-proxycommand-w-nc-exec-nc" target="_blank" rel="noopener">http://stackoverflow.com/questions/22635613/what-is-the-difference-between-ssh-proxycommand-w-nc-exec-nc</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1522,7 +1561,7 @@ root /web/abc.com/;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1604,7 +1643,7 @@ root /web/abc.com/;
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
