@@ -2,7 +2,7 @@
 title: "CV"
 author: "Zixiang Xian"
 gender: "*(Mr.)*"
-email: 1044426753@qq.com
+email: xianzixiang@gmail.com
 output:
   pdf_document:
     latex_engine: pdflatex
