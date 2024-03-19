@@ -1,0 +1,8 @@
+.dropdown-menu .preivew_disable {
+    visibility: hidden;
+}
+
+
+.dropdown-menu .dropdown-item-text {
+    display: inline-block;
+}

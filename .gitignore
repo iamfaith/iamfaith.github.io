@@ -1,0 +1,7 @@
+*.html
+*.jgp
+*.png
+!_template.html
+!_template.min.html
+!aboutme
+*.pdf

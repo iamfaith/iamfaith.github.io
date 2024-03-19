@@ -1,0 +1,77 @@
+/* Make sure abstract does not disply by default*/
+.abstract{
+	font-family: "Gill Sans", sans-serif;
+    display:none;
+}
+
+.author-me {
+    font-weight: 400;
+    color: #577492;
+}
+
+.author-list-long {
+    font-size: 15px;
+}
+
+.bibtex{
+	font-family: "Gill Sans", sans-serif;
+    display:none;
+}
+
+.publication{
+	width:100%;
+	margin-bottom: 28px;
+}
+
+.details-panel {
+  min-width: 72px;
+  margin: 2px;
+  padding: 2px;
+  font-size: 12px;
+}
+
+.details-panel ul {
+  margin: 0px;
+  border: 0px;
+  padding: 2px;
+  font-size: 12px;
+}
+
+.details-panel li {
+  margin: 0px;
+  border: 0px;
+  padding: 2px;
+  font-size: 12px;
+}
+
+.btn-pub {
+  border-color: #BEBEBE;
+  -webkit-transition-duration: 0.05s; /* Safari */
+  transition-duration: 0.05s;
+}
+
+.btn-pub:hover {
+  color: #FFFFFF;
+  background-color: #606060;
+}
+
+.links {
+  margin-left: 0px;
+  margin-top: 6px;
+}
+
+@media print, screen and (max-width: 768px) {
+  .author-me {
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  .author-list {
+    font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+  }
+
+  .venue {
+    font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+  }
+}

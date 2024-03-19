@@ -1,0 +1,594 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:300italic,400italic,700italic,300,400,700);
+@import url(https://fonts.googleapis.com/css?family=Roboto:300italic,400italic,700italic,300,400,700);
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Acme&display=swap');
+/* @import url('https://fonts.googleapis.com/css?family=Long+Cang|Zhi+Mang+Xing&display=swap'); */
+
+
+/* [114] */
+@font-face {
+  font-family: 'Zhi Mang Xing';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../assets/font/114.woff2) format('woff2');
+  unicode-range: U+7e, U+2026, U+4e03, U+4e25, U+4e30, U+4e34, U+4e45, U+4e5d, U+4e89, U+4eae, U+4ed8, U+4f11, U+4f19, U+4f24, U+4f34, U+4f59, U+4f73, U+4f9d, U+4fb5, U+5047, U+505c, U+5170, U+519c, U+51cf, U+5267, U+5356, U+5374, U+5382, U+538b, U+53e6, U+5426, U+542b, U+542f, U+5462, U+5473, U+554a, U+5566, U+5708, U+571f, U+5757, U+57df, U+57f9, U+5802, U+590f, U+591c, U+591f, U+592b, U+5965, U+5979, U+5a01, U+5a5a, U+5b69, U+5b81, U+5ba1, U+5ba3, U+5c3c, U+5c42, U+5c81, U+5de7, U+5dee, U+5e0c, U+5e10, U+5e55, U+5e86, U+5e8f, U+5ea7, U+5f02, U+5f52, U+5f81, U+5ff5, U+60ca, U+60e0, U+6279, U+62c5, U+62ff, U+63cf, U+6444, U+64cd, U+653b, U+65bd, U+65e9, U+665a, U+66b4, U+66fe, U+6728, U+6740, U+6742, U+677e, U+67b6, U+680f, U+68a6, U+68c0, U+699c, U+6b4c, U+6b66, U+6b7b, U+6bcd, U+6bdb, U+6c38, U+6c47, U+6c49, U+6cb3, U+6cb9, U+6ce2, U+6d32, U+6d3e, U+6d4f, U+6e56, U+6fc0, U+7075, U+7206, U+725b, U+72c2, U+73ed, U+7565, U+7591, U+7597, U+75c5, U+76ae, U+76d1, U+76df, U+7834, U+7968, U+7981, U+79c0, U+7a7f, U+7a81, U+7ae5, U+7b14, U+7c89, U+7d27, U+7eaf, U+7eb3, U+7eb8, U+7ec7, U+7ee7, U+7eff, U+7f57, U+7ffb, U+805a, U+80a1, U+822c, U+82cf, U+82e5, U+8363, U+836f, U+84dd, U+878d, U+8840, U+8857, U+8863, U+8865, U+8b66, U+8bb2, U+8bda, U+8c01, U+8c08, U+8c46, U+8d1f, U+8d35, U+8d5b, U+8d5e, U+8da3, U+8ddf, U+8f93, U+8fdd, U+8ff0, U+8ff7, U+8ffd, U+9000, U+9047, U+9152, U+949f, U+94c1, U+94f6, U+9646, U+9648, U+9669, U+969c, U+96ea, U+97e9, U+987b, U+987e, U+989d, U+9970, U+9986, U+9c7c, U+9c9c;
+}
+
+@font-face {
+  font-family: 'Zhi Mang Xing';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../assets/font/118.woff2) format('woff2');
+  unicode-range: U+d, U+3e, U+5f, U+7c, U+a0, U+a9, U+4e09-4e0b, U+4e0d-4e0e, U+4e13, U+4e1a, U+4e2a, U+4e3a-4e3b, U+4e4b, U+4e86, U+4e8e, U+4ea7, U+4eba, U+4ee5, U+4eec, U+4f1a, U+4f4d, U+4f53, U+4f5c, U+4f60, U+4fe1, U+5165, U+5168, U+516c, U+5173, U+5176, U+5185, U+51fa, U+5206, U+5230, U+5236, U+524d, U+529b, U+52a0-52a1, U+52a8, U+5316, U+533a, U+53cb, U+53d1, U+53ef, U+53f7-53f8, U+5408, U+540c-540e, U+544a, U+548c, U+54c1, U+56de, U+56fd-56fe, U+5728, U+5730, U+5907, U+5916, U+591a, U+5927, U+5929, U+597d, U+5982, U+5b50, U+5b66, U+5b89, U+5b9a, U+5b9e, U+5ba2, U+5bb6, U+5bf9, U+5c0f, U+5de5, U+5e02, U+5e38, U+5e73-5e74, U+5e7f, U+5ea6, U+5f00, U+5f0f, U+5f53, U+5f55, U+5fae, U+5fc3, U+6027, U+606f, U+60a8, U+60c5, U+610f, U+6210-6211, U+6237, U+6240, U+624b, U+6280, U+62a5, U+63a5, U+63a8, U+63d0, U+6536, U+6570, U+6587, U+65b9, U+65e0, U+65f6, U+660e, U+662d, U+662f, U+66f4, U+6700, U+670d, U+672c, U+673a, U+6743, U+6765, U+679c, U+682a, U+6b21, U+6b63, U+6cbb, U+6cd5, U+6ce8, U+6d3b, U+70ed, U+7247-7248, U+7269, U+7279, U+73b0, U+7406, U+751f, U+7528, U+7535, U+767b, U+76f8, U+770b, U+77e5, U+793e, U+79d1, U+7ad9, U+7b49, U+7c7b, U+7cfb, U+7ebf, U+7ecf, U+7f8e, U+8005, U+8054, U+80fd, U+81ea, U+85cf, U+884c, U+8868, U+8981, U+89c6, U+8bba, U+8bdd, U+8bf4, U+8bf7, U+8d44, U+8fc7, U+8fd8-8fd9, U+8fdb, U+901a, U+9053, U+90e8, U+91d1, U+957f, U+95e8, U+95ee, U+95f4, U+9762, U+9875, U+9898, U+9996, U+9ad8, U+ff01, U+ff08-ff09;
+}
+
+/* [117] */
+@font-face {
+  font-family: 'Zhi Mang Xing';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../assets/font/117.woff2) format('woff2');
+  unicode-range: U+4e, U+201c-201d, U+3010-3011, U+4e07, U+4e1c, U+4e24, U+4e3e, U+4e48, U+4e50, U+4e5f, U+4e8b-4e8c, U+4ea4, U+4eab-4eac, U+4ecb, U+4ece, U+4ed6, U+4ee3, U+4ef6-4ef7, U+4efb, U+4f20, U+4f55, U+4f7f, U+4fdd, U+505a, U+5143, U+5149, U+514d, U+5171, U+5177, U+518c, U+51fb, U+521b, U+5229, U+522b, U+52a9, U+5305, U+5317, U+534e, U+5355, U+5357, U+535a, U+5373, U+539f, U+53bb, U+53ca, U+53cd, U+53d6, U+53e3, U+53ea, U+53f0, U+5458, U+5546, U+56db, U+573a, U+578b, U+57ce, U+58f0, U+590d, U+5934, U+5973, U+5b57, U+5b8c, U+5b98, U+5bb9, U+5bfc, U+5c06, U+5c11, U+5c31, U+5c55, U+5df2, U+5e03, U+5e76, U+5e94, U+5efa, U+5f71, U+5f97, U+5feb, U+6001, U+603b, U+60f3, U+611f, U+6216, U+624d, U+6253, U+6295, U+6301, U+6392, U+641c, U+652f, U+653e, U+6559, U+6599, U+661f, U+671f, U+672f, U+6761, U+67e5, U+6807, U+6837, U+683c, U+6848, U+6b22, U+6b64, U+6bd4, U+6c14, U+6c34, U+6c42, U+6ca1, U+6d41, U+6d77, U+6d88, U+6e05, U+6e38, U+6e90, U+7136, U+7231, U+7531, U+767e, U+76ee, U+76f4, U+771f, U+7801, U+793a, U+79cd, U+7a0b, U+7a7a, U+7acb, U+7ae0, U+7b2c, U+7b80, U+7ba1, U+7cbe, U+7d22, U+7ea7, U+7ed3, U+7ed9, U+7edf, U+7f16, U+7f6e, U+8001, U+800c, U+8272, U+8282, U+82b1, U+8350, U+88ab, U+88c5, U+897f, U+89c1, U+89c4, U+89e3, U+8a00, U+8ba1, U+8ba4, U+8bae-8bb0, U+8bbe, U+8bc1, U+8bc4, U+8bfb, U+8d28, U+8d39, U+8d77, U+8d85, U+8def, U+8eab, U+8f66, U+8f6c, U+8f7d, U+8fd0, U+9009, U+90ae, U+90fd, U+91cc-91cd, U+91cf, U+95fb, U+9650, U+96c6, U+9891, U+98ce, U+ff1f;
+}
+
+@font-face {
+  font-family: 'Zhi Mang Xing';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../assets/font/116.woff2) format('woff2');
+  unicode-range: U+2b, U+40, U+3000, U+300a-300b, U+4e16, U+4e66, U+4e70, U+4e91-4e92, U+4e94, U+4e9b, U+4ec0, U+4eca, U+4f01, U+4f17-4f18, U+4f46, U+4f4e, U+4f9b, U+4fee, U+503c, U+5065, U+50cf, U+513f, U+5148, U+518d, U+51c6, U+51e0, U+5217, U+529e-529f, U+5341, U+534f, U+5361, U+5386, U+53c2, U+53c8, U+53cc, U+53d7-53d8, U+5404, U+5411, U+5417, U+5427, U+5468, U+559c, U+5668, U+56e0, U+56e2, U+56ed, U+5740, U+57fa, U+58eb, U+5904, U+592a, U+59cb, U+5a31, U+5b58, U+5b9d, U+5bc6, U+5c71, U+5dde, U+5df1, U+5e08, U+5e26, U+5e2e, U+5e93, U+5e97, U+5eb7, U+5f15, U+5f20, U+5f3a, U+5f62, U+5f69, U+5f88, U+5f8b, U+5fc5, U+600e, U+620f, U+6218, U+623f, U+627e, U+628a, U+62a4, U+62db, U+62e9, U+6307, U+6362, U+636e, U+64ad, U+6539, U+653f, U+6548, U+6574, U+6613, U+6625, U+663e, U+666f, U+672a, U+6750, U+6784, U+6a21, U+6b3e, U+6b65, U+6bcf, U+6c11, U+6c5f, U+6d4b, U+6df1, U+706b, U+7167, U+724c, U+738b, U+73a9, U+73af, U+7403, U+7537, U+754c, U+7559, U+767d, U+7740, U+786e, U+795e, U+798f, U+79f0, U+7aef, U+7b7e, U+7bb1, U+7ea2, U+7ea6, U+7ec4, U+7ec6, U+7ecd, U+7edc, U+7ef4, U+8003, U+80b2, U+81f3-81f4, U+822a, U+827a, U+82f1, U+83b7, U+8425, U+89c2, U+89c8, U+8ba9, U+8bb8, U+8bc6, U+8bd5, U+8be2, U+8be5, U+8bed, U+8c03, U+8d23, U+8d2d, U+8d34, U+8d70, U+8db3, U+8fbe, U+8fce, U+8fd1, U+8fde, U+9001, U+901f-9020, U+90a3, U+914d, U+91c7, U+94fe, U+9500, U+952e, U+9605, U+9645, U+9662, U+9664, U+9700, U+9752, U+975e, U+97f3, U+9879, U+9886, U+98df, U+9a6c, U+9a8c, U+9ed1, U+9f99;
+}
+
+body {
+  padding:40px 0 50px 0;
+  font-family: 'Lato', sans-serif;
+  font-size: 16.5px;
+  line-height: 1.5;
+  color:#080808;
+  font-weight:300;
+  background:#ffffff;
+}
+
+h1, h2, h3, h5, h6 {
+  color:#222;
+  margin:0 0 20px;
+}
+
+p, ul, ol, table, pre, dl {
+  color:#080808;
+  margin:0 0 20px;
+}
+
+.section div > span {
+  color:#080808;
+}
+
+h1, h2, h3 {
+  line-height:1.1;
+}
+
+h1 {
+  font-size:26px;
+}
+
+h2 {
+  color:#393939;
+}
+
+h3 {
+  font-size: 22px;
+}
+
+h3, h5, h6 {
+  color:#494949;
+}
+
+h4 {
+  color:#777777;
+  margin: 24px 0 20px;
+}
+
+a {
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #577492;
+  text-decoration:none;
+}
+
+a small {
+  font-size:11px;
+  color:#333;
+  margin-top:-0.6em;
+  display:block;
+}
+
+.wrapper {
+  width:860px;
+  margin:0 auto;
+}
+
+blockquote {
+  border-left:1px solid #e5e5e5;
+  margin:0;
+  padding:0 0 0 20px;
+  font-style:italic;
+}
+
+code, pre {
+  font-family: monospace;
+  color:#111;
+  font-size:12px;
+}
+
+pre {
+  padding:8px 15px;
+  background: #fff;
+  border-radius:5px;
+  border:1px solid #e5e5e5;
+  overflow-x: auto;
+}
+
+table {
+  width:100%;
+  border-collapse:collapse;
+}
+
+th, td {
+  text-align:left;
+  padding:5px 10px;
+  border-bottom:1px solid #e5e5e5;
+}
+
+dt {
+  color:#080808;
+  font-weight:700;
+}
+
+th {
+  color:#080808;
+}
+
+img {
+  max-width:100%;
+}
+
+header ul.github {
+  list-style:none;
+  height:40px;
+
+  padding:0;
+
+  background: #eee;
+  background: -moz-linear-gradient(top, #fff 0%, #dddddd 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fff), color-stop(100%,#dddddd));
+  background: -webkit-linear-gradient(top, #fff 0%,#dddddd 100%);
+  background: -o-linear-gradient(top, #fff 0%,#dddddd 100%);
+  background: -ms-linear-gradient(top, #fff 0%,#dddddd 100%);
+  background: linear-gradient(to top, #fff 0%,#dddddd 100%);
+
+  border-radius:5px;
+  border:1px solid #d2d2d2;
+  box-shadow:inset #fff 0 1px 0, inset rgba(0,0,0,0.03) 0 -1px 0;
+  width:308px;
+}
+
+header ul.github li {
+  width:76px;
+  float:left;
+  border-right:1px solid #d2d2d2;
+  height:40px;
+}
+
+header ul.github a {
+  line-height:1;
+  font-size:11px;
+  color:#999;
+  display:block;
+  text-align:center;
+  padding-top:6px;
+  height:40px;
+}
+
+strong {
+  color:#222;
+  font-weight:700;
+}
+
+header ul.github li + li {
+  width:75px;
+  border-left:1px solid #fff;
+}
+
+header ul.github li + li + li {
+  width:75px;
+  border-left:1px solid #fff;
+}
+
+header ul.github li + li + li + li {
+  border-right:none;
+  width:76px;
+}
+
+header ul.github a strong {
+  font-size:14px;
+  display:block;
+  color:#222;
+}
+
+.section {
+  margin-bottom: 32px;
+}
+
+small {
+  font-size:11px;
+}
+
+hr {
+  border:0;
+  background:#e5e5e5;
+  height:1px;
+  margin:0 0 20px;
+}
+
+footer {
+  margin-top: 24px;
+}
+
+.side-bar-panel{
+  margin:0 12px 0 0;
+}
+
+.name-card {
+  padding-bottom: 6px;
+}
+
+.english-name {
+    font-family: cursive;
+}
+
+.chinese-name {
+    /* font-size: 24px;
+    font-family: 'Hiragino Kaku Gothic Pro' */
+    font-size: 28px;
+    font-family: 'Zhi Mang Xing', cursive;
+    color:#393939;
+}
+
+.sketch {
+    padding-left: 20px;
+}
+
+.img-blur {
+    display:block;
+    position:relative; 
+}
+
+.img-blur:before
+{
+    display:block;
+    content:'';
+    position:absolute;
+    width:100%;
+    height:100%;
+    -moz-box-shadow:inset 0px 0px 8px 8px rgba(255,255,255,1);
+    -webkit-box-shadow:inset 0px 0px 8px 8px rgba(255,255,255,1);
+    box-shadow:inset 0px 0px 8px 8px rgba(255,255,255,1);
+}
+
+.contacts {
+  margin-top: 6px;
+}
+
+.contacts .title {
+  font-size: 18px;
+}
+
+.contacts .address {
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+.contacts .email {
+  font-size: 14px;
+}
+
+.contacts .social-networks {
+    margin: 8px 0px 0px -2px;
+}
+
+.btn-svg {
+    filter: invert(50%) sepia(80%) saturate(100%) hue-rotate(165deg) brightness(100%) contrast(100%);
+    transition: all .1s;
+}
+
+.btn-svg:hover {
+    filter: invert(25%) sepia(80%) saturate(100%) hue-rotate(165deg) brightness(100%) contrast(100%);
+}
+
+.btn-svg-lg {
+    filter: invert(44%) sepia(80%) saturate(100%) hue-rotate(165deg) brightness(100%) contrast(100%);
+    transition: all .1s;
+}
+
+.btn-svg-lg:hover {
+    filter: invert(18%) sepia(80%) saturate(100%) hue-rotate(165deg) brightness(100%) contrast(100%);
+}
+
+.dataset {
+    font-family: 'Abril Fatface';
+}
+
+.news {
+  font-size: 14.5px;
+  margin-top: 20px;
+  margin-bottom: 12px;
+  width: 95%;
+  outline: 1px solid #989898;
+}
+
+.news-heading {
+  background-color: #989898;
+  color:#fff;
+  padding-top: 1px;
+  padding-left: 12px;
+  padding-bottom: 1px;
+  letter-spacing: 1px;
+  font-weight: 400;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.news-body {
+  padding-top: 6px;
+  padding-bottom: 1px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.news-body ul li {
+  margin: 10px 0px 14px 0px;
+}
+
+.event-date {
+  font-weight: 600;
+  color: #5786b0;
+}
+
+.project-snapshot{
+  margin: 0 12px 0 0px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+}
+
+.project-logo{
+  width: 68px;
+  height:68px;
+  float:left;
+  margin: 8px 20px 12px 2px;
+}
+
+.publication {
+  font-size: 16px;
+}
+
+.pubtitle {
+  font-weight: normal;
+}
+
+.research-interest {
+  font-size: 15px;
+}
+
+.li-interest {
+  margin: 0 0 6px 0;
+}
+
+.li-relaxed {
+  margin: 0 0 6px 0;
+}
+
+.review-table {
+    font-size: 15px;
+    width: 1px;
+    padding: 0;
+}
+
+.review-table >thead>tr>th {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.review-table >tbody>tr>td {
+    height: 1px;
+    padding: 0px;
+    border-top: 0px;
+}
+
+.review-table-column {
+    text-align: center;
+}
+
+.tooltip.top .tooltip-inner{
+  font-size: 15px;
+  font-weight: 400;
+  color: #5786b0;
+  background-color: #fff;
+  border: solid 1px #ccc;
+}
+
+.btn-slides-events {
+  background-color: #8BBAC7;
+  color: #ffffff;
+  font-size: 11px;
+  padding: 0px 3px 0px 3px;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: inherit;
+    transition: all .5s;
+}
+
+.btn-primary.btn-outline {
+    color: #428bca;
+}
+
+.btn-success.btn-outline {
+    color: #5cb85c;
+}
+
+.btn-info.btn-outline {
+    color: #5bc0de;
+}
+
+.btn-warning.btn-outline {
+    color: #f0ad4e;
+}
+
+.btn-danger.btn-outline {
+    color: #d9534f;
+}
+
+.btn-primary.btn-outline:hover,
+.btn-success.btn-outline:hover,
+.btn-info.btn-outline:hover,
+.btn-warning.btn-outline:hover,
+.btn-danger.btn-outline:hover {
+    color: #fff;
+}
+
+.dotted-underline {
+  border-bottom: 1px dotted;
+}
+
+.award-note {
+    color: #6c6c6c !important;
+    font-weight: 400;
+}
+
+.btn-best-paper {
+  font-weight: 400;
+  color: #cd5c5c;
+  border: 1px solid #cd5c5c;
+  background: #ffffff;
+  box-sizing: content-box;
+  shadow: none;
+}
+
+@media print, screen and (max-width: 960px) {
+
+  div.wrapper {
+    width:auto;
+    margin:0;
+  }
+
+  header, section, footer {
+    float:none;
+    position:static;
+    width:auto;
+  }
+
+  section {
+    border:1px solid #e5e5e5;
+    border-width:1px 0;
+    padding:20px 0;
+    margin:0 0 20px;
+  }
+
+  header a small {
+    display:inline;
+  }
+}
+
+@media print, screen and (max-width: 768px) {
+  body {
+    padding:15px 0 15px 0;
+    font-weight: 400;
+  }
+
+  a {
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  p, ul, ol, table, pre, dl {
+      color: #555;
+  }
+
+  .name-card-separator {
+    display: block;
+    margin-top: 12px;
+  }
+}
+
+@media print, screen and (max-width: 720px) {
+  body {
+    word-wrap:break-word;
+  }
+
+  .side-bar-panel {
+    float: left;
+    width: 100%;
+  }
+
+  .news {
+    width: 100%;
+  }
+
+  header {
+    padding:0;
+  }
+
+  header ul.github, header p.view {
+    position:static;
+  }
+
+  pre, code {
+    word-wrap:normal;
+  }
+}
+
+@media print, screen and (max-width: 480px) {
+  body {
+    word-wrap:break-word;
+  }
+
+  .side-bar-panel {
+    float: left;
+    width: 100%;
+  }
+
+  .news {
+    width: 100%;
+  }
+
+  header {
+    padding:0;
+  }
+
+  header ul.github, header p.view {
+    position:static;
+  }
+
+  pre, code {
+    word-wrap:normal;
+  }
+
+  .section h3 {
+    background: #eeefea;
+  }
+}
+
+@media print {
+  body {
+    padding:0.4in;
+    font-size:12pt;
+    color:#404040;
+  }
+
+  footer {
+    padding: 20px 0 0 12px;
+  }
+}

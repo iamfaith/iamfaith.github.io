@@ -1,0 +1,318 @@
+{
+    "schema": {
+        "name": "scholar",
+        "children": [
+            {
+                "id": "AUTHOR",
+                "name": "AUTHOR",
+                "children": [
+                    {
+                        "id": "AUTHOR:::AUTHORID",
+                        "name": "AUTHORID",
+                        "is_primary_key": 1,
+                        "is_foreign_key": 0,
+                        "type": " INT(11) NOT NULL"
+                    },
+                    {
+                        "id": "AUTHOR:::AUTHORNAME",
+                        "name": "AUTHORNAME",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 1,
+                        "type": " VARCHAR(50) DEFAULT NULL"
+                    }
+                ],
+                "is_primary_key": -1,
+                "is_foreign_key": -1,
+                "type": null
+            },
+            {
+                "id": "CITE",
+                "name": "CITE",
+                "children": [
+                    {
+                        "id": "CITE:::CITINGPAPERID",
+                        "name": "CITINGPAPERID",
+                        "is_primary_key": 1,
+                        "is_foreign_key": 1,
+                        "type": " INT(11) NOT NULL"
+                    },
+                    {
+                        "id": "CITE:::CITEDPAPERID",
+                        "name": "CITEDPAPERID",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 1,
+                        "type": " INT(11) NOT NULL"
+                    }
+                ],
+                "is_primary_key": -1,
+                "is_foreign_key": -1,
+                "type": null
+            },
+            {
+                "id": "DATASET",
+                "name": "DATASET",
+                "children": [
+                    {
+                        "id": "DATASET:::DATASETID",
+                        "name": "DATASETID",
+                        "is_primary_key": 1,
+                        "is_foreign_key": 0,
+                        "type": " INT(11) NOT NULL"
+                    },
+                    {
+                        "id": "DATASET:::DATASETNAME",
+                        "name": "DATASETNAME",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 1,
+                        "type": " VARCHAR(50) DEFAULT NULL"
+                    }
+                ],
+                "is_primary_key": -1,
+                "is_foreign_key": -1,
+                "type": null
+            },
+            {
+                "id": "JOURNAL",
+                "name": "JOURNAL",
+                "children": [
+                    {
+                        "id": "JOURNAL:::JOURNALID",
+                        "name": "JOURNALID",
+                        "is_primary_key": 1,
+                        "is_foreign_key": 0,
+                        "type": " INT(11) NOT NULL"
+                    },
+                    {
+                        "id": "JOURNAL:::JOURNALNAME",
+                        "name": "JOURNALNAME",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 1,
+                        "type": " VARCHAR(100) DEFAULT NULL"
+                    }
+                ],
+                "is_primary_key": -1,
+                "is_foreign_key": -1,
+                "type": null
+            },
+            {
+                "id": "KEYPHRASE",
+                "name": "KEYPHRASE",
+                "children": [
+                    {
+                        "id": "KEYPHRASE:::KEYPHRASEID",
+                        "name": "KEYPHRASEID",
+                        "is_primary_key": 1,
+                        "is_foreign_key": 0,
+                        "type": " INT(11) NOT NULL"
+                    },
+                    {
+                        "id": "KEYPHRASE:::KEYPHRASENAME",
+                        "name": "KEYPHRASENAME",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 1,
+                        "type": " VARCHAR(50) DEFAULT NULL"
+                    }
+                ],
+                "is_primary_key": -1,
+                "is_foreign_key": -1,
+                "type": null
+            },
+            {
+                "id": "PAPER",
+                "name": "PAPER",
+                "children": [
+                    {
+                        "id": "PAPER:::PAPERID",
+                        "name": "PAPERID",
+                        "is_primary_key": 1,
+                        "is_foreign_key": 0,
+                        "type": " INT(11) NOT NULL"
+                    },
+                    {
+                        "id": "PAPER:::TITLE",
+                        "name": "TITLE",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 0,
+                        "type": " VARCHAR(300) DEFAULT NULL"
+                    },
+                    {
+                        "id": "PAPER:::VENUEID",
+                        "name": "VENUEID",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 0,
+                        "type": " INT(11) DEFAULT NULL"
+                    },
+                    {
+                        "id": "PAPER:::YEAR",
+                        "name": "YEAR",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 0,
+                        "type": " INT(11) DEFAULT NULL"
+                    },
+                    {
+                        "id": "PAPER:::NUMCITING",
+                        "name": "NUMCITING",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 0,
+                        "type": " INT(11) DEFAULT NULL"
+                    },
+                    {
+                        "id": "PAPER:::NUMCITEDBY",
+                        "name": "NUMCITEDBY",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 0,
+                        "type": " INT(11) DEFAULT NULL"
+                    },
+                    {
+                        "id": "PAPER:::JOURNALID",
+                        "name": "JOURNALID",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 1,
+                        "type": " INT(11) DEFAULT NULL"
+                    }
+                ],
+                "is_primary_key": -1,
+                "is_foreign_key": -1,
+                "type": null
+            },
+            {
+                "id": "PAPERDATASET",
+                "name": "PAPERDATASET",
+                "children": [
+                    {
+                        "id": "PAPERDATASET:::PAPERID",
+                        "name": "PAPERID",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 0,
+                        "type": " INT(11) DEFAULT NULL"
+                    },
+                    {
+                        "id": "PAPERDATASET:::DATASETID",
+                        "name": "DATASETID",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 0,
+                        "type": " INT(11) DEFAULT NULL"
+                    }
+                ],
+                "is_primary_key": -1,
+                "is_foreign_key": -1,
+                "type": null
+            },
+            {
+                "id": "PAPERKEYPHRASE",
+                "name": "PAPERKEYPHRASE",
+                "children": [
+                    {
+                        "id": "PAPERKEYPHRASE:::PAPERID",
+                        "name": "PAPERID",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 0,
+                        "type": " INT(11) DEFAULT NULL"
+                    },
+                    {
+                        "id": "PAPERKEYPHRASE:::KEYPHRASEID",
+                        "name": "KEYPHRASEID",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 0,
+                        "type": " INT(11) DEFAULT NULL"
+                    }
+                ],
+                "is_primary_key": -1,
+                "is_foreign_key": -1,
+                "type": null
+            },
+            {
+                "id": "VENUE",
+                "name": "VENUE",
+                "children": [
+                    {
+                        "id": "VENUE:::VENUEID",
+                        "name": "VENUEID",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 0,
+                        "type": " INT(11) NOT NULL"
+                    },
+                    {
+                        "id": "VENUE:::VENUENAME",
+                        "name": "VENUENAME",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 0,
+                        "type": " VARCHAR(100) DEFAULT NULL"
+                    }
+                ],
+                "is_primary_key": -1,
+                "is_foreign_key": -1,
+                "type": null
+            },
+            {
+                "id": "WRITES",
+                "name": "WRITES",
+                "children": [
+                    {
+                        "id": "WRITES:::PAPERID",
+                        "name": "PAPERID",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 0,
+                        "type": " INT(11) DEFAULT NULL"
+                    },
+                    {
+                        "id": "WRITES:::AUTHORID",
+                        "name": "AUTHORID",
+                        "is_primary_key": 0,
+                        "is_foreign_key": 0,
+                        "type": " INT(11) DEFAULT NULL"
+                    }
+                ],
+                "is_primary_key": -1,
+                "is_foreign_key": -1,
+                "type": null
+            }
+        ]
+    },
+    "join_anchors": [
+        {
+            "source": "JOURNAL:::JOURNALID",
+            "target": "PAPER:::JOURNALID"
+        },
+        {
+            "source": "PAPER:::PAPERID",
+            "target": "PAPERDATASET:::PAPERID"
+        },
+        {
+            "source": "DATASET:::DATASETID",
+            "target": "PAPERDATASET:::DATASETID"
+        },
+        {
+            "source": "PAPER:::PAPERID",
+            "target": "PAPERKEYPHRASE:::PAPERID"
+        },
+        {
+            "source": "PAPERDATASET:::PAPERID",
+            "target": "PAPERKEYPHRASE:::PAPERID"
+        },
+        {
+            "source": "KEYPHRASE:::KEYPHRASEID",
+            "target": "PAPERKEYPHRASE:::KEYPHRASEID"
+        },
+        {
+            "source": "PAPER:::VENUEID",
+            "target": "VENUE:::VENUEID"
+        },
+        {
+            "source": "PAPER:::PAPERID",
+            "target": "WRITES:::PAPERID"
+        },
+        {
+            "source": "PAPERDATASET:::PAPERID",
+            "target": "WRITES:::PAPERID"
+        },
+        {
+            "source": "PAPERKEYPHRASE:::PAPERID",
+            "target": "WRITES:::PAPERID"
+        },
+        {
+            "source": "AUTHOR:::AUTHORID",
+            "target": "WRITES:::AUTHORID"
+        }
+    ]
+}

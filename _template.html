@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=2, minimum-scale=0.5, width=device-width, height=device-height" />
+<title>蒙特卡洛的Faith</title>
+
+ <!-- bootstrap -->
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+<script src="res/jquery-3.5.1.slim.min.js" ></script>
+
+ <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script> -->
+<script src="res/popper.min.js" ></script>
+
+
+ <link rel="stylesheet" href="res/bootstrap-4.5.0-dist/css/bootstrap.min.css" >
+ <script src="res/bootstrap-4.5.0-dist/js/bootstrap.min.js" ></script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.4/mermaid.min.js" ></script>  -->
+<script src="res/mermaid.min.js" ></script>
+
+
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+<script id="MathJax-script" async src="res/tex-mml-chtml.js"></script>
+
+<!-- <script src="res/markdown-it.min.js"></script>
+<script src="res/markdown-it-math.js"></script>
+<script src="res/markdown-it-headingspan.js"></script>
+<script src="res/markdown-it-table-container.js"></script>
+<script src="res/markdown-it-li.js"></script>
+<script src="res/markdown-it-task-checkbox.js"></script>
+<script src="res/markdown-it-mermaid.js"></script> -->
+
+<!-- <script src="res/markdown-it.full.js"></script> -->
+<script src="res/markdown-it.full.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="res/default.css">
+<!-- <link rel="stylesheet" type="text/css" href="res/preview_ui.css"> -->
+
+<link rel="stylesheet" type="text/css" href="res/blue.css">
+
+<style type="text/css">
+#nice *{
+   color: black
+!important
+}
+</style>
+
+</head>
+<body style="background: white">
+<!--  <div class="dropdown">
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            预览主题
+    </a>
+
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#"><span>✔️</span><span class="dropdown-item-text">默认</span></a>
+            <a class="dropdown-item" href="#"><span class="preivew_disable">✔️</span><span class="dropdown-item-text">橙心</span></a>
+            <a class="dropdown-item" href="#"><span class="preivew_disable">✔️</span><span class="dropdown-item-text">姹紫</span></a>
+
+            <a class="dropdown-item" href="#"><span class="preivew_disable">✔️</span><span class="dropdown-item-text">嫩青</span></a>
+            <a class="dropdown-item" href="#"><span class="preivew_disable">✔️</span><span class="dropdown-item-text">绿意</span></a>
+
+            <a class="dropdown-item" href="#"><span class="preivew_disable">✔️</span><span class="dropdown-item-text">红排</span></a>
+
+            <a class="dropdown-item" href="#"><span class="preivew_disable">✔️</span><span class="dropdown-item-text">蓝莹</span></a>
+
+            <a class="dropdown-item" href="#"><span class="preivew_disable">✔️</span><span class="dropdown-item-text">兰青</span></a>
+            <a class="dropdown-item" href="#"><span class="preivew_disable">✔️</span><span class="dropdown-item-text">山吹</span></a>
+            <a class="dropdown-item" href="#"><span class="preivew_disable">✔️</span><span class="dropdown-item-text">前端之巅同款</span></a>
+            <a class="dropdown-item" href="#"><span class="preivew_disable">✔️</span><span class="dropdown-item-text">极客黑</span></a>
+            <a class="dropdown-item" href="#"><span class="preivew_disable">✔️</span><span class="dropdown-item-text">蔷薇紫</span></a>
+            <a class="dropdown-item" href="#"><span class="preivew_disable">✔️</span><span class="dropdown-item-text">萌绿</span></a>
+            <a class="dropdown-item" href="#"><span class="preivew_disable">✔️</span><span class="dropdown-item-text">全栈蓝</span></a>
+            <a class="dropdown-item" href="#"><span class="preivew_disable">✔️</span><span class="dropdown-item-text">极简黑</span></a>
+            <a class="dropdown-item" href="#"><span class="preivew_disable">✔️</span><span class="dropdown-item-text">橙蓝风</span></a>
+    </div>
+</div> -->
+
+<div class="btn-group" role="group" aria-label="Basic example">
+  <div class=dropdown><a class="btn btn-default dropdown-toggle" href=# role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false style="background-color: #989898"><span lang="zh-Hans" class="chinese-name">文章列表</span>
+  </a><div class=dropdown-menu aria-labelledby=dropdownMenuLink>
+  @dropdown@
+  </div></div>
+ <a href="aboutme/index.html"><button type="button" class="btn btn-default" style="background-color: #989898"><span lang="zh-Hans" class="chinese-name">关于我</span></button></a>
+</div>
+
+
+ <section id="nice"></section>
+ <div id="echo"></div>
+ <script type="text/javascript">
+
+
+
+         var md = window.markdownit({html: true,
+                 highlight: (str, lang) => {
+                     const text = str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                     const lines = text.split("\n");
+                     const codeLines = [];
+                     const numbers = [];
+                     for (let i = 0; i < lines.length - 1; i++) {
+                       codeLines.push('<code><span class="code-snippet_outer">' + (lines[i] || "<br>") + "</span></code>");
+                       numbers.push("<li></li>");
+               }
+            //    console.log("--", lang, str)
+               return (
+                       '<section class="code-snippet__fix code-snippet__js">' +
+                       '<ul class="code-snippet__line-index code-snippet__js">' +
+                       numbers.join("") +
+                       "</ul>" +
+                       '<pre class="code-snippet__js" data-lang="' +
+                       lang +
+                       '">' +
+                       codeLines.join("") +
+                       "</pre></section>"
+                       );
+                 }
+         })
+         md.use(window.markdownitMath)
+         md.use(window.markdownitHeadingspan)
+         md.use(window.markdownitTable)
+         md.use(window.markdownitLi)
+         md.use(window.markdownitTask)
+         md.use(window.markdownitMermaid)
+        //  https://github.com/nagaozen/markdown-it-toc-done-right
+
+         //const t = (strings) => { return strings.map((s) => s.replace(/\\+/g, '\\\\')).join("").trim() }
+         // var md = window.markdownit().use(markdownitFootnote);
+//          var markdown =`
+
+// @content@
+
+// `
+var markdown='@content@'
+
+function base64ToHex(str) {
+  const raw = atob(str);
+  let result = '';
+  for (let i = 0; i < raw.length; i++) {
+    const hex = raw.charCodeAt(i).toString(16);
+    result += (hex.length === 2 ? hex : '0' + hex);
+  }
+  return result.toUpperCase();
+}
+
+is_render = 1
+try {
+    if (@aes_len@ > 0)
+    {
+      password = prompt('请输入密码');
+      var str = password;
+      // The initialization vector (must be 16 bytes)
+      var iv = [ 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,35, 36 ];
+      var bytes = []; // char codes
+      // var bytesv2 = []; // char codes
+
+      for (var i = 0; i < str.length; ++i) {
+      var code = str.charCodeAt(i);
+      bytes = bytes.concat([code]);
+      //   bytesv2 = bytesv2.concat([code & 0xff, code / 256 >>> 0]);
+      }
+
+      const makeRepeated = (arr, repeats) =>
+      [].concat(...Array.from({ length: repeats }, () => arr)); 
+      key = makeRepeated(bytes, 32).slice(0, 32)
+      // console.log('bytes', bytes);
+      var encryptedBytes = aesjs.utils.hex.toBytes(base64ToHex(markdown));
+      // var key = aesjs.utils.hex.toBytes("69616d6661697468312169616d6661697468312169616d666169746831216961");
+      // console.log(key, iv, encryptedBytes)
+      // The output feedback mode of operation maintains internal state,
+      // so to decrypt a new instance must be instantiated.
+      var aesOfb = new aesjs.ModeOfOperation.ofb(key, iv);
+      var decryptedBytes = aesOfb.decrypt(encryptedBytes);
+      // Convert our bytes back into text
+      var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
+      decryptedText = decryptedText.substring(0, @aes_len@);
+      markdown = decryptedText
+      if (markdown.length < @aes_len@)
+      {
+        alert("密码错误");
+        is_render = 0;
+      }
+    }
+} catch (error) {
+    alert("密码错误");
+    is_render = 0;
+}
+if (is_render == 1)
+{
+var strData = atob(markdown);
+// Convert binary string to character-number array
+var charData = strData.split('').map(function(x){return x.charCodeAt(0);});
+// Turn number array into byte-array
+var binData = new Uint16Array(charData);
+// // Pako magic
+var data  = pako.inflate(binData);
+function Uint8ArrToChar(array) {
+	var out, i, len, c;
+	var char2, char3;
+
+	out = "";
+	len = array.length;
+	i = 0;
+	while (i < len) {
+		c = array[i++];
+		switch (c >> 4) {
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+				// 0xxxxxxx
+				out += String.fromCharCode(c);
+				break;
+			case 12:
+			case 13:
+				// 110x xxxx 10xx xxxx
+				char2 = array[i++];
+				out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
+				break;
+			case 14:
+				// 1110 xxxx 10xx xxxx 10xx xxxx
+				char2 = array[i++];
+				char3 = array[i++];
+				out += String.fromCharCode(((c & 0x0F) << 12) |
+					((char2 & 0x3F) << 6) |
+					((char3 & 0x3F) << 0));
+				break;
+		}
+	}
+
+	return out;
+}
+strData = Uint8ArrToChar(data)
+var result=md.render(strData)
+document.getElementById('nice').innerHTML = result
+}
+// fixMermaid()
+//document.getElementById('echo').innerText = markdown
+
+// window.MathJax.texReset();
+// window.MathJax.typesetClear();
+// window.MathJax.typesetPromise();
+</script>
+<!-- <script src="res/preview_ui.js"></script> -->
+</body>
+</html>

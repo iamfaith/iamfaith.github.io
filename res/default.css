@@ -1,0 +1,506 @@
+/* added */
+/* @import url('https://fonts.googleapis.com/css?family=Long+Cang|Zhi+Mang+Xing&display=swap'); */
+@font-face {
+  font-family: 'Zhi Mang Xing';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../aboutme/assets/font/118.woff2) format('woff2');
+  unicode-range: U+d, U+3e, U+5f, U+7c, U+a0, U+a9, U+4e09-4e0b, U+4e0d-4e0e, U+4e13, U+4e1a, U+4e2a, U+4e3a-4e3b, U+4e4b, U+4e86, U+4e8e, U+4ea7, U+4eba, U+4ee5, U+4eec, U+4f1a, U+4f4d, U+4f53, U+4f5c, U+4f60, U+4fe1, U+5165, U+5168, U+516c, U+5173, U+5176, U+5185, U+51fa, U+5206, U+5230, U+5236, U+524d, U+529b, U+52a0-52a1, U+52a8, U+5316, U+533a, U+53cb, U+53d1, U+53ef, U+53f7-53f8, U+5408, U+540c-540e, U+544a, U+548c, U+54c1, U+56de, U+56fd-56fe, U+5728, U+5730, U+5907, U+5916, U+591a, U+5927, U+5929, U+597d, U+5982, U+5b50, U+5b66, U+5b89, U+5b9a, U+5b9e, U+5ba2, U+5bb6, U+5bf9, U+5c0f, U+5de5, U+5e02, U+5e38, U+5e73-5e74, U+5e7f, U+5ea6, U+5f00, U+5f0f, U+5f53, U+5f55, U+5fae, U+5fc3, U+6027, U+606f, U+60a8, U+60c5, U+610f, U+6210-6211, U+6237, U+6240, U+624b, U+6280, U+62a5, U+63a5, U+63a8, U+63d0, U+6536, U+6570, U+6587, U+65b9, U+65e0, U+65f6, U+660e, U+662d, U+662f, U+66f4, U+6700, U+670d, U+672c, U+673a, U+6743, U+6765, U+679c, U+682a, U+6b21, U+6b63, U+6cbb, U+6cd5, U+6ce8, U+6d3b, U+70ed, U+7247-7248, U+7269, U+7279, U+73b0, U+7406, U+751f, U+7528, U+7535, U+767b, U+76f8, U+770b, U+77e5, U+793e, U+79d1, U+7ad9, U+7b49, U+7c7b, U+7cfb, U+7ebf, U+7ecf, U+7f8e, U+8005, U+8054, U+80fd, U+81ea, U+85cf, U+884c, U+8868, U+8981, U+89c6, U+8bba, U+8bdd, U+8bf4, U+8bf7, U+8d44, U+8fc7, U+8fd8-8fd9, U+8fdb, U+901a, U+9053, U+90e8, U+91d1, U+957f, U+95e8, U+95ee, U+95f4, U+9762, U+9875, U+9898, U+9996, U+9ad8, U+ff01, U+ff08-ff09;
+}
+
+/* [117] */
+@font-face {
+  font-family: 'Zhi Mang Xing';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../aboutme/assets/font/117.woff2) format('woff2');
+  unicode-range: U+4e, U+201c-201d, U+3010-3011, U+4e07, U+4e1c, U+4e24, U+4e3e, U+4e48, U+4e50, U+4e5f, U+4e8b-4e8c, U+4ea4, U+4eab-4eac, U+4ecb, U+4ece, U+4ed6, U+4ee3, U+4ef6-4ef7, U+4efb, U+4f20, U+4f55, U+4f7f, U+4fdd, U+505a, U+5143, U+5149, U+514d, U+5171, U+5177, U+518c, U+51fb, U+521b, U+5229, U+522b, U+52a9, U+5305, U+5317, U+534e, U+5355, U+5357, U+535a, U+5373, U+539f, U+53bb, U+53ca, U+53cd, U+53d6, U+53e3, U+53ea, U+53f0, U+5458, U+5546, U+56db, U+573a, U+578b, U+57ce, U+58f0, U+590d, U+5934, U+5973, U+5b57, U+5b8c, U+5b98, U+5bb9, U+5bfc, U+5c06, U+5c11, U+5c31, U+5c55, U+5df2, U+5e03, U+5e76, U+5e94, U+5efa, U+5f71, U+5f97, U+5feb, U+6001, U+603b, U+60f3, U+611f, U+6216, U+624d, U+6253, U+6295, U+6301, U+6392, U+641c, U+652f, U+653e, U+6559, U+6599, U+661f, U+671f, U+672f, U+6761, U+67e5, U+6807, U+6837, U+683c, U+6848, U+6b22, U+6b64, U+6bd4, U+6c14, U+6c34, U+6c42, U+6ca1, U+6d41, U+6d77, U+6d88, U+6e05, U+6e38, U+6e90, U+7136, U+7231, U+7531, U+767e, U+76ee, U+76f4, U+771f, U+7801, U+793a, U+79cd, U+7a0b, U+7a7a, U+7acb, U+7ae0, U+7b2c, U+7b80, U+7ba1, U+7cbe, U+7d22, U+7ea7, U+7ed3, U+7ed9, U+7edf, U+7f16, U+7f6e, U+8001, U+800c, U+8272, U+8282, U+82b1, U+8350, U+88ab, U+88c5, U+897f, U+89c1, U+89c4, U+89e3, U+8a00, U+8ba1, U+8ba4, U+8bae-8bb0, U+8bbe, U+8bc1, U+8bc4, U+8bfb, U+8d28, U+8d39, U+8d77, U+8d85, U+8def, U+8eab, U+8f66, U+8f6c, U+8f7d, U+8fd0, U+9009, U+90ae, U+90fd, U+91cc-91cd, U+91cf, U+95fb, U+9650, U+96c6, U+9891, U+98ce, U+ff1f;
+}
+
+@font-face {
+  font-family: 'Zhi Mang Xing';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../aboutme/assets/font/116.woff2) format('woff2');
+  unicode-range: U+2b, U+40, U+3000, U+300a-300b, U+4e16, U+4e66, U+4e70, U+4e91-4e92, U+4e94, U+4e9b, U+4ec0, U+4eca, U+4f01, U+4f17-4f18, U+4f46, U+4f4e, U+4f9b, U+4fee, U+503c, U+5065, U+50cf, U+513f, U+5148, U+518d, U+51c6, U+51e0, U+5217, U+529e-529f, U+5341, U+534f, U+5361, U+5386, U+53c2, U+53c8, U+53cc, U+53d7-53d8, U+5404, U+5411, U+5417, U+5427, U+5468, U+559c, U+5668, U+56e0, U+56e2, U+56ed, U+5740, U+57fa, U+58eb, U+5904, U+592a, U+59cb, U+5a31, U+5b58, U+5b9d, U+5bc6, U+5c71, U+5dde, U+5df1, U+5e08, U+5e26, U+5e2e, U+5e93, U+5e97, U+5eb7, U+5f15, U+5f20, U+5f3a, U+5f62, U+5f69, U+5f88, U+5f8b, U+5fc5, U+600e, U+620f, U+6218, U+623f, U+627e, U+628a, U+62a4, U+62db, U+62e9, U+6307, U+6362, U+636e, U+64ad, U+6539, U+653f, U+6548, U+6574, U+6613, U+6625, U+663e, U+666f, U+672a, U+6750, U+6784, U+6a21, U+6b3e, U+6b65, U+6bcf, U+6c11, U+6c5f, U+6d4b, U+6df1, U+706b, U+7167, U+724c, U+738b, U+73a9, U+73af, U+7403, U+7537, U+754c, U+7559, U+767d, U+7740, U+786e, U+795e, U+798f, U+79f0, U+7aef, U+7b7e, U+7bb1, U+7ea2, U+7ea6, U+7ec4, U+7ec6, U+7ecd, U+7edc, U+7ef4, U+8003, U+80b2, U+81f3-81f4, U+822a, U+827a, U+82f1, U+83b7, U+8425, U+89c2, U+89c8, U+8ba9, U+8bb8, U+8bc6, U+8bd5, U+8be2, U+8be5, U+8bed, U+8c03, U+8d23, U+8d2d, U+8d34, U+8d70, U+8db3, U+8fbe, U+8fce, U+8fd1, U+8fde, U+9001, U+901f-9020, U+90a3, U+914d, U+91c7, U+94fe, U+9500, U+952e, U+9605, U+9645, U+9662, U+9664, U+9700, U+9752, U+975e, U+97f3, U+9879, U+9886, U+98df, U+9a6c, U+9a8c, U+9ed1, U+9f99;
+}
+
+.chinese-name {
+  font-size: 28px;
+  font-family: 'Zhi Mang Xing', cursive;
+  color: #393939;
+}
+/* added */
+
+#nice {
+  font-size: 16px;
+  color: black;
+  padding: 0 40px;
+  line-height: 1.6;
+  word-spacing: 0px;
+  letter-spacing: 0px;
+  word-break: break-word;
+  word-wrap: break-word;
+  text-align: left;
+  font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  /* margin-top: -10px; 解决开头空隙过大问题*/
+}
+
+/*段落*/
+#nice p {
+  font-size: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin: 0;
+  line-height: 26px;
+  color: black;
+}
+
+/*标题*/
+#nice h1,
+#nice h2,
+#nice h3,
+#nice h4,
+#nice h5,
+#nice h6 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  padding: 0px;
+  font-weight: bold;
+  color: black;
+}
+#nice h1 {
+  font-size: 24px;
+}
+#nice h2 {
+  font-size: 22px;
+}
+#nice h3 {
+  font-size: 20px;
+}
+#nice h4 {
+  font-size: 18px;
+}
+#nice h5 {
+  font-size: 16px;
+}
+#nice h6 {
+  font-size: 16px;
+}
+
+#nice h1 .prefix,
+#nice h2 .prefix,
+#nice h3 .prefix,
+#nice h4 .prefix,
+#nice h5 .prefix,
+#nice h6 .prefix {
+  display: none;
+}
+
+#nice h1 .suffix
+#nice h2 .suffix,
+#nice h3 .suffix,
+#nice h4 .suffix,
+#nice h5 .suffix,
+#nice h6 .suffix {
+  display: none;
+}
+
+/*列表*/
+#nice ul,
+#nice ol {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding-left: 25px;
+  color: black;
+}
+#nice ul {
+  list-style-type: disc;
+}
+#nice ul ul {
+  list-style-type: square;
+}
+
+#nice ol {
+  list-style-type: decimal;
+}
+
+#nice li section {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  line-height: 26px;
+  text-align: left;
+  color: rgb(1,1,1); /* 只要是纯黑色微信编辑器就会把color这个属性吞掉。。。*/
+  font-weight: 500;
+}
+
+/*引用*/
+#nice blockquote {
+  display: block;
+  font-size: 0.9em;
+  overflow: auto;
+  overflow-scrolling: touch;
+  border-left: 3px solid rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.05);
+  color: #6a737d;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+#nice blockquote p {
+  margin: 0px;
+  color: black;
+  line-height: 26px;
+}
+
+#nice .table-of-contents a {
+  border: none;
+  color: black;
+  font-weight: normal;
+}
+
+/*链接*/
+#nice a {
+  text-decoration: none;
+  color: #1e6bb8;
+  word-wrap: break-word;
+  font-weight: bold;
+  border-bottom: 1px solid #1e6bb8;
+}
+
+/*加粗*/
+#nice strong {
+  font-weight: bold;
+  color: black;
+}
+
+/*斜体*/
+#nice em {
+  font-style: italic;
+  color: black;
+}
+
+/*加粗斜体*/
+#nice em strong {
+  font-weight: bold;
+  color: black;
+}
+
+/*删除线*/
+#nice del {
+  font-style: italic;
+  color: black;
+}
+
+/*分隔线*/
+#nice hr {
+  height: 1px;
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-top: 1px solid black;
+}
+
+/*代码块*/
+#nice pre {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#nice pre code {
+  display: -webkit-box;
+  font-family: Operator Mono, Consolas, Monaco, Menlo, monospace;
+  border-radius: 0px;
+  font-size: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+#nice pre code span {
+  line-height: 26px;
+}
+
+/*行内代码*/
+#nice p code,
+#nice li code {
+  font-size: 14px;
+  word-wrap: break-word;
+  padding: 2px 4px;
+  border-radius: 4px;
+  margin: 0 2px;
+  color: #1e6bb8;
+  background-color: rgba(27,31,35,.05);
+  font-family: Operator Mono, Consolas, Monaco, Menlo, monospace;
+  word-break: break-all;
+}
+
+/*图片*/
+#nice img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+/*图片*/
+#nice figure {
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/*图片描述文字*/
+#nice figcaption {
+  margin-top: 5px;
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+}
+
+
+/*表格容器 */
+#nice .table-container{
+  overflow-x: auto;
+}
+
+/*表格*/
+#nice table {
+  display: table;
+  text-align: left;
+}
+#nice tbody {
+  border: 0;
+}
+
+#nice table tr {
+  border: 0;
+  border-top: 1px solid #ccc;
+  background-color: white;
+}
+
+#nice table tr:nth-child(2n) {
+  background-color: #F8F8F8;
+}
+
+#nice table tr th,
+#nice table tr td {
+  font-size: 16px;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  text-align: left;
+}
+
+#nice table tr th {
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
+
+/* 表格最小列宽4个汉字 */
+#nice table tr th:nth-of-type(n),
+#nice table tr td:nth-of-type(n){
+  min-width:85px;
+}
+
+/* 微信代码块 */
+#nice .code-snippet__fix {
+  word-wrap: break-word !important;
+  font-size: 14px;
+  margin: 10px 0;
+  display: block;
+  color: #333;
+  position: relative;
+  background-color: rgba(0,0,0,0.03);
+  border: 1px solid #f0f0f0;
+  border-radius: 2px;
+  display: flex;
+  line-height: 20px;
+}
+#nice .code-snippet__fix pre {
+  margin-bottom: 10px;
+  margin-top: 0px;
+}
+#nice .code-snippet__fix .code-snippet__line-index {
+  counter-reset: line;
+  flex-shrink: 0;
+  height: 100%;
+  padding: 1em;
+  list-style-type: none;
+  padding: 16px;
+  margin: 0;
+}
+#nice .code-snippet__fix .code-snippet__line-index li {
+  list-style-type: none;
+  text-align: right;
+  line-height: 26px;
+  color: black;
+  margin: 0;
+}
+#nice .code-snippet__fix .code-snippet__line-index li::before {
+  min-width: 1.5em;
+  text-align: right;
+  left: -2.5em;
+  counter-increment: line;
+  content: counter(line);
+  display: inline;
+  color: rgba(0,0,0,0.3);
+}
+#nice .code-snippet__fix pre {
+  overflow-x: auto;
+  padding: 16px;
+  padding-left: 0;
+  white-space: normal;
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
+}
+#nice .code-snippet__fix code {
+  text-align: left;
+  font-size: 14px;
+  display: block;
+  white-space: pre;
+  display: flex;
+  position: relative;
+  font-family: Consolas,"Liberation Mono",Menlo,Courier,monospace;
+  padding: 0px;
+}
+
+#nice .footnote-word {
+  color: #1e6bb8;
+  font-weight: bold;
+}
+
+#nice .footnote-ref {
+  color: #1e6bb8;
+  font-weight: bold;
+}
+
+#nice .footnote-item {
+  display: flex;
+}
+
+#nice .footnote-num {
+  display: inline;
+  width: 10%; /*神奇，50px就不可以*/
+  background: none;
+  font-size: 80%;
+  opacity: 0.6;
+  line-height: 26px;
+  font-family: ptima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+#nice .footnote-item p {
+  display: inline;
+  font-size: 14px;
+  width: 90%;
+  padding: 0px;
+  margin: 0;
+  line-height: 26px;
+  color: black;
+  word-break:break-all;
+  width: calc(100%-50)
+}
+
+#nice sub, sup {
+  line-height: 0;
+}
+
+#nice .footnotes-sep:before {
+  content: "参考资料";
+  display: block;
+}
+
+/* 解决公式问题 */
+#nice .block-equation {
+  display:block;
+  text-align: center;
+  overflow: auto;
+  display: block;
+  -webkit-overflow-scrolling: touch;
+}
+
+#nice .block-equation svg {
+  max-width: 300% !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+#nice .inline-equation {
+}
+
+#nice .inline-equation svg {
+}
+
+#nice .imageflow-layer1 {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  white-space: normal;
+  border: 0px none;
+  padding: 0px;
+  overflow: hidden;
+}
+
+#nice .imageflow-layer2 {
+  white-space: nowrap;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+#nice .imageflow-layer3 {
+  display: inline-block;
+  word-wrap: break-word;
+  white-space: normal;
+  vertical-align: middle;
+  width: 100%;
+}
+
+#nice .imageflow-img {
+  display: inline-block;
+}
+
+#nice .imageflow-caption {
+  text-align: center;
+  margin-top: 0px;
+  padding-top: 0px;
+  color: #888;
+}
+
+#nice .nice-suffix-juejin-container {
+  margin-top: 20px !important;
+}
+
+#nice figure a {
+  border: none;
+}
+
+#nice figure a img {
+  margin: 0px;
+}
+
+#nice figure {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 图片链接嵌套 */
+#nice figure a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 图片链接嵌套，图片解释 */
+#nice figure a + figcaption {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: -35px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  line-height: 35px;
+  z-index: 20;
+}
