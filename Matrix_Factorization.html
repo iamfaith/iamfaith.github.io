@@ -1,0 +1,200 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="user-scalable=yes, initial-scale=1, maximum-scale=2, minimum-scale=0.5, width=device-width, height=device-height" /><title>蒙特卡洛的Faith</title><script src=res/jquery-3.5.1.slim.min.js></script><script src=res/popper.min.js></script><link rel=stylesheet href=res/bootstrap-4.5.0-dist/css/bootstrap.min.css><script src=res/bootstrap-4.5.0-dist/js/bootstrap.min.js></script><script src=res/mermaid.min.js></script><script id=MathJax-script async src=res/tex-mml-chtml.js></script><script src=res/pako.min.js></script><script src=res/markdown-it.full.min.js></script><script src=res/markdownItAnchor.umd.js></script><script src=res/markdownItTocDoneRight.umd.js></script><link rel=stylesheet type=text/css href=res/default.css><link rel=stylesheet type=text/css href=res/极简黑.css>
+    <!-- <style type=text/css>#nice *{color:black!important}</style> -->
+<style type=text/css>
+div.highlight button {
+  color: #adb5bd;
+  box-sizing: border-box;
+  transition: 0.2s ease-out;
+  cursor: pointer;
+  user-select: none;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0);
+  padding: 5px 10px;
+  font-size: 0.8em;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 0 0.15rem;
+}
+</style>
+<link rel="shortcut icon" href="aboutme/img/me.jpeg"/><link rel="stylesheet" href="./aboutme/stylesheets/styles.css"></head><body style=background:white;padding-top:15px;>
+<div class="btn-group" role="group" aria-label="Basic example">
+<div class=dropdown><a class="btn btn-default dropdown-toggle" href=# role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false style="background-color: #989898"><span lang="zh-Hans" class="chinese-name">文章列表</span>
+</a><div class=dropdown-menu aria-labelledby=dropdownMenuLink>
+<a class="dropdown-item" href="K-Means vs Fuzzy C-Means.html">1. K-Means vs Fuzzy C-Means</a><a class="dropdown-item" href="什么是最大期望算法(EM Algorithm).html">2. 什么是最大期望算法(EM Algorithm)</a><a class="dropdown-item" href="Approximate Inference.html">3. Approximate Inference</a><a class="dropdown-item" href="Stochastic Expectation Propagation.html">4. Stochastic Expectation Propagation</a><a class="dropdown-item" href="sort vs deepsort.html">5. sort vs deepsort</a><a class="dropdown-item" href="Markov Chain Monte Carlo.html">6. Markov Chain Monte Carlo</a><a class="dropdown-item" href="semi-supervised learning.html">7. semi-supervised learning</a><a class="dropdown-item" href="probabilistic graphical model.html">8. probabilistic graphical model</a><a class="dropdown-item" href="HMM.html">9. HMM</a><a class="dropdown-item" href="WordEmbedding.html">10. WordEmbedding</a><a class="dropdown-item" href="Gaussian Mixture Model.html">11. Gaussian Mixture Model</a><a class="dropdown-item" href="CrossEntropy VS KL Divergence.html">12. CrossEntropy VS KL Divergence</a><a class="dropdown-item" href="Ensemble Methods.html">13. Ensemble Methods</a><a class="dropdown-item" href="交叉熵和KL散度有什么区别？.html">14. 交叉熵和KL散度有什么区别？</a><a class="dropdown-item" href="Deep Learning.html">15. Deep Learning</a><a class="dropdown-item" href="Foundation of Machine Learning.html">16. Foundation of Machine Learning</a><a class="dropdown-item" href="transformer_hongyi.html">17. transformer_hongyi</a><a class="dropdown-item" href="Transformer.html">18. Transformer</a><a class="dropdown-item" href="conv.html">19. conv</a><a class="dropdown-item" href="good.html">20. good</a><a class="dropdown-item" href="深度学习模型部署总结.html">21. 深度学习模型部署总结</a><a class="dropdown-item" href="Logistic Regression defintions in sklearn.html">22. Logistic Regression defintions in sklearn</a><a class="dropdown-item" href="Expectation Maximization.html">23. Expectation Maximization</a><a class="dropdown-item" href="The Exponential Family.html">24. The Exponential Family</a>
+</div></div>
+<a href="aboutme/index.html"><button type="button" class="btn btn-default" style="background-color: #989898"><span lang="zh-Hans" class="chinese-name">关于我</span></button></a>
+<div class=dropdown><a class="btn btn-default dropdown-toggle" href=# role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false style="background-color: #989898"><span lang="zh-Hans" class="chinese-name">笔记</span>
+</a><div class=dropdown-menu aria-labelledby=dropdownMenuLink>
+<a class="dropdown-item" href="Exploring the Potential of Large Language Models (LLMs) in Learning on Graphs.html">1. Exploring the Potential of Large Language Models (LLMs) in Learning on Graphs</a><a class="dropdown-item" href="github.html">2. github</a><a class="dropdown-item" href="must.html">3. must</a><a class="dropdown-item" href="power.html">4. power</a><a class="dropdown-item" href="codebert.html">5. codebert</a><a class="dropdown-item" href="vim.html">6. vim</a><a class="dropdown-item" href="vim_short.html">7. vim_short</a><a class="dropdown-item" href="codesnippets.html">8. codesnippets</a><a class="dropdown-item" href="training.html">9. training</a><a class="dropdown-item" href="dl_machine.html">10. dl_machine</a><a class="dropdown-item" href="A review on deeper GNN.html">11. A review on deeper GNN</a><a class="dropdown-item" href="直播.html">12. 直播</a><a class="dropdown-item" href="Highlight of Linear Algebra.html">13. Highlight of Linear Algebra</a><a class="dropdown-item" href="Graph-Machine-Learning.html">14. Graph-Machine-Learning</a><a class="dropdown-item" href="GNNNodeClassification.html">15. GNNNodeClassification</a><a class="dropdown-item" href="Source Free Unsupervised Graph Domain Adaptation.html">16. Source Free Unsupervised Graph Domain Adaptation</a><a class="dropdown-item" href="mac配置.html">17. mac配置</a><a class="dropdown-item" href="CIKM2021.html">18. CIKM2021</a><a class="dropdown-item" href="A review on heterophily graph.html">19. A review on heterophily graph</a><a class="dropdown-item" href="Matrix_Factorization.html">20. Matrix_Factorization</a><a class="dropdown-item" href="graph.html">21. graph</a><a class="dropdown-item" href="ideas.html">22. ideas</a><a class="dropdown-item" href="A review on graph classification.html">23. A review on graph classification</a>
+</div></div>
+<div class=dropdown><a class="btn btn-default dropdown-toggle" href=# role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false style="background-color: #989898"><span lang="zh-Hans" class="chinese-name">直播课</span>
+</a><div class=dropdown-menu aria-labelledby=dropdownMenuLink>
+<a class="dropdown-item" href="入门深度学习.html">1. 入门深度学习</a>
+</div></div>
+<button id="hideBtn" type="button" class="btn btn-default btn-sm rounded" style="background-color: #989898;position:fixed;right:0px;z-index: 10;">></button>
+</div>
+
+<div class="modal fade" id="passmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">请输入密码</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="false">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <input name="myPass" id="myPass" type="password" />
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary" id="confirm_pass_btn">Confirm</button>
+</div>
+</div>
+</div>
+</div>
+
+<section id=nice></section><div id=echo></div><script type=text/javascript>
+function setCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+function eraseCookie(name) {   
+    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+var md=window.markdownit({html:true,highlight:(str,lang)=>{const text=str.replace(/</g,"&lt;").replace(/>/g,"&gt;");const lines=text.split("\n");const codeLines=[];const numbers=[];for(let i=0;i<lines.length-1;i++){codeLines.push('<code><span class="code-snippet_outer">'+(lines[i]||"<br>")+"</span></code>");numbers.push("<li></li>");}
+return('<section class="code-snippet__fix code-snippet__js">'+'<ul class="code-snippet__line-index code-snippet__js">'+
+numbers.join("")+"</ul>"+'<div class="highlight"><pre class="code-snippet__js" data-lang="'+
+lang+'">'+
+codeLines.join("")+"</pre></div></section>");}})
+md.use(window.markdownitMath)
+md.use(window.markdownitHeadingspan)
+md.use(window.markdownitTable)
+md.use(window.markdownitLi)
+md.use(window.markdownitTask)
+md.use(window.markdownitMermaid)
+md.use(window.markdownItAnchor)
+md.use(window.markdownItTocDoneRight)
+var strData,charData,binData,data,result,md_text="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";function base64ToHex(e){const t=atob(e);let r="";for(let e=0;e<t.length;e++){var a=t.charCodeAt(e).toString(16);r+=2===a.length?a:"0"+a}return r.toUpperCase()}is_render=1;markdown=md_text;try{if(0<0){
+    is_render = 0
+    password = getCookie("pass")
+    if (!password ) {
+        $('#passmodal').modal()
+    }
+    else
+    {
+        checkpass()
+    }
+    var input = document.getElementById("myPass");
+    $('#passmodal').on('shown.bs.modal', function () {
+        input.focus();
+        checkpass()
+    })
+    input.focus();
+    // password=prompt("请输入密码");
+    function checkpass(){
+        try{
+        password = getCookie("pass")
+        if (!password )
+            password = document.getElementById("myPass").value;
+        for(var str=password,iv=[21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36],bytes=[],i=0;i<str.length;++i)var code=str.charCodeAt(i),bytes=bytes.concat([code]);const f=(e,t)=>[].concat(...Array.from({length:t},()=>e));key=f(bytes,32).slice(0,32);var encryptedBytes=aesjs.utils.hex.toBytes(base64ToHex(md_text)),aesOfb=new aesjs.ModeOfOperation.ofb(key,iv),decryptedBytes=aesOfb.decrypt(encryptedBytes),decryptedText=aesjs.utils.utf8.fromBytes(decryptedBytes);(markdown=decryptedText=decryptedText.substring(0,0)).length<0&&(alert("密码错误"),is_render=0)
+        ren();
+        $('#passmodal').modal('hide')
+        setCookie("pass", password, 30)
+        return 1;
+        }catch(e) {
+            $('#passmodal').modal()
+            console.log(e)
+            setCookie("pass", "", 30)
+            return 0;
+        }
+    }
+    $('#confirm_pass_btn').click(checkpass);
+    
+        input.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            checkpass()
+        }
+        });
+    }
+    
+    }catch(e){alert("密码错误"),is_render=0}
+
+function ren() {(strData=atob(markdown),charData=strData.split("").map(function(e){return e.charCodeAt(0)}),binData=new Uint16Array(charData),strData=Uint8ArrToChar(data=pako.inflate(binData)),result=md.render(strData),document.getElementById("nice").innerHTML=result)
+    try {
+    if ($(".table-of-contents").length == 0)
+        $("#hideBtn").css("display", "none") 
+    else 
+    {
+        $(".table-of-contents").css("position", "fixed")
+        $(".table-of-contents").css("right", "0px")
+        // $(".table-of-contents").css("background-color", "#989898")
+        $(".table-of-contents").css("z-index", "10")
+        $(".table-of-contents").css("height", "500px")
+        $(".table-of-contents").addClass("shadow-sm p-3 mb-5 bg-light rounded overflow-auto")
+        $(document).ready(function() {
+        $("#hideBtn").click(function(){
+            $('.table-of-contents').toggle('slow');
+            }); 
+        });
+    }
+} catch (error) {}
+}
+function Uint8ArrToChar(e){for(var t,r,a,s="",n=e.length,o=0;o<n;)switch((t=e[o++])>>4){case 0:case 1:case 2:case 3:case 4:case 5:case 6:case 7:s+=String.fromCharCode(t);break;case 12:case 13:r=e[o++],s+=String.fromCharCode((31&t)<<6|63&r);break;case 14:r=e[o++],a=e[o++],s+=String.fromCharCode((15&t)<<12|(63&r)<<6|(63&a)<<0)}return s}1==is_render&&ren();
+const copyToClipboard = str => {
+  const el = document.createElement("textarea") // Create a <textarea> element
+  el.value = str // Set its value to the string that you want copied
+  el.setAttribute("readonly", "") // Make it readonly to be tamper-proof
+  el.style.position = "absolute"
+  el.style.left = "-9999px" // Move outside the screen to make it invisible
+  document.body.appendChild(el) // Append the <textarea> element to the HTML document
+  const selected =
+    document.getSelection().rangeCount > 0 // Check if there is any content selected previously
+      ? document.getSelection().getRangeAt(0) // Store selection if found
+      : false // Mark as false to know no selection existed before
+  el.select() // Select the <textarea> content
+  document.execCommand("copy") // Copy - only works as a result of a user action (e.g. click events)
+  document.body.removeChild(el) // Remove the <textarea> element
+  if (selected) {
+    // If a selection existed before copying
+    document.getSelection().removeAllRanges() // Unselect everything on the HTML document
+    document.getSelection().addRange(selected) // Restore the original selection
+  }
+}
+function handleCopyClick(evt) {
+  // get the children of the parent element
+  const { children } = evt.target.parentElement
+  // grab the first element (we append the copy button on afterwards, so the first will be the code element)
+  // destructure the innerText from the code block
+  const { innerText } = Array.from(children)[0]
+  // copy all of the code to the clipboard
+  copyToClipboard(innerText)
+//   alert(innerText)
+}
+const highlights = document.querySelectorAll("div.highlight")
+
+highlights.forEach(div => {
+  // create the copy button
+  const copy = document.createElement("button")
+  copy.innerHTML = "Copy"
+  copy.addEventListener("click", handleCopyClick)
+  div.append(copy)
+})
+</script></body></html>

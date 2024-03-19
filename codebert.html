@@ -1,0 +1,200 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="user-scalable=yes, initial-scale=1, maximum-scale=2, minimum-scale=0.5, width=device-width, height=device-height" /><title>蒙特卡洛的Faith</title><script src=res/jquery-3.5.1.slim.min.js></script><script src=res/popper.min.js></script><link rel=stylesheet href=res/bootstrap-4.5.0-dist/css/bootstrap.min.css><script src=res/bootstrap-4.5.0-dist/js/bootstrap.min.js></script><script src=res/mermaid.min.js></script><script id=MathJax-script async src=res/tex-mml-chtml.js></script><script src=res/aes.js></script><script src=res/pako.min.js></script><script src=res/markdown-it.full.min.js></script><script src=res/markdownItAnchor.umd.js></script><script src=res/markdownItTocDoneRight.umd.js></script><link rel=stylesheet type=text/css href=res/default.css><link rel=stylesheet type=text/css href=res/极简黑.css>
+    <!-- <style type=text/css>#nice *{color:black!important}</style> -->
+<style type=text/css>
+div.highlight button {
+  color: #adb5bd;
+  box-sizing: border-box;
+  transition: 0.2s ease-out;
+  cursor: pointer;
+  user-select: none;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0);
+  padding: 5px 10px;
+  font-size: 0.8em;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 0 0.15rem;
+}
+</style>
+<link rel="shortcut icon" href="aboutme/img/me.jpeg"/><link rel="stylesheet" href="./aboutme/stylesheets/styles.css"></head><body style=background:white;padding-top:15px;>
+<div class="btn-group" role="group" aria-label="Basic example">
+<div class=dropdown><a class="btn btn-default dropdown-toggle" href=# role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false style="background-color: #989898"><span lang="zh-Hans" class="chinese-name">文章列表</span>
+</a><div class=dropdown-menu aria-labelledby=dropdownMenuLink>
+<a class="dropdown-item" href="K-Means vs Fuzzy C-Means.html">1. K-Means vs Fuzzy C-Means</a><a class="dropdown-item" href="什么是最大期望算法(EM Algorithm).html">2. 什么是最大期望算法(EM Algorithm)</a><a class="dropdown-item" href="Approximate Inference.html">3. Approximate Inference</a><a class="dropdown-item" href="Stochastic Expectation Propagation.html">4. Stochastic Expectation Propagation</a><a class="dropdown-item" href="sort vs deepsort.html">5. sort vs deepsort</a><a class="dropdown-item" href="Markov Chain Monte Carlo.html">6. Markov Chain Monte Carlo</a><a class="dropdown-item" href="semi-supervised learning.html">7. semi-supervised learning</a><a class="dropdown-item" href="probabilistic graphical model.html">8. probabilistic graphical model</a><a class="dropdown-item" href="HMM.html">9. HMM</a><a class="dropdown-item" href="WordEmbedding.html">10. WordEmbedding</a><a class="dropdown-item" href="Gaussian Mixture Model.html">11. Gaussian Mixture Model</a><a class="dropdown-item" href="CrossEntropy VS KL Divergence.html">12. CrossEntropy VS KL Divergence</a><a class="dropdown-item" href="Ensemble Methods.html">13. Ensemble Methods</a><a class="dropdown-item" href="交叉熵和KL散度有什么区别？.html">14. 交叉熵和KL散度有什么区别？</a><a class="dropdown-item" href="Deep Learning.html">15. Deep Learning</a><a class="dropdown-item" href="Foundation of Machine Learning.html">16. Foundation of Machine Learning</a><a class="dropdown-item" href="transformer_hongyi.html">17. transformer_hongyi</a><a class="dropdown-item" href="Transformer.html">18. Transformer</a><a class="dropdown-item" href="conv.html">19. conv</a><a class="dropdown-item" href="good.html">20. good</a><a class="dropdown-item" href="深度学习模型部署总结.html">21. 深度学习模型部署总结</a><a class="dropdown-item" href="Logistic Regression defintions in sklearn.html">22. Logistic Regression defintions in sklearn</a><a class="dropdown-item" href="Expectation Maximization.html">23. Expectation Maximization</a><a class="dropdown-item" href="The Exponential Family.html">24. The Exponential Family</a>
+</div></div>
+<a href="aboutme/index.html"><button type="button" class="btn btn-default" style="background-color: #989898"><span lang="zh-Hans" class="chinese-name">关于我</span></button></a>
+<div class=dropdown><a class="btn btn-default dropdown-toggle" href=# role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false style="background-color: #989898"><span lang="zh-Hans" class="chinese-name">笔记</span>
+</a><div class=dropdown-menu aria-labelledby=dropdownMenuLink>
+<a class="dropdown-item" href="Exploring the Potential of Large Language Models (LLMs) in Learning on Graphs.html">1. Exploring the Potential of Large Language Models (LLMs) in Learning on Graphs</a><a class="dropdown-item" href="github.html">2. github</a><a class="dropdown-item" href="must.html">3. must</a><a class="dropdown-item" href="power.html">4. power</a><a class="dropdown-item" href="codebert.html">5. codebert</a><a class="dropdown-item" href="vim.html">6. vim</a><a class="dropdown-item" href="vim_short.html">7. vim_short</a><a class="dropdown-item" href="codesnippets.html">8. codesnippets</a><a class="dropdown-item" href="training.html">9. training</a><a class="dropdown-item" href="dl_machine.html">10. dl_machine</a><a class="dropdown-item" href="A review on deeper GNN.html">11. A review on deeper GNN</a><a class="dropdown-item" href="直播.html">12. 直播</a><a class="dropdown-item" href="Highlight of Linear Algebra.html">13. Highlight of Linear Algebra</a><a class="dropdown-item" href="Graph-Machine-Learning.html">14. Graph-Machine-Learning</a><a class="dropdown-item" href="GNNNodeClassification.html">15. GNNNodeClassification</a><a class="dropdown-item" href="Source Free Unsupervised Graph Domain Adaptation.html">16. Source Free Unsupervised Graph Domain Adaptation</a><a class="dropdown-item" href="mac配置.html">17. mac配置</a><a class="dropdown-item" href="CIKM2021.html">18. CIKM2021</a><a class="dropdown-item" href="A review on heterophily graph.html">19. A review on heterophily graph</a><a class="dropdown-item" href="Matrix_Factorization.html">20. Matrix_Factorization</a><a class="dropdown-item" href="graph.html">21. graph</a><a class="dropdown-item" href="ideas.html">22. ideas</a><a class="dropdown-item" href="A review on graph classification.html">23. A review on graph classification</a>
+</div></div>
+<div class=dropdown><a class="btn btn-default dropdown-toggle" href=# role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false style="background-color: #989898"><span lang="zh-Hans" class="chinese-name">直播课</span>
+</a><div class=dropdown-menu aria-labelledby=dropdownMenuLink>
+<a class="dropdown-item" href="入门深度学习.html">1. 入门深度学习</a>
+</div></div>
+<button id="hideBtn" type="button" class="btn btn-default btn-sm rounded" style="background-color: #989898;position:fixed;right:0px;z-index: 10;">></button>
+</div>
+
+<div class="modal fade" id="passmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">请输入密码</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="false">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <input name="myPass" id="myPass" type="password" />
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary" id="confirm_pass_btn">Confirm</button>
+</div>
+</div>
+</div>
+</div>
+
+<section id=nice></section><div id=echo></div><script type=text/javascript>
+function setCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+function eraseCookie(name) {   
+    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+var md=window.markdownit({html:true,highlight:(str,lang)=>{const text=str.replace(/</g,"&lt;").replace(/>/g,"&gt;");const lines=text.split("\n");const codeLines=[];const numbers=[];for(let i=0;i<lines.length-1;i++){codeLines.push('<code><span class="code-snippet_outer">'+(lines[i]||"<br>")+"</span></code>");numbers.push("<li></li>");}
+return('<section class="code-snippet__fix code-snippet__js">'+'<ul class="code-snippet__line-index code-snippet__js">'+
+numbers.join("")+"</ul>"+'<div class="highlight"><pre class="code-snippet__js" data-lang="'+
+lang+'">'+
+codeLines.join("")+"</pre></div></section>");}})
+md.use(window.markdownitMath)
+md.use(window.markdownitHeadingspan)
+md.use(window.markdownitTable)
+md.use(window.markdownitLi)
+md.use(window.markdownitTask)
+md.use(window.markdownitMermaid)
+md.use(window.markdownItAnchor)
+md.use(window.markdownItTocDoneRight)
+var strData,charData,binData,data,result,md_text="o0T+FV7wD9bxi4qteSosCXpZA89WrGJ5S8/D16vESZ2jtqUbD1OCq6f8dAEu4JDEo3HLiRJ2rlTfx1kNLP/Prb0bkQkHRX1l1CNntsQdn9S1WmKDkkYHsN27doni0ZxCCrZixZvFiYZI1W6pETUsw/llAOfqKAPMg7ykY63mawfR+IA6Ki+xsoo6OHLFJsDfRx1MJL+VnoBNiunMVgzt5Of95In9mbjbK+u5qdwUQxKiCUS4rh6fyrFvCB1O6U0av0nLeqJYxAZE9iYOw0Zii3v8PuOhQj97a0lWf691sbv4dBa3NaKVgvDP62TvnGIMOZSloiIfzJyToPlpVw6f3pniFJfJ9GV1Rx0TqCt6i52SCE58JTuriQnDjANIqQswCNHmt9DoT4kXhetZL9wBl1KC/7gXeJf24XN/xTHSI5rc3rZq5GKDPBB2iE5EK7TEk2a6UKS2IFXCb9hH3J+L39ZcuRhpLLVdI0J3NrEYSNGUqvmMUsGIOmfLKgQlszDivXB2XEs+Kw8JmFjXVT+lOGY6crSjYsBTR5UwNBaF1N03UkRBRSHjz/OnrnC8//kIxNpPbdkNB3TZ5SUnPWdWFXKP4BbmJW8iukn/tIegJM1ZzPzMTeAcPkBt+o3R/vmJFlCEDbS2CGNObTrcgPP0d8FPJe7cLyAyhXdVJAgJXHF9tvjMh1j3JwC2uYANPpGMYJnU1AI+WPiyqYO8vLJxCmH3WELcCBjPolC/ySGnT31Uj7rQJPmJKtK8Q0lxjvimmTyvYZGAtIukhPlcAwSjjsDhtw40qYWqjLZPq6eGkQ9v2Hp2TGl9/dv37WIBX94MIUfCddACqkG72cC1O6lw2WdKMm1mzv1g9w1sDg+FrXzx0fU7eANHrnBOTFIqY+NzKbikiydBwvSXr0kVU6k1aSCEwng9bWEaBM4xpKb3jt3DzZjXEniHKkpm22BkC3jaID6fURQSitNeTfSvu3MEURajMREDD64UUKPmK1fFdVBtdq3VO1AWGUsgdISw1rXrPHTTyV2Ntqgs6dDh7Vd1kobQC6EdbAxvRYyVXAhaAJj1WLFcJ9qSEueNHFXba919fxCwqrxuvnCt0ZX8r2MZNFQrhgcobuGnTuGRpb+JmuqATWdQI+PqGw8cgPgzkfbIPX3aktTS2Ya86rnXmCa3dzqIMkE/+Siq7vNaiZfnd5jViWUXAvRgl8f0bYW6JS4p8N+8MkUtWsQecOkkJKepz2Y4igJZUsaaqARikUTtSyhJu1l80WJeXtpNMIC+Ih+1tG/nofx7TnBMf6dPykOhT/jsmioIItVg4ihgv2lyjNPL2IvvKhQFl6I5RIq5FkaIYE+xJXy6MQgCsXTFzRov5RjmVsvsv/3mD692JEhNykBq9k9hSC2mWCymHtQuTzFREh7+FWRGBuTJeKzWtawxo0w+3wq3Pm3mIiPDPssT/wCxi/bARdSWYk3IZWMQpbphBndBk0Ki62IRFy5MQRI2Ma1lK4oVoyNYPxoX48wOOPuV+FOAcajbkfi200W0XsKMeJaqrJqS4MaUoTKDKkJJz5b40B57padRWHCrd6x5S+QYjtjMNs/aFbC+nDBxu0sl34u1dSOg4p5D0A51/2wpYVrZGRlvQJD7gBgdXHZLuADU3H8nIaV8smJ/6Ol0qdYJ4beO5Jns+tbplvjyvSPH+viGuOFihqi6qcbZf4md2E+kFOMUFkwyoki7zbJ9z0xPbB+91vHwQknjQV1fpyJXlWLSIQdJ2+zxbmyL7maG7BTNAkzx+CGlnp3aB4D8SgsK2269HW8f+F0LFHxV4oQt1V2aiIwRy/NmIbgpmJA5SrLCWoYWiO10EY1h6dD+wyHxEOzhD+/6qo7CQwxJ3j48rsiKEMeNvOPNeF4qK3kuCS7hn1VkdQ7zzsjNOuDhYBtoX/c2VyIhNz352HCM/CBPUG6NKfv2xXqEIeWujn4/W4D2EyEyYV3HqkYAEUwDZKgTJuphhYdLTPeuYY0aHKBKkzVX2bJzXDhPB5UH5vWshZdO5l01fyn4VBTzDFOimDmRvurYU6kD9IPSpfWpHVyiyBC1GkIhZnpkRQARSemWAROkS9lBhfE4PVnVebKzcSGBZpZAlGZESF0vduurkFnLptAFG5BIL4v4n/vRW3s0Fb2nxbFPOa0KcAEyp8jGCcupM0jq9dL38b4L8xRIZabJgMc6da5N5QIv/YzkFR4Se2J4Z0cVzRTegysPmLQac1G6Th9Bl8Qf5H+OHn2+Rp2rzwD16Mksy+s7gGjCwO8NdMpZu0hTh4g6YYTglF3TkXUzycTXBmW/SRNSv9UaHYLDLs7CpsRbmLZ3jziSRrXnK78GUAV64zNJo4pLMy5NKZPz1CTL0+z6wLvx7bbbrLCZgQ0HT9z7jPcnwCF5X77N400zmPWSUQrRBfcdMMmFd3N7CAvKUqiCTp2ktiC7METCcaQzewMx88MoBIfGzkh3EuZ7ODoZnWI7ewF0cSm6wDp7w6gQ1aSsk4+DiwtqlvoBRAZSMqpx7Nn0Y+y+Fpaa+lUoesfOsmpwznsHCRxGQ3cQ3FZl6Hc4pJ24kYUodp8iAa7+r0P4liXMDGdy5EOh/+FgjeTKLQeli8svboCFlPehYOFiuf00IpUbc/fZ3UziMta1Dzwqy3kw/qODpbycGtUrAsbjBhhk38Ocf8FdwG8US6J2tTQsFeww+AyE74h6o+FywuasuyPD77YSHBVaL16bH8zuIuq3LM7kzQWyab9g6H74mxjp7jytL8rtqlaI68IyFFqFuNVsd8qGBUshhgiTw4QD/YKvp8M+MoFAvAU5/DxGOiHOS2UtKvrDvAtqrBYIheU5XqJcpWuJBAdoJO1e6tONjvzDS3lgNXYf1cedEvZkKT4uZtXZrTySY1iX4PXpdecT4CFghYbuGSOg9ex5xi1ImY4ZhqeO5yyX6AhYAT/b6fUitx6mXkgI9ydAMd4jlL8VhThF2HZnMh6V/uWTkMF60AAvvruE1FrkjAh65MUlWC9PQowNNISNuZ+hHYPNQphrmFP6hDSaLQ+2r808pSG824074e5A/C+a5bTa/rtszzvUO3Ad+P+u9OelbSrk6rBiJDFm0HQiPuNN3Dc1I4OkeHfjRbQtV8VAPeWdDdBxzaqBf5Y5zL8Sbxzlh/wQcZt1Xw52X8aqCAy0CWEFdZD3Bd14z8QoM6TjOr0g";function base64ToHex(e){const t=atob(e);let r="";for(let e=0;e<t.length;e++){var a=t.charCodeAt(e).toString(16);r+=2===a.length?a:"0"+a}return r.toUpperCase()}is_render=1;markdown=md_text;try{if(0<2392){
+    is_render = 0
+    password = getCookie("pass")
+    if (!password ) {
+        $('#passmodal').modal()
+    }
+    else
+    {
+        checkpass()
+    }
+    var input = document.getElementById("myPass");
+    $('#passmodal').on('shown.bs.modal', function () {
+        input.focus();
+        checkpass()
+    })
+    input.focus();
+    // password=prompt("请输入密码");
+    function checkpass(){
+        try{
+        password = getCookie("pass")
+        if (!password )
+            password = document.getElementById("myPass").value;
+        for(var str=password,iv=[21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36],bytes=[],i=0;i<str.length;++i)var code=str.charCodeAt(i),bytes=bytes.concat([code]);const f=(e,t)=>[].concat(...Array.from({length:t},()=>e));key=f(bytes,32).slice(0,32);var encryptedBytes=aesjs.utils.hex.toBytes(base64ToHex(md_text)),aesOfb=new aesjs.ModeOfOperation.ofb(key,iv),decryptedBytes=aesOfb.decrypt(encryptedBytes),decryptedText=aesjs.utils.utf8.fromBytes(decryptedBytes);(markdown=decryptedText=decryptedText.substring(0,2392)).length<2392&&(alert("密码错误"),is_render=0)
+        ren();
+        $('#passmodal').modal('hide')
+        setCookie("pass", password, 30)
+        return 1;
+        }catch(e) {
+            $('#passmodal').modal()
+            console.log(e)
+            setCookie("pass", "", 30)
+            return 0;
+        }
+    }
+    $('#confirm_pass_btn').click(checkpass);
+    
+        input.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            checkpass()
+        }
+        });
+    }
+    
+    }catch(e){alert("密码错误"),is_render=0}
+
+function ren() {(strData=atob(markdown),charData=strData.split("").map(function(e){return e.charCodeAt(0)}),binData=new Uint16Array(charData),strData=Uint8ArrToChar(data=pako.inflate(binData)),result=md.render(strData),document.getElementById("nice").innerHTML=result)
+    try {
+    if ($(".table-of-contents").length == 0)
+        $("#hideBtn").css("display", "none") 
+    else 
+    {
+        $(".table-of-contents").css("position", "fixed")
+        $(".table-of-contents").css("right", "0px")
+        // $(".table-of-contents").css("background-color", "#989898")
+        $(".table-of-contents").css("z-index", "10")
+        $(".table-of-contents").css("height", "500px")
+        $(".table-of-contents").addClass("shadow-sm p-3 mb-5 bg-light rounded overflow-auto")
+        $(document).ready(function() {
+        $("#hideBtn").click(function(){
+            $('.table-of-contents').toggle('slow');
+            }); 
+        });
+    }
+} catch (error) {}
+}
+function Uint8ArrToChar(e){for(var t,r,a,s="",n=e.length,o=0;o<n;)switch((t=e[o++])>>4){case 0:case 1:case 2:case 3:case 4:case 5:case 6:case 7:s+=String.fromCharCode(t);break;case 12:case 13:r=e[o++],s+=String.fromCharCode((31&t)<<6|63&r);break;case 14:r=e[o++],a=e[o++],s+=String.fromCharCode((15&t)<<12|(63&r)<<6|(63&a)<<0)}return s}1==is_render&&ren();
+const copyToClipboard = str => {
+  const el = document.createElement("textarea") // Create a <textarea> element
+  el.value = str // Set its value to the string that you want copied
+  el.setAttribute("readonly", "") // Make it readonly to be tamper-proof
+  el.style.position = "absolute"
+  el.style.left = "-9999px" // Move outside the screen to make it invisible
+  document.body.appendChild(el) // Append the <textarea> element to the HTML document
+  const selected =
+    document.getSelection().rangeCount > 0 // Check if there is any content selected previously
+      ? document.getSelection().getRangeAt(0) // Store selection if found
+      : false // Mark as false to know no selection existed before
+  el.select() // Select the <textarea> content
+  document.execCommand("copy") // Copy - only works as a result of a user action (e.g. click events)
+  document.body.removeChild(el) // Remove the <textarea> element
+  if (selected) {
+    // If a selection existed before copying
+    document.getSelection().removeAllRanges() // Unselect everything on the HTML document
+    document.getSelection().addRange(selected) // Restore the original selection
+  }
+}
+function handleCopyClick(evt) {
+  // get the children of the parent element
+  const { children } = evt.target.parentElement
+  // grab the first element (we append the copy button on afterwards, so the first will be the code element)
+  // destructure the innerText from the code block
+  const { innerText } = Array.from(children)[0]
+  // copy all of the code to the clipboard
+  copyToClipboard(innerText)
+//   alert(innerText)
+}
+const highlights = document.querySelectorAll("div.highlight")
+
+highlights.forEach(div => {
+  // create the copy button
+  const copy = document.createElement("button")
+  copy.innerHTML = "Copy"
+  copy.addEventListener("click", handleCopyClick)
+  div.append(copy)
+})
+</script></body></html>
