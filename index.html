@@ -359,13 +359,20 @@
         .mobile-slot-title {
             font-weight: 700;
             margin-bottom: 10px;
+            color: #7c431f;
         }
 
         .mobile-slot-time {
-            margin-top: 6px;
-            color: var(--muted);
-            font-size: 12px;
-            line-height: 1.6;
+            margin: 8px 0 12px;
+            padding: 10px 12px;
+            border-left: 4px solid var(--accent);
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(242, 221, 207, 0.55), rgba(255, 248, 240, 0.95));
+            color: #6f3820;
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.7;
+            box-shadow: inset 0 0 0 1px rgba(181, 83, 45, 0.12);
         }
 
         .fade-in {
@@ -438,6 +445,18 @@
         const noteBoxEl = document.getElementById("noteBox");
         const fileInputEl = document.getElementById("jsonFile");
         const presetGroupEl = document.getElementById("presetGroup");
+        const embeddedTimetable = [
+            { jcmc: "1", rsdmc: "上午", qssj: "08:40:00", jssj: "09:20:00" },
+            { jcmc: "2", rsdmc: "上午", qssj: "09:30:00", jssj: "10:10:00" },
+            { jcmc: "3", rsdmc: "上午", qssj: "10:25:00", jssj: "11:05:00" },
+            { jcmc: "4", rsdmc: "上午", qssj: "11:05:00", jssj: "11:45:00" },
+            { jcmc: "5", rsdmc: "下午", qssj: "14:30:00", jssj: "15:10:00" },
+            { jcmc: "6", rsdmc: "下午", qssj: "15:20:00", jssj: "16:00:00" },
+            { jcmc: "7", rsdmc: "下午", qssj: "16:15:00", jssj: "16:55:00" },
+            { jcmc: "8", rsdmc: "下午", qssj: "17:05:00", jssj: "17:45:00" },
+            { jcmc: "9", rsdmc: "晚上", qssj: "19:00:00", jssj: "19:40:00" },
+            { jcmc: "10", rsdmc: "晚上", qssj: "19:50:00", jssj: "20:30:00" }
+        ];
         const presetConfigs = Array.from({ length: 19 }, (_, index) => {
             const week = index + 2;
             return {
@@ -513,8 +532,8 @@
                 const timetable = await response.json();
                 timetableMap = buildTimetableMap(timetable);
             } catch (error) {
-                timetableMap = new Map();
-                noteBoxEl.textContent = "课表已可正常显示，但未能读取 timetable.json，所以当前只展示节次编号，不展示具体上课时间。";
+                timetableMap = buildTimetableMap(embeddedTimetable);
+                noteBoxEl.textContent = "当前浏览环境未能直接读取 timetable.json，已自动切换为页面内置节次时间，因此手机浏览器中仍可展示具体上课时间。";
             }
         }
 
