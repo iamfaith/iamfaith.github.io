@@ -1,204 +1,816 @@
-<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="user-scalable=yes, initial-scale=1, maximum-scale=2, minimum-scale=0.5, width=device-width, height=device-height" /><title>蒙特卡洛的Faith</title><script src=res/jquery-3.5.1.slim.min.js></script><script src=res/popper.min.js></script><link rel=stylesheet href=res/bootstrap-4.5.0-dist/css/bootstrap.min.css><script src=res/bootstrap-4.5.0-dist/js/bootstrap.min.js></script><script src=res/mermaid.min.js></script><script id=MathJax-script async src=res/tex-mml-chtml.js></script><script src=res/pako.min.js></script><script src=res/markdown-it.full.min.js></script><script src=res/markdownItAnchor.umd.js></script><script src=res/markdownItTocDoneRight.umd.js></script><link rel=stylesheet type=text/css href=res/default.css><link rel=stylesheet type=text/css href=res/极简黑.css>
-    <!-- <style type=text/css>#nice *{color:black!important}</style> -->
-<style type=text/css>
-div.highlight button {
-  color: #adb5bd;
-  box-sizing: border-box;
-  transition: 0.2s ease-out;
-  cursor: pointer;
-  user-select: none;
-  background: rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(0, 0, 0, 0);
-  padding: 5px 10px;
-  font-size: 0.8em;
-  position: absolute;
-  top: 0;
-  right: 0;
-  border-radius: 0 0.15rem;
-}
-</style>
-<link rel="shortcut icon" href="aboutme/img/me.jpeg"/><link rel="stylesheet" href="./aboutme/stylesheets/styles.css"></head><body style=background:white;padding-top:15px;>
-<div class="btn-group" role="group" aria-label="Basic example">
-<div class=dropdown><a class="btn btn-default dropdown-toggle" href=# role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false style="background-color: #989898"><span lang="zh-Hans" class="chinese-name">文章列表</span>
-</a><div class=dropdown-menu aria-labelledby=dropdownMenuLink>
-<a class="dropdown-item" href="K-Means vs Fuzzy C-Means.html">1. K-Means vs Fuzzy C-Means</a><a class="dropdown-item" href="什么是最大期望算法(EM Algorithm).html">2. 什么是最大期望算法(EM Algorithm)</a><a class="dropdown-item" href="Approximate Inference.html">3. Approximate Inference</a><a class="dropdown-item" href="Stochastic Expectation Propagation.html">4. Stochastic Expectation Propagation</a><a class="dropdown-item" href="sort vs deepsort.html">5. sort vs deepsort</a><a class="dropdown-item" href="Markov Chain Monte Carlo.html">6. Markov Chain Monte Carlo</a><a class="dropdown-item" href="semi-supervised learning.html">7. semi-supervised learning</a><a class="dropdown-item" href="probabilistic graphical model.html">8. probabilistic graphical model</a><a class="dropdown-item" href="HMM.html">9. HMM</a><a class="dropdown-item" href="WordEmbedding.html">10. WordEmbedding</a><a class="dropdown-item" href="Gaussian Mixture Model.html">11. Gaussian Mixture Model</a><a class="dropdown-item" href="CrossEntropy VS KL Divergence.html">12. CrossEntropy VS KL Divergence</a><a class="dropdown-item" href="Ensemble Methods.html">13. Ensemble Methods</a><a class="dropdown-item" href="交叉熵和KL散度有什么区别？.html">14. 交叉熵和KL散度有什么区别？</a><a class="dropdown-item" href="Deep Learning.html">15. Deep Learning</a><a class="dropdown-item" href="Foundation of Machine Learning.html">16. Foundation of Machine Learning</a><a class="dropdown-item" href="transformer_hongyi.html">17. transformer_hongyi</a><a class="dropdown-item" href="Transformer.html">18. Transformer</a><a class="dropdown-item" href="conv.html">19. conv</a><a class="dropdown-item" href="深度学习模型部署总结.html">20. 深度学习模型部署总结</a><a class="dropdown-item" href="Logistic Regression defintions in sklearn.html">21. Logistic Regression defintions in sklearn</a><a class="dropdown-item" href="Expectation Maximization.html">22. Expectation Maximization</a><a class="dropdown-item" href="The Exponential Family.html">23. The Exponential Family</a>
-</div></div>
-<a href="aboutme/index.html"><button type="button" class="btn btn-default" style="background-color: #989898"><span lang="zh-Hans" class="chinese-name">关于我</span></button></a>
-<div class=dropdown><a class="btn btn-default dropdown-toggle" href=# role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false style="background-color: #989898"><span lang="zh-Hans" class="chinese-name">笔记</span>
-</a><div class=dropdown-menu aria-labelledby=dropdownMenuLink>
-<a class="dropdown-item" href="Exploring the Potential of Large Language Models (LLMs) in Learning on Graphs.html">1. Exploring the Potential of Large Language Models (LLMs) in Learning on Graphs</a><a class="dropdown-item" href="github.html">2. github</a><a class="dropdown-item" href="power.html">3. power</a><a class="dropdown-item" href="codebert.html">4. codebert</a><a class="dropdown-item" href="vim.html">5. vim</a><a class="dropdown-item" href="vim_short.html">6. vim_short</a><a class="dropdown-item" href="codesnippets.html">7. codesnippets</a><a class="dropdown-item" href="training.html">8. training</a><a class="dropdown-item" href="dl_machine.html">9. dl_machine</a><a class="dropdown-item" href="A review on deeper GNN.html">10. A review on deeper GNN</a><a class="dropdown-item" href="直播.html">11. 直播</a><a class="dropdown-item" href="Highlight of Linear Algebra.html">12. Highlight of Linear Algebra</a><a class="dropdown-item" href="Graph-Machine-Learning.html">13. Graph-Machine-Learning</a><a class="dropdown-item" href="GNNNodeClassification.html">14. GNNNodeClassification</a><a class="dropdown-item" href="Source Free Unsupervised Graph Domain Adaptation.html">15. Source Free Unsupervised Graph Domain Adaptation</a><a class="dropdown-item" href="mac配置.html">16. mac配置</a><a class="dropdown-item" href="CIKM2021.html">17. CIKM2021</a><a class="dropdown-item" href="A review on heterophily graph.html">18. A review on heterophily graph</a><a class="dropdown-item" href="Matrix_Factorization.html">19. Matrix_Factorization</a><a class="dropdown-item" href="graph.html">20. graph</a><a class="dropdown-item" href="ideas.html">21. ideas</a><a class="dropdown-item" href="A review on graph classification.html">22. A review on graph classification</a>
-</div></div>
-<div class=dropdown><a class="btn btn-default dropdown-toggle" href=# role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false style="background-color: #989898"><span lang="zh-Hans" class="chinese-name">直播课</span>
-</a><div class=dropdown-menu aria-labelledby=dropdownMenuLink>
-<a class="dropdown-item" href="入门深度学习.html">1. 入门深度学习</a>
-</div></div>
-<div class=dropdown><a class="btn btn-default dropdown-toggle" href=# role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false style="background-color: #989898"><span lang="zh-Hans" class="chinese-name">机器学习</span>
-</a><div class=dropdown-menu aria-labelledby=dropdownMenuLink>
-<a class="dropdown-item" href="2023-01-10-deriving-categorical-cross-entropy-and-softmax.html">1. 2023-01-10-deriving-categorical-cross-entropy-and-softmax</a><a class="dropdown-item" href="2022-12-29-a-beginners-guide-to-regularization.html">2. 2022-12-29-a-beginners-guide-to-regularization</a>
-</div></div>
-<button id="hideBtn" type="button" class="btn btn-default btn-sm rounded" style="background-color: #989898;position:fixed;right:0px;z-index: 10;">></button>
-</div>
-
-<div class="modal fade" id="passmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
-<div class="modal-dialog">
-<div class="modal-content">
-<div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">请输入密码</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    <span aria-hidden="false">&times;</span>
-    </button>
-</div>
-<div class="modal-body">
-    <input name="myPass" id="myPass" type="password" />
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-primary" id="confirm_pass_btn">Confirm</button>
-</div>
-</div>
-</div>
-</div>
-
-<section id=nice></section><div id=echo></div><script type=text/javascript>
-function setCookie(name,value,days) {
-    var expires = "";
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days*24*60*60*1000));
-        expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-}
-function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-    }
-    return null;
-}
-function eraseCookie(name) {   
-    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-}
-var md=window.markdownit({html:true,highlight:(str,lang)=>{const text=str.replace(/</g,"&lt;").replace(/>/g,"&gt;");const lines=text.split("\n");const codeLines=[];const numbers=[];for(let i=0;i<lines.length-1;i++){codeLines.push('<code><span class="code-snippet_outer">'+(lines[i]||"<br>")+"</span></code>");numbers.push("<li></li>");}
-return('<section class="code-snippet__fix code-snippet__js">'+'<ul class="code-snippet__line-index code-snippet__js">'+
-numbers.join("")+"</ul>"+'<div class="highlight"><pre class="code-snippet__js" data-lang="'+
-lang+'">'+
-codeLines.join("")+"</pre></div></section>");}})
-md.use(window.markdownitMath)
-md.use(window.markdownitHeadingspan)
-md.use(window.markdownitTable)
-md.use(window.markdownitLi)
-md.use(window.markdownitTask)
-md.use(window.markdownitMermaid)
-md.use(window.markdownItAnchor)
-md.use(window.markdownItTocDoneRight)
-var strData,charData,binData,data,result,md_text="eJytWWtT20gW/e5f0VtDpTC7ODaEyaOKVM0wmUcYZqc2+/iw3qSELdsC23IkOcTxuMqQYEzAQBLejwQSXpuAMZMEjM3jv+yqJftT/sLeq5aETbIzye5UUZQldd8+ffvec8+VOpu7eC4qEzr+kA7uVVZy+uQzPT+jvZ5yOD77jMCVlp3QNlfo0xG1OEazqzT7il06HHRxU1ss0blNur2uHiyrxe13h6PV9DwtFrXFYbW4qm/k2Fi4X2uJNAb5KC9xinCHJxHRz4edhD4erbVOGv2C7JOEiBCtHfbv9ADdOVBLY9rMsr7wSF96wdaGBSr98/puuTqTrz6fZVDoxKi2vK/N7qgHz/B/eY10Wtt9PEqqr2a16R1tf59OZK1Fv+HisixwUdIl3FXiEk+6GDq1WNLL43SwqM8/UMsvKiubgMThuEoqJ7OVfIEez6jlh/TgDf5ll2h2nh6m6caI/rqsl59p6Q2GstZbYEib2aPpOYR+MgfeUosvtfUBevJWLeYALj3OasVBbW0enTdWAGfTwwfa0IBaysAd2AydGAM3g5HqzBs6jttTi0+qM5uV/M9qccTAx3xV61f7hGhhFxap5FfgtCvHB/rUKGnsFuN+Tko40XfrA9rTRbCpTRUAMB3coofj2tIa7LxyfFxrQl94o42tqeUxokicEBWiQeLnFI4w0w0/NnojnBLyceFkTOL9gk9JkZ+IfQ+HppwNgFZfKNLxHLjlTLDQ7Jx6OE/7hyr5Yy37SC1vwRg6mK2+HAV36WNDpDEmCaJkhBCcxyP18NB6EBZ6+bAQEkW/k6DDLRe8h1bbHaBDJbU8bZofH4B9w0BtMQ1uhu1WTobsAKi8WaLjexA7pleMue8O5x0NDY6P2i5pJ96AxPmSNaONJ7VDrelO4lWECC+THxvNW84UTMTxzhQuiXnaeZrGZ3PYfuhwWKPg1Mi1LsLGwIb04QMt/1A9HqHbE3j2C5DLJZq/r09uotdmd7StDTq0XB0apcf7pPFa3BcW/GCJfCXIChf18U5S2V/S18s4GaaBxYW8tjwUiEd9ihiFWIKANB10vd0rxyO3kkK7J3UzGUkRdtlrXHamSB88Ir0pb5gPKN6f7t5MCqlmbyQOI1JeSQiG4ObNZIux8QhhqWiEmxBlUGTA0MnuAwg6nPOF47LCS7iRqUJ1aBwp5OhJA67Tm2r3NODA1ZKRgi9hhJbL6wMHdPcpJI45lfRijo6sWXOIuwGCsnYezICkZZPYHXOqkYXVgRfqQZZ5W1vcqpResXSl2Qz4mVxrvqHwMSN6u4yfMMm8pxbLlfV+lkm1Z2B7m00ANJiI+Rmxu4f3GXRpuF4Qo+Q644AG8GED+uD5Di2tIyxwoLebDwrRJBcWglHenyKOcxBr/F0lyZaHE4Pj8TpYrHpjnKQIXJhcT53+Nk8r9SuHeu7XjhOWIcTh/RPe4SRJ7LMsk3PtbG7SAitJXCKVDIdTHmLCJUkiBEiK9LZ7xRiWFVGKchEehgahfKRuJXs+EE49763vrrEnKiFe6hNk3kVSXj7qN5dlU1wOcIrlqq46V/2Sr8xtp9pbyBlv1cZ84wd85Gw/B+gAosNBan1kDkIfsWU/aJYYFlPmU6W5/imcuoPt0IoCYx3klavVxTSEn/Z6U3swbpSXEYhAiHVM5auOqx4XYWWCpU11IQMBdoeTBMxDIEy6umFS6NoRRCEbRfvn6dFjtZimo9Ok8QbkLJQcv3CPx6qjHp0YpdSk4QhwjL49DOHrRkPLQ3QoQ/fz7JaHVcFq/wkdzGnPJtTSQoDnsGibVW9wDwyZt5DTj3bpkxxG/tUWl02Y6vFS5e20USSXoGADKP3hnpbuRyaDArw4DKlauX9Undung2t0N129D5onrR7OIqDhNGZxuVTJ5+nqvG0BnKRtrWAZe7AH1YOOT6MPCuMA4jpj5K/j9+4lSIeJofHrji6nw6FP7gIOExjm88oWMARoGrBUN8Gqu0XgMZhxQwwo1n5ge8A/QBKwFt5H7h6FyjV3ymxMPu2Mn5IUUlcmZ69YHcwh36VH1eIkzqwdyh6DH2lpEtnEqLOmFAK5pU8gXijACOuvXai7FofBKiiU6vwkMFzlaIf9NuYwqKyoM7FmEmNmDioqqyQfojSzlJxhhJTDG4/6eUnmlWQHhDukP2SIECWps/n24ZKDj0yeMIpwdyB5F8jDSEZ2CfmWeo+5IH28Nm/0AW3wVwjjM8NuT8pMTo+Vgda6LN3NzP2IdU8ZK/VR409xWjRyM8lWa0klI0ADqVpqYxkPkcjEsr6Zo8d5WsicKotZevQc06KQ6dMmod6VIImx9kEc7hzQ9CEGvPHbTj5IEDx/I+ggYMwYklFCGQUMS3E2o+3kYDjNP2Vx/YMoRYCL7nHGWftEo64rmOywYimjnixVdvr76OoDpAUIKY96MAIxZQQUpNa3AlQAyRcSQEMRc0VQeaCFmaI9Wtan5pDPig8rJwWUKkZdNsgEaad6/wh18Xo/AALZrT8DhnmiZacr6UFtbFOb3q7ZBRMUyAQshI3gZWIRuBLMa9MHWPONeRi0DqBMo5EhMh/mWTRDk4MQOdLY1fX9+e+vdZz/4ruO819+1wE0B39OB7DVtXA30H2EV0KinzT2weZCJC6DJoQyRfoEJQRRbokViDGZiAEi345zEi87Ha0u8sUdcEqQJ7IQDolxXlF405jjgot8w8UI+FgBLSf4rPsO9SiDPVPRIiTSYfsS+WJilClD2Hydx09HETOXi3nmHW34mGYLjDxhruVGW5TBCQ3uscMA5tXzaZqbQtW9OXKqH9F/1fVpUP9mP4DclGYCjB0cuzSNMy2rba/+UKftIMwWh384HSaji9mxMall8+LYqXhkEUsP9uj2LPRiflP5Ekg5SbgLNMZSwy6F0IKyKbBjaEqwbzRaPAQwkQU70OCcBQtIoZ1DcM2eWnhwgtWhnDZdMNs1w66JwASAB4l94/Q2jKSrORa3dPwlHf4nOK9uJYeDlXRs0oHGoUmfPoA+pta45ewbcJBhnoSFaC/EzxVIx0gsrpiB19QE7CpE4pGmJmL7o5tX+njeDkcZbgRECeNNCmJUwMSICx3eAabCvPILxrm7/5vxmoD/b7Y587llGRb5ONvg5g4+qkii4K8xzoV98TCH5n3mQ5nAZNINOtI2+Ac0Ea1H8t7O8KbSJ3548TYX+RuIpX+l50A0mL4nluByWkwiRq8Q4yGIKraKIiqo1Q2eaLZ4wppHQIGRgAD/cGiMEyRkD9sLSohTSJjnYEeKSKxFhahP4jmZhx+/Zj2Al+Y+XMArxWNoNI34+t3f1dKoXn5DF47/0RhSlJh85fx55Q7ncclClBMiQZcvej4MZZw/73Zf8nT6evuCCU+wN94t+rvjYqCn1ePxuW+LfQHB1RMLOtEipBdy+tYCza3QwiRdmgDZ+KnWw91yRO5pdV/wuFvvBcOWdW35ABlkawuyCbLGZATjHYClSOTbkpI0dfytJJdqhv/dp+W3JfV79jBhPEyceWgU4dpaAvkIQugM15i+O3P3E/d4u7vtItcCe/z8trs10CP5zT2a6y6C0i+5Xa0tl1BBWurV1rwmxkKmBQrwBcZnNn+xy+qrWWg0oWYbVn4TzFIonOAigPki574o+wOKidmU2ZkcAjp3ASC12pDeA3PhUqsJRohA8ja3uFvcHo/nssfTesHd1nbR/YmgZP+dO5+H0ZEJ9+dhjnNbjjQW9gCYtg/BuHyh5TfxCb4rupxAn3jcbVyPxNX5hEWsWX93xqErYUCYdsFgLs/SLJYibfkRND6QifZLLxhj4/W42lrdJl575CcijUeCvsuXrZyNJEIm0v/HZl9Cli5jRMTc7lD4dqtoZapZSOu1BoE94zuh0mRlZ42JTdzq6gZ2h3UHNIIc8mpaL51oSyswCzQxG9/iqoNb2XhRHXr4iaAT0Z577jvgiJ6EO5qIJHpM0FdZVQY3MznMuqPK1Btt7y0KX+N9ur49rU+twSH9WYw1fyX2Rcm7w6xaHqsr8OzlsyGZURGAxgagIL5qNc+7w2GmasmXoqKIkea/xExT1igYxAwx39iCnz2D+ayXrZN/llhs/LbT+OEkhqyD3YDzbMhcLCaJnC9kSCZ0azX9mB49rhTwjaNpwoReyOD07GNY3UIOyoq1ubZyYW1H5fg+PXmF8cteia/mtKUBFr8Nf2zsJN6wGLzVGzVeNjN1y2yAdexCmFSf3QlKPO9PoF4zGqEQFFzzpfRCsTpQrhNyRkvB0LGbtjQ+FXWsrQB2AnvwGN9lGxNgXN2hyUZofduJLz3kTwspX1tAjLk5yIPbEfellmiLRUJwPFq6rJefQEosbkH6my/Qyxn8SFDKnPmKwj6hYDbUfzF4/zOCnTfsewtm0swy+A/jLPPaFsEiyKwwnDaUfnssHtDCGzac9s+jD0oLrEUCsqw+f6C9HWHnC+dY+yEAca0dQeMHMaMePcFvIkMlbWmN+dhsvozpeL9Gh2s/r2AbanPe/ANsPCfGqkvP0R+H88YXEziKkaamui8P9Z+k8HPX/i4EFHNWUxOYRkwgoSc3cVdbzysnY3p5Qy9v08HXkM1GV/MfhjAyVA==";function base64ToHex(e){const t=atob(e);let r="";for(let e=0;e<t.length;e++){var a=t.charCodeAt(e).toString(16);r+=2===a.length?a:"0"+a}return r.toUpperCase()}is_render=1;markdown=md_text;try{if(0<0){
-    is_render = 0
-    password = getCookie("pass")
-    if (!password ) {
-        $('#passmodal').modal()
-    }
-    else
-    {
-        checkpass()
-    }
-    var input = document.getElementById("myPass");
-    $('#passmodal').on('shown.bs.modal', function () {
-        input.focus();
-        checkpass()
-    })
-    input.focus();
-    // password=prompt("请输入密码");
-    function checkpass(){
-        try{
-        password = getCookie("pass")
-        if (!password )
-            password = document.getElementById("myPass").value;
-        for(var str=password,iv=[21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36],bytes=[],i=0;i<str.length;++i)var code=str.charCodeAt(i),bytes=bytes.concat([code]);const f=(e,t)=>[].concat(...Array.from({length:t},()=>e));key=f(bytes,32).slice(0,32);var encryptedBytes=aesjs.utils.hex.toBytes(base64ToHex(md_text)),aesOfb=new aesjs.ModeOfOperation.ofb(key,iv),decryptedBytes=aesOfb.decrypt(encryptedBytes),decryptedText=aesjs.utils.utf8.fromBytes(decryptedBytes);(markdown=decryptedText=decryptedText.substring(0,0)).length<0&&(alert("密码错误"),is_render=0)
-        ren();
-        $('#passmodal').modal('hide')
-        setCookie("pass", password, 30)
-        return 1;
-        }catch(e) {
-            $('#passmodal').modal()
-            console.log(e)
-            setCookie("pass", "", 30)
-            return 0;
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课表查看器</title>
+    <style>
+        :root {
+            --bg: #f4efe7;
+            --panel: rgba(255, 252, 247, 0.92);
+            --panel-strong: #fffdf8;
+            --text: #1f2933;
+            --muted: #5d6b7a;
+            --line: #d6c7b5;
+            --accent: #b5532d;
+            --accent-soft: #f2ddcf;
+            --good: #1f6f5f;
+            --shadow: 0 18px 40px rgba(78, 52, 31, 0.12);
         }
-    }
-    $('#confirm_pass_btn').click(checkpass);
-    
-        input.addEventListener("keypress", function(event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            checkpass()
+
+        * {
+            box-sizing: border-box;
         }
-        });
-    }
-    
-    }catch(e){alert("密码错误"),is_render=0}
 
-function ren() {(strData=atob(markdown),charData=strData.split("").map(function(e){return e.charCodeAt(0)}),binData=new Uint16Array(charData),strData=Uint8ArrToChar(data=pako.inflate(binData)),result=md.render(strData),document.getElementById("nice").innerHTML=result)
-    try {
-    if ($(".table-of-contents").length == 0)
-        $("#hideBtn").css("display", "none") 
-    else 
-    {
-        $(".table-of-contents").css("position", "fixed")
-        $(".table-of-contents").css("right", "0px")
-        // $(".table-of-contents").css("background-color", "#989898")
-        $(".table-of-contents").css("z-index", "10")
-        $(".table-of-contents").css("height", "500px")
-        $(".table-of-contents").addClass("shadow-sm p-3 mb-5 bg-light rounded overflow-auto")
-        $(document).ready(function() {
-        $("#hideBtn").click(function(){
-            $('.table-of-contents').toggle('slow');
-            }); 
-        });
-    }
-} catch (error) {}
-}
-function Uint8ArrToChar(e){for(var t,r,a,s="",n=e.length,o=0;o<n;)switch((t=e[o++])>>4){case 0:case 1:case 2:case 3:case 4:case 5:case 6:case 7:s+=String.fromCharCode(t);break;case 12:case 13:r=e[o++],s+=String.fromCharCode((31&t)<<6|63&r);break;case 14:r=e[o++],a=e[o++],s+=String.fromCharCode((15&t)<<12|(63&r)<<6|(63&a)<<0)}return s}1==is_render&&ren();
-const copyToClipboard = str => {
-  const el = document.createElement("textarea") // Create a <textarea> element
-  el.value = str // Set its value to the string that you want copied
-  el.setAttribute("readonly", "") // Make it readonly to be tamper-proof
-  el.style.position = "absolute"
-  el.style.left = "-9999px" // Move outside the screen to make it invisible
-  document.body.appendChild(el) // Append the <textarea> element to the HTML document
-  const selected =
-    document.getSelection().rangeCount > 0 // Check if there is any content selected previously
-      ? document.getSelection().getRangeAt(0) // Store selection if found
-      : false // Mark as false to know no selection existed before
-  el.select() // Select the <textarea> content
-  document.execCommand("copy") // Copy - only works as a result of a user action (e.g. click events)
-  document.body.removeChild(el) // Remove the <textarea> element
-  if (selected) {
-    // If a selection existed before copying
-    document.getSelection().removeAllRanges() // Unselect everything on the HTML document
-    document.getSelection().addRange(selected) // Restore the original selection
-  }
-}
-function handleCopyClick(evt) {
-  // get the children of the parent element
-  const { children } = evt.target.parentElement
-  // grab the first element (we append the copy button on afterwards, so the first will be the code element)
-  // destructure the innerText from the code block
-  const { innerText } = Array.from(children)[0]
-  // copy all of the code to the clipboard
-  copyToClipboard(innerText)
-//   alert(innerText)
-}
-const highlights = document.querySelectorAll("div.highlight")
+        body {
+            margin: 0;
+            font-family: "Noto Sans SC", "Microsoft YaHei UI", "PingFang SC", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(181, 83, 45, 0.18), transparent 30%),
+                radial-gradient(circle at right 10% top 20%, rgba(31, 111, 95, 0.12), transparent 26%),
+                linear-gradient(180deg, #f8f4ee 0%, var(--bg) 100%);
+            min-height: 100vh;
+        }
 
-highlights.forEach(div => {
-  // create the copy button
-  const copy = document.createElement("button")
-  copy.innerHTML = "Copy"
-  copy.addEventListener("click", handleCopyClick)
-  div.append(copy)
-})
-</script></body></html>
+        .shell {
+            width: min(1440px, calc(100% - 32px));
+            margin: 24px auto 40px;
+        }
+
+        .hero {
+            padding: 28px;
+            border: 1px solid rgba(214, 199, 181, 0.8);
+            background: linear-gradient(135deg, rgba(255, 253, 248, 0.95), rgba(249, 242, 233, 0.9));
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: clamp(28px, 5vw, 42px);
+            line-height: 1.05;
+            letter-spacing: 0.02em;
+        }
+
+        .hero p {
+            margin: 12px 0 0;
+            max-width: 760px;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            margin-top: 22px;
+        }
+
+        .preset-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .button,
+        .file-label {
+            appearance: none;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            padding: 11px 18px;
+            font: inherit;
+            cursor: pointer;
+            transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+        }
+
+        .button {
+            color: var(--text);
+            background: rgba(255, 253, 248, 0.88);
+            border-color: var(--line);
+            box-shadow: none;
+        }
+
+        .button.secondary,
+        .file-label {
+            color: var(--text);
+            background: rgba(255, 253, 248, 0.88);
+            border-color: var(--line);
+            box-shadow: none;
+        }
+
+        .button.active {
+            color: #fff;
+            background: linear-gradient(135deg, #1f6f5f, #154f44);
+            box-shadow: 0 12px 24px rgba(31, 111, 95, 0.24);
+            border-color: rgba(21, 79, 68, 0.7);
+        }
+
+        .button:hover,
+        .file-label:hover {
+            transform: translateY(-1px);
+        }
+
+        .file-input {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+        }
+
+        .status {
+            margin-top: 14px;
+            min-height: 24px;
+            color: var(--muted);
+        }
+
+        .status.error {
+            color: #a33b27;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 320px minmax(0, 1fr);
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid rgba(214, 199, 181, 0.9);
+            border-radius: 22px;
+            padding: 22px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        .panel h2 {
+            margin: 0 0 16px;
+            font-size: 18px;
+        }
+
+        .meta-list,
+        .stats-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .meta-item,
+        .stats-item {
+            background: var(--panel-strong);
+            border: 1px solid rgba(214, 199, 181, 0.7);
+            border-radius: 16px;
+            padding: 14px 16px;
+        }
+
+        .meta-label,
+        .stats-label {
+            display: block;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .meta-value,
+        .stats-value {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .note {
+            margin-top: 16px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: rgba(242, 221, 207, 0.55);
+            color: #694735;
+            line-height: 1.6;
+        }
+
+        .table-shell {
+            overflow: auto;
+            border-radius: 20px;
+            border: 1px solid rgba(214, 199, 181, 0.8);
+            background: rgba(255, 253, 248, 0.66);
+        }
+
+        table {
+            width: 100%;
+            min-width: 980px;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background: #f6ede3;
+            color: var(--text);
+        }
+
+        th,
+        td {
+            padding: 14px 12px;
+            vertical-align: top;
+            border-right: 1px solid rgba(214, 199, 181, 0.65);
+            border-bottom: 1px solid rgba(214, 199, 181, 0.65);
+        }
+
+        th:first-child,
+        td:first-child {
+            border-left: none;
+        }
+
+        tr:first-child th {
+            border-top: none;
+        }
+
+        th:first-child {
+            min-width: 116px;
+        }
+
+        td.empty {
+            background: rgba(248, 244, 238, 0.75);
+            color: #98a3ad;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .day-name {
+            display: block;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .day-date {
+            display: block;
+            margin-top: 4px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .slot-label {
+            display: block;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .slot-sub {
+            display: block;
+            margin-top: 4px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .slot-sub-line {
+            display: block;
+            margin-top: 3px;
+        }
+
+        .cell-stack {
+            display: grid;
+            gap: 10px;
+        }
+
+        .course-card {
+            padding: 12px;
+            border-radius: 16px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 239, 230, 0.92));
+            border: 1px solid rgba(214, 199, 181, 0.8);
+            box-shadow: 0 8px 20px rgba(70, 53, 34, 0.08);
+        }
+
+        .course-card h3 {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.45;
+        }
+
+        .course-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 9px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: #7c431f;
+            font-size: 12px;
+            line-height: 1;
+        }
+
+        .course-meta {
+            margin-top: 10px;
+            display: grid;
+            gap: 6px;
+            font-size: 13px;
+            color: #45525f;
+        }
+
+        .week-chip {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 12px;
+            background: rgba(31, 111, 95, 0.1);
+            color: var(--good);
+            font-size: 12px;
+        }
+
+        .mobile-schedule {
+            display: none;
+            gap: 14px;
+        }
+
+        .mobile-day {
+            padding: 18px;
+            border-radius: 18px;
+            background: var(--panel-strong);
+            border: 1px solid rgba(214, 199, 181, 0.8);
+        }
+
+        .mobile-day h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+
+        .mobile-date {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .mobile-slot {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px dashed rgba(214, 199, 181, 0.9);
+        }
+
+        .mobile-slot-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .mobile-slot-time {
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .fade-in {
+            animation: rise 320ms ease;
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1080px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 860px) {
+            .table-shell {
+                display: none;
+            }
+
+            .mobile-schedule {
+                display: grid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <section class="hero fade-in">
+            <h1>教师周课表查看器</h1>
+            <p>这是一个纯静态页面。会从 <strong>json</strong> 目录加载各周课表，文件名数字表示第几周；同时保留手动选择任意同结构本地 JSON 文件的能力。</p>
+            <div class="toolbar">
+                <div class="preset-group" id="presetGroup"></div>
+                <label class="file-label" for="jsonFile">选择本地 JSON</label>
+                <input class="file-input" id="jsonFile" type="file" accept="application/json,.json">
+            </div>
+            <div class="status" id="status">页面已就绪，默认尝试加载 json 目录中的第一周课表。</div>
+        </section>
+
+        <section class="grid">
+            <aside class="panel fade-in">
+                <h2>课表信息</h2>
+                <div class="meta-list" id="metaList"></div>
+                <div class="note" id="noteBox">如果浏览器直接以文件方式打开本页，部分浏览器会限制读取同目录 JSON。遇到这种情况时，直接点击“选择本地 JSON”即可正常展示。</div>
+            </aside>
+
+            <main class="panel fade-in">
+                <h2>周课表</h2>
+                <div class="stats-list" id="statsList" style="margin-bottom: 16px;"></div>
+                <div class="table-shell" id="tableShell"></div>
+                <div class="mobile-schedule" id="mobileSchedule"></div>
+            </main>
+        </section>
+    </div>
+
+    <script>
+        const statusEl = document.getElementById("status");
+        const metaListEl = document.getElementById("metaList");
+        const statsListEl = document.getElementById("statsList");
+        const tableShellEl = document.getElementById("tableShell");
+        const mobileScheduleEl = document.getElementById("mobileSchedule");
+        const noteBoxEl = document.getElementById("noteBox");
+        const fileInputEl = document.getElementById("jsonFile");
+        const presetGroupEl = document.getElementById("presetGroup");
+        const presetConfigs = Array.from({ length: 19 }, (_, index) => {
+            const week = index + 2;
+            return {
+                week,
+                file: "json/" + week + ".json"
+            };
+        });
+        let presetButtons = [];
+        let timetableMap = new Map();
+
+        buildPresetButtons();
+
+        fileInputEl.addEventListener("change", async (event) => {
+            const file = event.target.files && event.target.files[0];
+            if (!file) {
+                return;
+            }
+
+            try {
+                setStatus("正在读取本地文件 " + file.name + " ...");
+                setActivePreset(null);
+                const text = await file.text();
+                const data = JSON.parse(text);
+                renderSchedule(data, file.name);
+                setStatus("已加载本地文件 " + file.name + "。", false);
+            } catch (error) {
+                setStatus("读取本地 JSON 失败: " + error.message, true);
+            } finally {
+                event.target.value = "";
+            }
+        });
+
+        function setStatus(message, isError = false) {
+            statusEl.textContent = message;
+            statusEl.classList.toggle("error", isError);
+        }
+
+        async function loadPreset(fileName) {
+            try {
+                setStatus("正在加载 " + fileName + " ...");
+                setActivePreset(fileName);
+                const response = await fetch(fileName, { cache: "no-store" });
+                if (!response.ok) {
+                    throw new Error("HTTP " + response.status);
+                }
+                const data = await response.json();
+                renderSchedule(data, fileName);
+                setStatus("已加载 " + fileName + "。", false);
+            } catch (error) {
+                setActivePreset(null);
+                setStatus("直接读取 " + fileName + " 失败: " + error.message + "。可改用“选择本地 JSON”加载。", true);
+            }
+        }
+
+        function buildPresetButtons() {
+            presetGroupEl.innerHTML = presetConfigs.map((config) => {
+                return "<button class=\"button\" type=\"button\" data-file=\"" + escapeHtml(config.file) + "\">第" + escapeHtml(String(config.week)) + "周</button>";
+            }).join("");
+
+            presetButtons = Array.from(presetGroupEl.querySelectorAll("[data-file]"));
+            presetButtons.forEach((button) => {
+                button.addEventListener("click", () => loadPreset(button.dataset.file));
+            });
+        }
+
+        async function loadTimetable() {
+            try {
+                const response = await fetch("timetable.json", { cache: "no-store" });
+                if (!response.ok) {
+                    throw new Error("HTTP " + response.status);
+                }
+
+                const timetable = await response.json();
+                timetableMap = buildTimetableMap(timetable);
+            } catch (error) {
+                timetableMap = new Map();
+                noteBoxEl.textContent = "课表已可正常显示，但未能读取 timetable.json，所以当前只展示节次编号，不展示具体上课时间。";
+            }
+        }
+
+        function renderSchedule(data, sourceName) {
+            validateScheduleData(data);
+
+            const teacher = data.jsxx || {};
+            const days = (data.rqazcList || []).slice().sort((left, right) => Number(left.xqj) - Number(right.xqj));
+            const lessons = Array.isArray(data.kbList) ? data.kbList.slice() : [];
+            const slotKeys = Array.from(new Set(lessons.map((item) => item.xsdj || item.jcor || item.jc))).sort(compareSlot);
+            const slotLabels = new Map();
+
+            lessons.forEach((item) => {
+                const key = item.xsdj || item.jcor || item.jc;
+                if (key && !slotLabels.has(key)) {
+                    slotLabels.set(key, item.jc || (key + "节"));
+                }
+            });
+
+            renderMeta(data, teacher, sourceName, lessons, days);
+            renderStats(lessons, days);
+            renderTable(days, slotKeys, lessons, slotLabels);
+            renderMobile(days, slotKeys, lessons, slotLabels);
+            noteBoxEl.textContent = timetableMap.size > 0
+                ? "已按 rqazcList 生成周视图，按 kbList 填充课程，并已接入 timetable.json 的节次时间。相同时间段如有多门课，会在同一单元格内纵向堆叠显示。"
+                : "已按 rqazcList 生成周视图，按 kbList 课程明细填充。相同时间段如有多门课，会在同一单元格内纵向堆叠显示。";
+        }
+
+        function validateScheduleData(data) {
+            if (!data || !Array.isArray(data.rqazcList) || !Array.isArray(data.kbList)) {
+                throw new Error("JSON 缺少 rqazcList 或 kbList，无法渲染课表");
+            }
+        }
+
+        function renderMeta(data, teacher, sourceName, lessons, days) {
+            const firstDate = days[0] ? days[0].rq : "-";
+            const lastDate = days[days.length - 1] ? days[days.length - 1].rq : "-";
+            const campus = uniqueValues(lessons.map((item) => item.xqmc)).join(" / ") || "-";
+            const rooms = uniqueValues(lessons.map((item) => item.cdmc || item.cdbh)).join("、") || "-";
+            const blocks = uniqueValues(lessons.map((item) => item.xsdj || item.jcor || item.jc)).length;
+            const items = [
+                ["数据来源", sourceName],
+                ["教师", teacher.XM || lessons[0]?.jsxm || "-"],
+                ["所属学院", teacher.JGMC || teacher.RKXY || "-"],
+                ["学年学期", teacher.XNMC || ((teacher.XNM || "") + " 学年")],
+                ["校区", campus],
+                ["周范围", firstDate + " 至 " + lastDate],
+                ["涉及场地", rooms],
+                ["课程条目", String(lessons.length)],
+                ["时间段数", String(blocks)]
+            ];
+
+            metaListEl.innerHTML = items.map(([label, value]) => {
+                return "<div class=\"meta-item\"><span class=\"meta-label\">" + escapeHtml(label) + "</span><span class=\"meta-value\">" + escapeHtml(value || "-") + "</span></div>";
+            }).join("");
+        }
+
+        function renderStats(lessons, days) {
+            const totalStudents = lessons.reduce((sum, item) => sum + Number(item.xkrs || item.jxbrs || 0), 0);
+            const courseCount = uniqueValues(lessons.map((item) => item.kcmc)).length;
+            const classCount = uniqueValues(lessons.map((item) => item.jxbmc)).length;
+            const activeDays = new Set(lessons.map((item) => Number(item.xqj))).size;
+            const stats = [
+                ["课程数", String(courseCount)],
+                ["教学班数", String(classCount)],
+                ["上课日数", activeDays + " / " + days.length],
+                ["选课人数合计", String(totalStudents)]
+            ];
+
+            statsListEl.innerHTML = stats.map(([label, value]) => {
+                return "<div class=\"stats-item\"><span class=\"stats-label\">" + escapeHtml(label) + "</span><span class=\"stats-value\">" + escapeHtml(value) + "</span></div>";
+            }).join("");
+            statsListEl.style.gridTemplateColumns = "repeat(auto-fit, minmax(150px, 1fr))";
+        }
+
+        function renderTable(days, slotKeys, lessons, slotLabels) {
+            const grouped = groupLessons(lessons);
+            const head = days.map((day) => {
+                return "<th><span class=\"day-name\">" + escapeHtml(day.xqjmc) + "</span><span class=\"day-date\">" + escapeHtml(day.rq) + "</span></th>";
+            }).join("");
+
+            const body = slotKeys.map((slotKey) => {
+                const row = days.map((day) => {
+                    const cellLessons = grouped.get(makeGroupKey(day.xqj, slotKey)) || [];
+                    if (cellLessons.length === 0) {
+                        return "<td class=\"empty\">无课程</td>";
+                    }
+                    return "<td><div class=\"cell-stack\">" + cellLessons.map(renderCourseCard).join("") + "</div></td>";
+                }).join("");
+
+                const slotTitle = slotLabels.get(slotKey) || slotKey;
+                return "<tr><th><span class=\"slot-label\">" + escapeHtml(slotKey) + "</span>" + renderSlotSub(slotTitle, slotKey) + "</th>" + row + "</tr>";
+            }).join("");
+
+            tableShellEl.innerHTML = "<table><thead><tr><th>节次</th>" + head + "</tr></thead><tbody>" + body + "</tbody></table>";
+        }
+
+        function renderMobile(days, slotKeys, lessons, slotLabels) {
+            const grouped = groupLessons(lessons);
+            mobileScheduleEl.innerHTML = days.map((day) => {
+                const slots = slotKeys.map((slotKey) => {
+                    const cellLessons = grouped.get(makeGroupKey(day.xqj, slotKey)) || [];
+                    if (cellLessons.length === 0) {
+                        return "";
+                    }
+                    const slotTitle = slotLabels.get(slotKey) || slotKey;
+                    return "<div class=\"mobile-slot\"><div class=\"mobile-slot-title\">" + escapeHtml(slotKey) + " · " + escapeHtml(slotTitle) + "</div>" + renderMobileSlotTime(slotKey) + cellLessons.map(renderCourseCard).join("") + "</div>";
+                }).join("");
+
+                return "<section class=\"mobile-day\"><h3>" + escapeHtml(day.xqjmc) + "</h3><div class=\"mobile-date\">" + escapeHtml(day.rq) + "</div>" + (slots || "<div class=\"mobile-slot\">本日无课程</div>") + "</section>";
+            }).join("");
+        }
+
+        function renderCourseCard(item) {
+            const title = item.kcmc || item.jxbmc || "未命名课程";
+            const className = item.jxbzcbjjc || item.jxbzc || item.jxbmc || "-";
+            const room = item.cdmc || item.cdbh || "-";
+            const weeks = item.zcd || "未提供周次";
+            const teacher = item.jsxm || item.xm || "-";
+            const headCount = item.xkrs || item.jxbrs || "-";
+            const exam = item.khfsmc || "-";
+            const courseType = item.kcxzjc || "-";
+
+            return [
+                "<article class=\"course-card\">",
+                "<h3>" + escapeHtml(title) + "</h3>",
+                "<div class=\"course-badges\">",
+                "<span class=\"badge\">" + escapeHtml(room) + "</span>",
+                "<span class=\"badge\">" + escapeHtml(courseType) + "</span>",
+                "<span class=\"badge\">" + escapeHtml(exam) + "</span>",
+                "</div>",
+                "<div class=\"course-meta\">",
+                "<div><strong>教学班：</strong>" + escapeHtml(className) + "</div>",
+                "<div><strong>教师：</strong>" + escapeHtml(teacher) + "</div>",
+                "<div><strong>人数：</strong>" + escapeHtml(String(headCount)) + "</div>",
+                "</div>",
+                "<span class=\"week-chip\">周次：" + escapeHtml(weeks) + "</span>",
+                "</article>"
+            ].join("");
+        }
+
+        function groupLessons(lessons) {
+            const map = new Map();
+            lessons.forEach((item) => {
+                const day = Number(item.xqj);
+                const slotKey = item.xsdj || item.jcor || item.jc;
+                const groupKey = makeGroupKey(day, slotKey);
+                if (!map.has(groupKey)) {
+                    map.set(groupKey, []);
+                }
+                map.get(groupKey).push(item);
+            });
+
+            map.forEach((value) => value.sort(compareLesson));
+            return map;
+        }
+
+        function makeGroupKey(day, slotKey) {
+            return String(day) + "__" + String(slotKey);
+        }
+
+        function compareLesson(left, right) {
+            const classOrder = String(left.jxbmc || "").localeCompare(String(right.jxbmc || ""), "zh-Hans-CN");
+            if (classOrder !== 0) {
+                return classOrder;
+            }
+            return String(left.cdmc || left.cdbh || "").localeCompare(String(right.cdmc || right.cdbh || ""), "zh-Hans-CN");
+        }
+
+        function compareSlot(left, right) {
+            return extractSlotOrder(left) - extractSlotOrder(right);
+        }
+
+        function setActivePreset(fileName) {
+            presetButtons.forEach((button) => {
+                button.classList.toggle("active", button.dataset.file === fileName);
+            });
+        }
+
+        function buildTimetableMap(timetable) {
+            const grouped = new Map();
+            (Array.isArray(timetable) ? timetable : []).forEach((item) => {
+                const key = String(item.jcmc || "");
+                if (!key) {
+                    return;
+                }
+
+                if (!grouped.has(key)) {
+                    grouped.set(key, []);
+                }
+                grouped.get(key).push(item);
+            });
+
+            grouped.forEach((items, key) => {
+                items.sort((left, right) => String(left.qssj || "").localeCompare(String(right.qssj || "")));
+                grouped.set(key, {
+                    index: key,
+                    label: items[0].rsdmc || "",
+                    start: items[0].qssj || "",
+                    end: items[items.length - 1].jssj || ""
+                });
+            });
+
+            return grouped;
+        }
+
+        function renderSlotSub(slotTitle, slotKey) {
+            const lines = ["<span class=\"slot-sub\">" + escapeHtml(slotTitle) + "</span>"];
+            const detailLines = getSlotDetailLines(slotKey);
+            detailLines.forEach((line) => {
+                lines.push("<span class=\"slot-sub slot-sub-line\">" + escapeHtml(line) + "</span>");
+            });
+            return lines.join("");
+        }
+
+        function renderMobileSlotTime(slotKey) {
+            const detailLines = getSlotDetailLines(slotKey);
+            if (detailLines.length === 0) {
+                return "";
+            }
+
+            return "<div class=\"mobile-slot-time\">" + detailLines.map((line) => "<div>" + escapeHtml(line) + "</div>").join("") + "</div>";
+        }
+
+        function getSlotDetailLines(slotKey) {
+            return extractPeriodNumbers(slotKey).map((periodNumber) => {
+                const timetable = timetableMap.get(String(periodNumber));
+                if (!timetable) {
+                    return "第" + periodNumber + "节";
+                }
+
+                const parts = ["第" + periodNumber + "节"];
+                if (timetable.label) {
+                    parts.push(timetable.label);
+                }
+                if (timetable.start && timetable.end) {
+                    parts.push(formatClock(timetable.start) + " - " + formatClock(timetable.end));
+                }
+                return parts.join(" ");
+            });
+        }
+
+        function extractPeriodNumbers(slotKey) {
+            const matches = String(slotKey).match(/\d+/g) || [];
+            const numbers = matches.map((value) => Number(value)).filter((value) => Number.isFinite(value));
+            if (numbers.length === 0) {
+                return [];
+            }
+
+            if (numbers.length === 1) {
+                return [numbers[0]];
+            }
+
+            const start = numbers[0];
+            const end = numbers[numbers.length - 1];
+            if (end < start) {
+                return [start];
+            }
+
+            const periods = [];
+            for (let index = start; index <= end; index += 1) {
+                periods.push(index);
+            }
+            return periods;
+        }
+
+        function formatClock(value) {
+            return String(value || "").slice(0, 5);
+        }
+
+        function extractSlotOrder(value) {
+            const match = String(value).match(/(\d+)/);
+            return match ? Number(match[1]) : Number.MAX_SAFE_INTEGER;
+        }
+
+        function uniqueValues(values) {
+            return Array.from(new Set(values.filter(Boolean)));
+        }
+
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/\"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        }
+
+        async function initialize() {
+            await loadTimetable();
+            if (presetConfigs.length > 0) {
+                loadPreset(presetConfigs[0].file);
+            }
+        }
+
+        initialize();
+    </script>
+</body>
+</html>
