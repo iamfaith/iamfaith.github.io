@@ -417,7 +417,7 @@
                 <label class="file-label" for="jsonFile">选择本地 JSON</label>
                 <input class="file-input" id="jsonFile" type="file" accept="application/json,.json">
             </div>
-            <div class="status" id="status">页面已就绪，默认尝试加载 json 目录中的第一周课表。</div>
+            <div class="status" id="status">页面已就绪，正在查找今天对应的周课表；未找到时加载第一周。</div>
         </section>
 
         <section class="grid">
@@ -813,6 +813,40 @@
             return Array.from(new Set(values.filter(Boolean)));
         }
 
+        async function loadTodayPreset() {
+            const today = new Date();
+            const todayString = [
+                today.getFullYear(),
+                String(today.getMonth() + 1).padStart(2, "0"),
+                String(today.getDate()).padStart(2, "0")
+            ].join("-");
+
+            for (const config of presetConfigs) {
+                try {
+                    const response = await fetch(config.file, { cache: "no-store" });
+                    if (!response.ok) {
+                        continue;
+                    }
+
+                    const data = await response.json();
+                    const includesToday = Array.isArray(data.rqazcList)
+                        && data.rqazcList.some((day) => day.rq === todayString);
+                    if (includesToday) {
+                        setActivePreset(config.file);
+                        renderSchedule(data, config.file);
+                        setStatus("已根据今天日期加载 " + config.file + "。", false);
+                        return;
+                    }
+                } catch (error) {
+                    continue;
+                }
+            }
+
+            if (presetConfigs.length > 0) {
+                loadPreset(presetConfigs[0].file);
+            }
+        }
+
         function escapeHtml(value) {
             return String(value)
                 .replace(/&/g, "&amp;")
@@ -824,9 +858,7 @@
 
         async function initialize() {
             await loadTimetable();
-            if (presetConfigs.length > 0) {
-                loadPreset(presetConfigs[0].file);
-            }
+            await loadTodayPreset();
         }
 
         initialize();
